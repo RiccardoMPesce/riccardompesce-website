@@ -142,6 +142,17 @@ export default defineAstroPaperConfig({
 
 ## 🧞 Commands
 
+### Font configuration and OG images
+
+Astro loads `astro.config.mjs` before `astro.config.ts`; this repository's default
+commands therefore use the `.mjs` configuration. Keep `--font-google-sans-code`
+registered there with weights 400 and 700 and TTF/WOFF sources, which Satori needs
+to generate `/og.png` and post OG images. Google Fonts must be reachable on the
+first build; Astro caches downloaded fonts for subsequent builds.
+
+Run the font regression tests with `node --test tests/og-fonts.test.mjs` and
+`pnpm build` to verify image generation and the complete production build.
+
 All commands are run from the root of the project, from a terminal:
 
 | Command          | Action                                                                                                                           |

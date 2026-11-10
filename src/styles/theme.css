@@ -7,15 +7,16 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+  --font-app:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Light theme values */
 :root,
 [data-theme="light"] {
-  --background: #fdfdfd;
+  --background: #faf9f6;
   --foreground: #282728;
-  --accent: #006cac;
+  --accent: #245d54;
   --accent-foreground: #ffffff;
   --muted: #e6e6e6;
   --muted-foreground: #6b7280;
@@ -24,11 +25,11 @@
 
 /* Dark theme values */
 [data-theme="dark"] {
-  --background: #212737;
+  --background: #191c1b;
   --foreground: #eaedf3;
-  --accent: #ff6b01;
+  --accent: #9bcbbd;
   --accent-foreground: #ffffff;
-  --muted: #343f60;
+  --muted: #303633;
   --muted-foreground: #afb9ca;
-  --border: #ab4b08;
+  --border: #363d39;
 }

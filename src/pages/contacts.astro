@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+---
+
+<Layout
+  title={`Contacts | ${config.site.title}`}
+  description="Get in touch with Riccardo Maria Pesce by email, on LinkedIn or on GitHub."
+>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle="Contacts" pageDesc="A conversation starts with a hello.">
+    <p class="max-w-xl leading-relaxed">
+      For a question, an idea or a conversation about something I’ve written,
+      feel free to get in touch.
+    </p>
+    <ul class="border-border mt-8 divide-y border-y">
+      <li class="py-5">
+        <p class="text-muted-foreground mb-1 text-sm">Email</p>
+        <a
+          class="text-accent break-all underline decoration-dashed underline-offset-4"
+          href="mailto:riccardompesce@gmail.com">riccardompesce@gmail.com</a
+        >
+      </li>
+      <li class="py-5">
+        <p class="text-muted-foreground mb-1 text-sm">LinkedIn</p>
+        <a
+          class="text-accent underline decoration-dashed underline-offset-4"
+          href="https://www.linkedin.com/in/riccardompesce/"
+          >riccardompesce <span aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li class="py-5">
+        <p class="text-muted-foreground mb-1 text-sm">GitHub</p>
+        <a
+          class="text-accent underline decoration-dashed underline-offset-4"
+          href="https://github.com/riccardompesce"
+          >riccardompesce <span aria-hidden="true">↗</span></a
+        >
+      </li>
+    </ul>
+  </Main>
+  <Footer />
+</Layout>

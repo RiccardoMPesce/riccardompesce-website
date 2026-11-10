@@ -3,7 +3,7 @@ title: "About"
 description: "A little about Riccardo Maria Pesce and this personal blog."
 ---
 
-I’m Riccardo Maria Pesce. I’m interested in software, complex systems, data architectures and industrial automation.
+I’m Riccardo Pesce. I’m interested in software, complex systems, data architectures and industrial automation.
 
 I enjoy understanding how things work, connecting ideas and turning them into something useful.
 

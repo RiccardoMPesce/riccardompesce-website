@@ -98,6 +98,14 @@ Documentation can be read in two formats\_ _markdown_ & _blog post_.
 
 ## 👨🏻‍💻 Running Locally
 
+Use Node.js 24.21.0, pinned in `.nvmrc` for local development, GitHub Actions,
+and Cloudflare Pages. With nvm installed, run `nvm install` and `nvm use`.
+
+For Cloudflare Pages, use build command `pnpm build` and output directory `dist`.
+If the build still selects Node.js 20, remove the outdated `NODE_VERSION` override
+in the Pages project settings or set it to `24.21.0` for both Production and
+Preview, then start a new deployment from a commit containing `.nvmrc`.
+
 You can start using this project locally by running the following command in your desired directory:
 
 ```bash

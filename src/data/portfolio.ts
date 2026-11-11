@@ -204,13 +204,13 @@ export const portfolio = {
     },
     {
       id: "appen-pages",
-      employer: "Appen | teemwork.ai (Contract work)",
+      employer: "Appen | Teemwork.ai (Contract work)",
       role: "Rater",
       period: "Feb 2017 — Apr 2020",
       location: "Remote",
       focus: ["data", "business"],
       summary:
-        "Rater for Appen and teemwork.ai, evaluating relevance of search results, Facebook ads and accuracy of business page descriptions.",
+        "Rater for Appen and Teemwork.ai, evaluating relevance of search results, Facebook ads and accuracy of business page descriptions.",
       contributions: [
         "Assessed accuracy of business-page descriptions, and relevance of ads andsearch results.",
       ],

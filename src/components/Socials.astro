@@ -22,7 +22,7 @@ const items = await Promise.all(
 );
 ---
 
-<div class="flex flex-wrap items-center gap-1">
+<div class="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:gap-1">
   {
     items.map(({ url, title, Icon }) =>
       Icon ? (

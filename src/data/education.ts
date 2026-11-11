@@ -20,7 +20,10 @@ type Education = {
   readonly thesis: {
     readonly label: "Bachelor’s thesis" | "Master’s thesis";
     readonly title: string | null;
-    readonly description: string | null;
+    readonly sections: readonly {
+      readonly heading: "Rationale" | "Objective" | "Experiment" | "Results";
+      readonly paragraphs: readonly string[];
+    }[];
     readonly credits: number;
     readonly year: 1 | 2 | 3;
   };
@@ -32,6 +35,9 @@ type Education = {
  * reviewed on 11 November 2026; editions are references, not proof of attendance
  * in a specific year or teaching channel. The master elective description follows
  * the author's clarification that professional experience at Oney was recognized.
+ * The bachelor additional activity follows the author's account of a theoretical
+ * ML pipeline discussion connected to their Appen evaluator work.
+ * The master additional activity follows the supplied AXLE course flyer.
  * Thesis summaries follow the supplied bachelor thesis DOCX and master thesis
  * presentation PDF; results describe those experiments, not general guarantees.
  */
@@ -45,8 +51,34 @@ export const education = [
     thesis: {
       label: "Master’s thesis",
       title: "Deep Learning for Rest State Classification Using EEG/fMRI Data",
-      description:
-        "Investigated resting-state classification from jointly recorded EEG/fMRI data. Compared 1-D CNNs and EEGNet for EEG, a 3-D CNN for fMRI, and a multilayer perceptron combining their feature embeddings on the CWL EEG/fMRI dataset. The reported results highlighted sensitivity to carbon-wire-loop channels and limitations in single-frame fMRI and multimodal classification, emphasizing careful preprocessing and validation.",
+      sections: [
+        {
+          heading: "Rationale",
+          paragraphs: [
+            "EEG and fMRI provide two recorded views of brain activity. The thesis examined how deep-learning models could learn from each modality and combine their representations to classify resting-state observations.",
+          ],
+        },
+        {
+          heading: "Objective",
+          paragraphs: [
+            "Compare EEG-only, fMRI-only and multimodal classification on paired recordings, and assess whether combining their feature embeddings improved the results. The analysis also examined how carbon-wire-loop (CWL) channels and alpha-frequency filtering affected EEG performance.",
+          ],
+        },
+        {
+          heading: "Experiment",
+          paragraphs: [
+            "Used the CWL EEG/fMRI dataset, pairing EEG sequences with the corresponding fMRI frames. EEG models included a five-layer 1-D convolutional baseline and the 2-D EEGNet architecture. The baseline was evaluated with and without CWL artifact-monitoring channels; EEGNet was also evaluated using only alpha frequencies (8–12 Hz).",
+            "A 3-D CNN processed individual fMRI frames. Feature vectors from the EEG and fMRI networks were concatenated and fed to a multilayer perceptron for multimodal classification. The presentation compared training, validation and test accuracy, reporting test performance at the checkpoint with the highest validation accuracy.",
+          ],
+        },
+        {
+          heading: "Results",
+          paragraphs: [
+            "The summary tables report 80.36% test accuracy for EEGNet and 67.41% for its alpha-filtered variant. The 1-D baseline without CWL channels reached 50.00%. The fMRI model reached 51.04%, and the multimodal model 47.92%; combining modalities did not improve classification in these experiments.",
+            "Sensitivity to CWL channels was a central interpretation issue, while the single-frame fMRI model did not provide a useful basis for feature fusion. The conclusions emphasized understanding and preprocessing the recordings, validating each modality, and exploring other architectures or complete fMRI sequences as future work. This account is based on the thesis presentation, not an independently replicated evaluation.",
+          ],
+        },
+      ],
       credits: 18,
       year: 2,
     },
@@ -129,7 +161,7 @@ export const education = [
         credits: 3,
         year: 1,
         description:
-          "Additional work-related learning activity recorded in the transcript. The document does not specify its individual content or a corresponding syllabus.",
+          "Project Life Cycle course offered by AXLE ICT Solutions: 30 hours, delivered in English. Covered the entire project lifecycle from initial setup through project completion and maintenance, combining technical tools with behavioural strategies, personal soft skills and communication techniques.",
         syllabus: null,
       },
       {
@@ -211,8 +243,34 @@ export const education = [
     thesis: {
       label: "Bachelor’s thesis",
       title: "Domain Adaptation through Regression",
-      description:
-        "Investigated regression-based transfer of feature embeddings between Inception v3, ResNet18 and DenseNet121 for classifying ants and bees. Implemented in Python with PyTorch and scikit-learn Ridge regression, comparing accuracy and CPU training time. In the reported small-dataset experiments, ResNet–DenseNet pairings retained similar accuracy with shorter training times, while pairings involving Inception were less accurate.",
+      sections: [
+        {
+          heading: "Rationale",
+          paragraphs: [
+            "Pretrained image classifiers offer reusable features, but different convolutional architectures produce different feature representations. The thesis explored whether regression could map one network’s embeddings into another network’s feature space so that a classifier already adapted to a target task could be reused.",
+          ],
+        },
+        {
+          heading: "Objective",
+          paragraphs: [
+            "Classify images of ants and bees while comparing regression-based adaptation with individual training on the target task. The goal was to examine both classification accuracy and measured training time across different source–reference network pairs.",
+          ],
+        },
+        {
+          heading: "Experiment",
+          paragraphs: [
+            "Used ImageNet-pretrained Inception v3, ResNet18 and DenseNet121 models in Python with PyTorch. Images were resized and normalized before extracting the feature embeddings preceding the classification layer. For each network pair, the same image was processed by both networks, with one network adapted to the target task serving as the reference.",
+            "A scikit-learn Ridge regressor mapped the source embeddings to the reference feature space before classification. All six directed pairings were compared with the individually trained networks. The runs were performed on CPU. Individual CNN training used 25 epochs, stochastic gradient descent, a batch size of four, a learning rate of 0.1 and momentum of 0.9.",
+          ],
+        },
+        {
+          heading: "Results",
+          paragraphs: [
+            "ResNet18 adapted to DenseNet121 and DenseNet121 adapted to ResNet18 both reached 95% accuracy, with reported training times of 3 minutes 33 seconds and 3 minutes 38 seconds. Individual training reached 96% for ResNet18 in 12 minutes 43 seconds and 95% for DenseNet121 in 14 minutes 52 seconds.",
+            "Pairings involving Inception reached 61–74% accuracy, below its individually trained result of 96%. The results therefore varied with the network pairing. Evaluation used a small two-class dataset and its validation partition to assess adaptation; these measurements describe that setup and do not establish the same accuracy or time savings on other datasets.",
+          ],
+        },
+      ],
       credits: 3,
       year: 3,
     },
@@ -419,12 +477,12 @@ export const education = [
         },
       },
       {
-        name: "Additional Learning Activities",
+        name: "Additional Skills for Employment",
         language: "en",
         credits: 3,
         year: 3,
         description:
-          "Additional learning activity recorded in the transcript. Its individual content is not specified, so no syllabus or project is inferred.",
+          "Theoretical discussion of an end-to-end machine learning data pipeline, connected to my work evaluating advertisement relevance and Business Page descriptions for Appen. Considered how a hypothetical pipeline could extract content and evaluator judgments, transform them through cleaning, normalization, deduplication and label-quality checks, and load raw data, curated datasets and annotation metadata into separate storage layers. Discussed dataset versioning, train/validation/test separation, feature preparation, and how human assessments could support training and evaluating classification or ranking models. The architecture is illustrative; it does not describe Appen’s internal platform.",
         syllabus: null,
       },
       {

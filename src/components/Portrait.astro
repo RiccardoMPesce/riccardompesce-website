@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import portrait from "@/assets/images/riccardo-maria-pesce.jpeg";
+---
+
+<Image
+  src={portrait}
+  alt="Riccardo Maria Pesce"
+  width={160}
+  height={160}
+  widths={[112, 160, 224, 320]}
+  sizes="(min-width: 640px) 160px, 112px"
+  format="webp"
+  quality={85}
+  loading="eager"
+  decoding="async"
+  class="border-border bg-muted size-28 shrink-0 self-center rounded-full border object-cover sm:size-40"
+/>

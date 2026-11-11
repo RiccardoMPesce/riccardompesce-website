@@ -31,9 +31,9 @@ const items = await Promise.all(
 
 {
   items.some(({ Icon }) => Icon) && (
-    <div class="flex flex-none flex-col items-center justify-center gap-1 sm:items-end">
+    <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-end">
       <span class="italic">{t.post.sharePostIntro}</span>
-      <div class="text-center">
+      <div class="flex flex-col items-center text-center md:flex-row">
         {items.map(({ url, title, Icon }) =>
           Icon ? (
             <LinkButton

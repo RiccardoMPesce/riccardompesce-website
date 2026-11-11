@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
+import Portrait from "@/components/Portrait.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import config from "@/config";
 
@@ -28,15 +29,22 @@ const homePath = getRelativeLocaleUrl(locale, "");
       aria-labelledby="intro-title"
       class="border-border border-b py-16 sm:py-24"
     >
-      <p class="text-muted-foreground mb-5 text-sm">
-        Data, systems and technical delivery.
-      </p>
-      <h1
-        id="intro-title"
-        class="max-w-xl text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+      <div
+        class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
       >
-        Hey there, I’m Riccardo.
-      </h1>
+        <Portrait />
+        <div class="min-w-0">
+          <p class="text-muted-foreground mb-5 text-sm">
+            Data, systems and technical delivery.
+          </p>
+          <h1
+            id="intro-title"
+            class="max-w-xl text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+          >
+            Hey there, I’m Riccardo.
+          </h1>
+        </div>
+      </div>
       <p class="reading-copy text-muted-foreground mt-6">
         My work spans complex systems engineering, business analysis and
         technical leadership. I’m interested in how the pieces fit together,
@@ -54,7 +62,9 @@ const homePath = getRelativeLocaleUrl(locale, "");
     </section>
 
     <section aria-labelledby="latest-title" class="pt-10 sm:pt-12">
-      <div class="flex flex-wrap items-baseline justify-between gap-4">
+      <div
+        class="flex flex-col items-start gap-4 md:flex-row md:flex-wrap md:items-baseline md:justify-between"
+      >
         <h2 id="latest-title" class="text-xl font-semibold">Latest writing</h2>
         <a
           href={getRelativeLocaleUrl(locale, "posts")}

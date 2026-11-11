@@ -35,6 +35,7 @@ function navigationFixture({ missingTarget = false } = {}) {
   const window = new EventTarget();
   let frameId = 0;
   const main = {};
+  const navigationBounds = { height: 48, bottom: 48 };
   class Element extends EventTarget {
     querySelectorAll() {
       return links;
@@ -43,7 +44,7 @@ function navigationFixture({ missingTarget = false } = {}) {
       return main;
     }
     getBoundingClientRect() {
-      return { height: 48 };
+      return navigationBounds;
     }
   }
   class Observer {
@@ -88,6 +89,7 @@ function navigationFixture({ missingTarget = false } = {}) {
   const element = new Navigation();
   return {
     element,
+    navigationBounds,
     links,
     sections,
     window,
@@ -163,5 +165,21 @@ test("reports a broken section target instead of silently selecting a wrong link
     () => f.element.connectedCallback(),
     /navigation target is missing/
   );
+  f.element.disconnectedCallback();
+});
+
+test("a mobile navigation scrolled offscreen does not offset the active section", () => {
+  const f = navigationFixture();
+  f.navigationBounds.height = 240;
+  f.navigationBounds.bottom = -100;
+  f.sections[0].top = -1000;
+  f.sections[1].top = -100;
+  f.sections[2].top = 60;
+  f.element.connectedCallback();
+  assert.equal(f.current(), 1);
+  f.sections[2].top = 20;
+  f.window.dispatchEvent(new Event("scroll"));
+  f.flush();
+  assert.equal(f.current(), 2);
   f.element.disconnectedCallback();
 });

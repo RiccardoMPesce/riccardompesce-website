@@ -96,6 +96,20 @@ respectively. The author clarified that the 9-CFU master elective recognizes
 professional experience at Oney Insurance, complemented by data science,
 software development, machine learning and analytics. This description is
 author-supplied; the transcript labels it generically as an elective.
+For the bachelor additional activity (3 credits, year 3), the author specified
+a theoretical ML-pipeline discussion linked to their Appen evaluator work.
+It is displayed as “Additional Skills for Employment” and covers ETL, raw and
+curated storage, annotation quality, dataset versioning and ML training/evaluation.
+Its content is author-supplied rather than taken from an official syllabus;
+the example architecture is hypothetical, not a description of Appen's internal
+systems or a claim that the author implemented them.
+The master activity with the same display name follows the supplied
+`Axle-3CFU_0.pdf` flyer: AXLE ICT Solutions' Project Life Cycle course, 30 hours
+in English, covering initial setup, completion and maintenance, technical tools,
+behavioural strategies, soft skills and communication. The author identified it
+as their course; the flyer describes its content and is not a completion
+certificate. Transcript credits and course year remain unchanged. No additional
+methodologies, software tools or certifications are inferred from the flyer.
 Course names and module references are rendered in English, with faithful
 translations of the transcript titles; the page displays “credits” rather than
 the Italian abbreviation CFU. Credit values and course years follow the transcripts;
@@ -115,8 +129,8 @@ The final activities appear separately as bachelor and master theses, with
 3 and 18 credits respectively, rather than as taught subjects. The coursework
 lists therefore contain 23 bachelor and 13 master activities; total degree
 credits remain 180 and 120 when the thesis credits are included. Additional
-activities and language assessment retain their transcript labels without
-invented syllabi.
+activities and language assessment have no invented syllabus references;
+the bachelor additional activity uses the author-specified description above.
 
 The bachelor thesis, _Domain Adaptation through Regression_, is summarized from
 the author-supplied `Domain Adaptation tramite Regressione.docx`. Its description
@@ -135,8 +149,19 @@ clinical validation or a demonstrated benefit from combining modalities. The
 presentation itself is not published.
 
 Thesis disclosures start collapsed: the label and available title are visible,
-while credits and the description open on click or keyboard activation. They use
+while credits and four sections (Rationale, Objective, Experiment and Results)
+open on click or keyboard activation. Each section uses short paragraphs rather
+than one continuous abstract. They use
 native details elements and remain operable without JavaScript.
+
+Bachelor results follow the source tables, including the two 95% ResNet/DenseNet
+transfers and their CPU timings; its validation partition was used to assess
+adaptation. Master figures follow summary slides 16, 18 and 20. The earlier
+baseline slide reports a different accuracy from the summary table, so that
+baseline-with-CWL number is not repeated in the public synopsis. Do not infer
+dataset sizes, participant counts, independent replications or clinical outcomes
+that these sources do not establish. Retain the experimental context when
+updating results.
 
 After editing education data, compare activity names and CFU with the transcripts,
 check totals including the separate theses, verify the individual official syllabus URLs and years, and ensure
@@ -155,11 +180,22 @@ A timeline orders the roles; expanded content separates contributions from
 technologies on desktop and stacks them on mobile. Reading lines are limited
 to 65 characters where space permits.
 
-The sticky section navigation marks the current section with `aria-current`
-and scrolls horizontally on narrow screens. Scroll and resize updates share
+Section navigation marks the current section with `aria-current`. Below 768px,
+it stacks vertically and scrolls with the page so it cannot cover the reading
+area. From 768px it becomes a sticky horizontal row. Scroll and resize updates share
 one animation frame; a ResizeObserver updates the indicator when filtering or
 disclosures move section boundaries. Both custom elements release their
 listeners and observers when removed during Astro navigation.
+
+Below 768px, page groups use a single column: the brand and menu button, menu
+links and theme control, hero introductions, CTAs, experience filters, metadata,
+course disclosures, technology lists, cards, social links and pagination. The
+portrait and navigation controls are centered; prose stays start-aligned for
+reading. Desktop layouts resume at 768px. The theme control has its own full-width
+menu row with a visible label. Check the open and closed menu, theme switching,
+Portfolio section links and disclosures at 320px, 640px, 767px and 768px.
+Breadcrumbs are an exception: they remain inline at every width and wrap only
+when space runs out, with separators visible on mobile too.
 
 Disclosures animate their height and opacity where `::details-content` and
 `interpolate-size` are supported; other browsers retain native immediate
@@ -172,6 +208,23 @@ When changing interactions, verify every filter, switching back to all roles,
 expand/collapse after filtering, individual disclosures, keyboard operation and
 navigation away and back. Check narrow and wide layouts, light/dark modes,
 reduced motion and the page with JavaScript disabled.
+
+## Portrait
+
+The author portrait appears in the Home introduction and Portfolio header, where
+it identifies the person described by the adjacent text. Its placement is a design
+choice, not a claim of improved trust or recruitment outcomes. The shared
+`src/components/Portrait.astro` imports `src/assets/images/riccardo-maria-pesce.jpeg`
+and uses Astro's Image component for WebP variants at 112, 160, 224 and 320px.
+It uses a circular frame, centered above the introduction on mobile and beside
+the heading on wider screens. It displays at 112px on mobile and 160px from 640px, with explicit dimensions
+reserving its square aspect ratio. It loads eagerly because it is above the fold;
+no extra high-priority hint competes with the page's primary text. Its alternative
+text identifies Riccardo Maria Pesce, following the
+[W3C informative image guidance](https://www.w3.org/WAI/tutorials/images/informative/).
+Replace the source image to update both placements, then check the face framing
+and generated sizes on narrow and wide screens. The source file is not copied
+directly into public output; Astro generates the served image variants.
 
 ## Colors and contrast
 

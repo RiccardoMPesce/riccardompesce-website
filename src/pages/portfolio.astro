@@ -4,6 +4,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
+import Portrait from "@/components/Portrait.astro";
 import { portfolio } from "@/data/portfolio";
 import config from "@/config";
 
@@ -32,10 +33,20 @@ const sections = [
   <Breadcrumb />
   <main id="main-content" class="app-layout portfolio pb-16">
     <section class="py-8 sm:py-12" aria-labelledby="portfolio-title">
-      <p class="eyebrow">Riccardo Maria Pesce · Catania, Italy</p>
-      <h1 id="portfolio-title" class="mt-3 text-3xl font-semibold sm:text-4xl">
-        Portfolio
-      </h1>
+      <div
+        class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
+      >
+        <Portrait />
+        <div class="min-w-0">
+          <p class="eyebrow">Riccardo Maria Pesce · Catania, Italy</p>
+          <h1
+            id="portfolio-title"
+            class="mt-3 text-3xl font-semibold sm:text-4xl"
+          >
+            Portfolio
+          </h1>
+        </div>
+      </div>
       <p
         class="text-accent mt-5 max-w-2xl text-3xl leading-tight font-semibold tracking-tight sm:text-4xl"
       >
@@ -46,7 +57,9 @@ const sections = [
         design, data and delivery with stakeholder needs and commercial
         decisions, across insurance, gaming and media.
       </p>
-      <div class="mt-7 flex flex-wrap items-center gap-5">
+      <div
+        class="mt-7 flex flex-col items-stretch gap-5 md:flex-row md:flex-wrap md:items-center"
+      >
         <a href="#experience" class="primary-link">
           Explore my experience <span aria-hidden="true">↓</span>
         </a>
@@ -54,7 +67,7 @@ const sections = [
           Let’s talk <span aria-hidden="true">↗</span>
         </a>
       </div>
-      <dl class="border-border mt-10 grid gap-5 border-t pt-6 sm:grid-cols-3">
+      <dl class="border-border mt-10 grid gap-5 border-t pt-6 md:grid-cols-3">
         <div>
           <dt class="eyebrow">Engineering</dt>
           <dd class="mt-2 font-medium">M.Sc. · 110/110 with honours</dd>
@@ -97,7 +110,7 @@ const sections = [
       <portfolio-explorer class="mt-7 block">
         <div data-controls hidden>
           <div
-            class="flex flex-wrap gap-2"
+            class="flex flex-col gap-2 md:flex-row md:flex-wrap"
             role="group"
             aria-label="Filter experience by focus"
           >
@@ -116,7 +129,7 @@ const sections = [
             }
           </div>
           <div
-            class="mt-4 mb-6 flex flex-wrap items-center justify-between gap-3 text-sm"
+            class="mt-4 mb-6 flex flex-col items-start gap-3 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between"
           >
             <p
               data-results
@@ -150,7 +163,7 @@ const sections = [
                     <span class="text-muted-foreground block text-sm tabular-nums">
                       {experience.period}
                     </span>
-                    <span class="mt-2 flex items-start justify-between gap-4">
+                    <span class="mt-2 flex flex-col items-start gap-4 md:flex-row md:justify-between">
                       <span>
                         <span class="text-accent block text-sm font-semibold">
                           {experience.employer}
@@ -184,7 +197,7 @@ const sections = [
                         Tools & technologies
                       </h3>
                       <ul
-                        class="mt-3 flex flex-wrap gap-2"
+                        class="mt-3 flex flex-col items-start gap-2 md:flex-row md:flex-wrap"
                         aria-label={`Tools used at ${experience.employer}`}
                       >
                         {experience.tools.map(tool => (
@@ -218,7 +231,7 @@ const sections = [
               <h3 class="mt-3 text-xl font-semibold">{project.name}</h3>
               <p class="reading-copy mt-3">{project.description}</p>
               <ul
-                class="mt-4 flex flex-wrap gap-2"
+                class="mt-4 flex flex-col items-start gap-2 md:flex-row md:flex-wrap"
                 aria-label={`${project.name} technologies`}
               >
                 {project.tools.map(tool => (
@@ -247,7 +260,7 @@ const sections = [
       <p class="section-intro">
         The responsibilities that run across my professional experience.
       </p>
-      <div class="mt-7 grid gap-4 sm:grid-cols-2">
+      <div class="mt-7 grid gap-4 md:grid-cols-2">
         {
           portfolio.capabilities.map(capability => (
             <article class="content-card">
@@ -284,7 +297,7 @@ const sections = [
         {
           portfolio.education.map(education => (
             <article class="content-card">
-              <div class="flex flex-wrap items-baseline justify-between gap-3">
+              <div class="flex flex-col items-start gap-3 md:flex-row md:flex-wrap md:items-baseline md:justify-between">
                 <h3 class="text-lg font-semibold">{education.degree}</h3>
                 <span class="text-muted-foreground text-sm">
                   {education.year}
@@ -298,7 +311,7 @@ const sections = [
                 class="thesis-panel mt-6"
                 aria-label={`Thesis · ${education.degree}`}
               >
-                <summary class="flex cursor-pointer list-none items-start justify-between gap-3 rounded-sm">
+                <summary class="flex cursor-pointer list-none flex-col items-start gap-3 rounded-sm md:flex-row md:justify-between">
                   <span>
                     <span class="block font-semibold">
                       {education.thesis.label}
@@ -318,11 +331,14 @@ const sections = [
                     Year {education.thesis.year} · {education.thesis.credits}{" "}
                     credits
                   </p>
-                  {education.thesis.description && (
-                    <p class="reading-copy mt-3">
-                      {education.thesis.description}
-                    </p>
-                  )}
+                  {education.thesis.sections.map(section => (
+                    <section class="mt-6" aria-label={section.heading}>
+                      <h4 class="font-semibold">{section.heading}</h4>
+                      {section.paragraphs.map(paragraph => (
+                        <p class="reading-copy mt-3">{paragraph}</p>
+                      ))}
+                    </section>
+                  ))}
                 </div>
               </details>
               <details class="coursework mt-5">
@@ -351,7 +367,7 @@ const sections = [
                           {subjects.map(subject => (
                             <li>
                               <details class="course-entry py-3">
-                                <summary class="flex cursor-pointer list-none items-start justify-between gap-3 rounded-sm py-1">
+                                <summary class="flex cursor-pointer list-none flex-col items-start gap-3 rounded-sm py-1 md:flex-row md:justify-between">
                                   <span
                                     lang={subject.language}
                                     class="text-sm leading-relaxed font-medium"
@@ -397,7 +413,7 @@ const sections = [
           <summary class="text-link w-fit cursor-pointer"
             >Explore {portfolio.credentials.length} selected credentials and programmes</summary
           >
-          <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+          <ul class="mt-5 grid gap-4 md:grid-cols-2">
             {
               portfolio.credentials.map(credential => (
                 <li class="border-border border-t pt-4">
@@ -512,7 +528,7 @@ const sections = [
 
       const update = () => {
         this.#frame = undefined;
-        const threshold = this.getBoundingClientRect().height + 32;
+        const threshold = Math.max(0, this.getBoundingClientRect().bottom) + 32;
         let current = sections[0];
         for (const entry of sections) {
           if (entry.section.getBoundingClientRect().top <= threshold)
@@ -681,13 +697,13 @@ const sections = [
     @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center gap-3 rounded-lg px-5 py-3 font-semibold transition-colors;
   }
   .section-navigation {
-    @apply bg-background sticky top-0 z-10 block;
+    @apply bg-background block md:sticky md:top-0 md:z-10;
   }
   .section-nav {
-    @apply border-border flex gap-5 overflow-x-auto border-y py-2;
+    @apply border-border flex flex-col gap-1 border-y py-2 md:flex-row md:gap-5;
   }
   .section-nav a {
-    @apply text-muted-foreground hover:text-accent shrink-0 rounded-sm py-2 text-sm font-medium underline decoration-solid underline-offset-4;
+    @apply text-muted-foreground hover:text-accent shrink-0 rounded-sm py-3 text-sm font-medium underline decoration-solid underline-offset-4 md:py-2;
     transition:
       color 160ms ease,
       text-decoration-color 160ms ease;

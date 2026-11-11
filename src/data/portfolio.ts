@@ -203,46 +203,18 @@ export const portfolio = {
       tools: ["Java", "Groovy", "SQL", "Python", "Excel"],
     },
     {
-      id: "teemwork",
-      employer: "Teemwork.ai",
-      role: "Independent Contractor · Search Relevance Evaluation",
-      period: "Jul 2018 — Apr 2020",
-      location: "Contract engagement",
-      focus: ["data"],
-      summary:
-        "Evaluation of the match between search queries and keywords through an internal web-based tool.",
-      contributions: [
-        "Provided independent evaluation services, assessing query–keyword relevance through the company’s internal platform.",
-      ],
-      tools: ["Internal web-based evaluation platform"],
-    },
-    {
       id: "appen-pages",
-      employer: "Appen",
-      role: "Independent Contractor · Business Page Evaluation",
-      period: "Jun 2018 — Oct 2018",
-      location: "Contract engagement",
+      employer: "Appen | teemwork.ai (Contract work)",
+      role: "Rater",
+      period: "Feb 2017 — Apr 2020",
+      location: "Remote",
       focus: ["data", "business"],
       summary:
-        "Evaluation of the accuracy of Facebook Business Page descriptions for Appen Butler Hill.",
+        "Rater for Appen and teemwork.ai, evaluating relevance of search results, Facebook ads and accuracy of business page descriptions.",
       contributions: [
-        "Assessed how accurately business-page descriptions represented their subject as part of an independent contractor engagement.",
+        "Assessed accuracy of business-page descriptions, and relevance of ads andsearch results.",
       ],
-      tools: ["Facebook Business Pages"],
-    },
-    {
-      id: "appen-ads",
-      employer: "Appen",
-      role: "Independent Contractor · Advertising Relevance Evaluation",
-      period: "Feb 2017 — Apr 2018",
-      location: "Contract engagement",
-      focus: ["data", "business"],
-      summary:
-        "Evaluation of local Facebook advertising relevance from the perspective of the target demographic.",
-      contributions: [
-        "Reviewed the relevance of local Facebook advertisements as an independent contractor, contributing demographic-context evaluations.",
-      ],
-      tools: ["Facebook Ads"],
+      tools: ["Facebook Business Pages", "Facebook Ads", "Internal web-based evaluation platform"],
     },
   ],
   projects: [

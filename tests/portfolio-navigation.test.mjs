@@ -314,8 +314,11 @@ test("full CV mode exposes all sections, restores document semantics and is shar
   assert.equal(f.links[0].getAttribute("tabindex"), null);
   assert.equal(new URL(f.win.location.href).searchParams.get("view"), "all");
   assert.equal(f.toggle.getAttribute("aria-pressed"), "true");
+  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.links[0].getAttribute("aria-current"), "location");
+  assert.equal(f.win.scrolls.length, 0);
   f.toggleAll();
-  assert.deepEqual(visible(f), ["experience"]);
+  assert.deepEqual(visible(f), ["summary"]);
   assert.equal(new URL(f.win.location.href).searchParams.has("view"), false);
   const full = fixture({
     url: "https://example.com/portfolio/?view=all#education",
@@ -425,6 +428,7 @@ test("full document scrolling marks the visible section without adding history e
   f.panels[0].rect.top = -2000;
   f.panels[1].rect.top = -800;
   f.panels[2].rect.top = 30;
+  f.win.dispatchEvent(new Event("wheel"));
   f.win.dispatchEvent(new Event("scroll"));
   f.flush();
   assert.equal(f.links[2].getAttribute("aria-current"), "location");
@@ -442,4 +446,52 @@ test("navigation removal cancels pending scroll work and disconnects the size ob
   assert.equal(f.observers[0].disconnected, true);
   f.win.dispatchEvent(new Event("scroll"));
   assert.equal(f.frames.size, 0);
+});
+
+test("entering full CV highlights Summary without scrolling, including subsequent activations", () => {
+  const f = fixture();
+  f.connect();
+  f.click(2);
+  f.toggleAll();
+  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.links[0].getAttribute("aria-current"), "location");
+  assert.equal(f.win.scrolls.length, 0);
+  f.click(2);
+  f.toggleAll();
+  assert.deepEqual(visible(f), ["education"]);
+  const previousScrolls = f.win.scrolls.length;
+  f.toggleAll();
+  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.links[0].getAttribute("aria-current"), "location");
+  assert.equal(f.win.scrolls.length, previousScrolls);
+});
+
+test("full CV keeps the first highlight through layout changes, then follows touch scrolling in both directions", () => {
+  const f = fixture();
+  f.connect();
+  f.click(2);
+  f.toggleAll();
+  f.panels[0].rect.top = -2000;
+  f.panels[1].rect.top = -800;
+  f.panels[2].rect.top = 30;
+  f.win.dispatchEvent(new Event("scroll"));
+  f.win.dispatchEvent(new Event("resize"));
+  f.observers[0].callback();
+  f.flush();
+  assert.equal(f.links[0].getAttribute("aria-current"), "location");
+  f.win.dispatchEvent(new Event("touchmove"));
+  f.win.dispatchEvent(new Event("scroll"));
+  f.flush();
+  assert.equal(f.links[2].getAttribute("aria-current"), "location");
+  f.panels[0].rect.top = 20;
+  f.panels[1].rect.top = 300;
+  f.panels[2].rect.top = 900;
+  f.win.dispatchEvent(new Event("scroll"));
+  f.flush();
+  assert.equal(f.links[0].getAttribute("aria-current"), "location");
+  assert.equal(
+    f.links.filter(link => link.getAttribute("aria-current") === "location")
+      .length,
+    1
+  );
 });

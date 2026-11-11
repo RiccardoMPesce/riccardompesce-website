@@ -15,31 +15,31 @@
     "Segoe UI", Arial, sans-serif;
 }
 
-/* Matte light surfaces pair soft gray backgrounds with dark slate text. */
+/* Matte warm surfaces use a restrained red undertone and dark brown-gray text. */
 :root,
 [data-theme="light"] {
-  --background: #eeefed;
-  --foreground: #30353b;
-  --accent: #3d4651;
-  --accent-foreground: #f0f1ef;
-  --accent-hover: #303842;
-  --muted: #e1e4e3;
-  --muted-foreground: #59636d;
-  --border: #c5cacb;
-  --surface: #e7eae8;
-  --input-border: #737e88;
+  --background: #f1e9e6;
+  --foreground: #3d3231;
+  --accent: #57413d;
+  --accent-foreground: #f3eae5;
+  --accent-hover: #463431;
+  --muted: #e8dcd7;
+  --muted-foreground: #68534e;
+  --border: #d2bfb7;
+  --surface: #ece2dd;
+  --input-border: #8d756e;
 }
 
-/* Restored from the deployed site's dark-theme tokens. */
+/* Retain the deployed charcoal appearance with a nearly imperceptible warm bias. */
 [data-theme="dark"] {
-  --background: #181818;
-  --foreground: #e8e8e8;
-  --accent: #d4d4d4;
-  --accent-foreground: #171717;
-  --accent-hover: #e5e5e5;
-  --muted: #2a2a2a;
-  --muted-foreground: #b0b0b0;
-  --border: #3a3a3a;
-  --surface: #202020;
-  --input-border: #808080;
+  --background: #1a1818;
+  --foreground: #e8e5e4;
+  --accent: #d4cfcc;
+  --accent-foreground: #191717;
+  --accent-hover: #e5e0dd;
+  --muted: #2c2929;
+  --muted-foreground: #b3adab;
+  --border: #3c3838;
+  --surface: #222020;
+  --input-border: #847d7b;
 }

@@ -61,6 +61,7 @@ class PortfolioTabs extends HTMLElement {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let selected = 0;
     let full = false;
+    let followFullScroll = true;
 
     const targetFromHash = (): HTMLElement | null => {
       try {
@@ -121,7 +122,7 @@ class PortfolioTabs extends HTMLElement {
       }
       toggle.setAttribute("aria-pressed", String(full));
     };
-    const updateNavigation = (): void => {
+    const updateNavigation = (trackSection = true): void => {
       if (!navigation.hasAttribute("data-stuck")) {
         this.style.setProperty(
           "--portfolio-expanded-navigation",
@@ -134,7 +135,7 @@ class PortfolioTabs extends HTMLElement {
         ? bar.getBoundingClientRect().height + 16
         : 16;
       this.style.setProperty("--portfolio-nav-offset", `${offset}px`);
-      if (full) {
+      if (full && trackSection && followFullScroll) {
         let current = 0;
         for (const [index, tab] of tabs.entries()) {
           if (tab.panel.getBoundingClientRect().top <= offset + 16)
@@ -156,7 +157,7 @@ class PortfolioTabs extends HTMLElement {
         });
     };
     const scrollToTarget = (target: HTMLElement, animate: boolean): void => {
-      updateNavigation();
+      updateNavigation(false);
       const wasStuck = navigation.hasAttribute("data-stuck");
       // Measure the destination's compact toolbar before starting the scroll.
       // The reserved outer height keeps content stationary during this measurement.
@@ -184,6 +185,7 @@ class PortfolioTabs extends HTMLElement {
     };
     const syncUrl = (): void => {
       full = new URL(window.location.href).searchParams.get("view") === "all";
+      followFullScroll = true;
       const target = targetFromHash();
       const index = indexFor(target);
       selected = index >= 0 ? index : 0;
@@ -219,6 +221,7 @@ class PortfolioTabs extends HTMLElement {
         const index = indexFor(target);
         if (index < 0) return;
         event.preventDefault();
+        followFullScroll = true;
         selected = index;
         render();
         writeUrl();
@@ -266,6 +269,8 @@ class PortfolioTabs extends HTMLElement {
       "click",
       () => {
         full = !full;
+        followFullScroll = !full;
+        if (full) selected = 0;
         render();
         writeUrl();
       },
@@ -283,6 +288,60 @@ class PortfolioTabs extends HTMLElement {
       passive: true,
       signal,
     });
+    // Expanding the CV may trigger scroll anchoring. Start tracking only after
+    // a reader's scroll gesture, so layout changes cannot replace the initial tab.
+    const enableScrollTracking = (): void => {
+      followFullScroll = true;
+    };
+    window.addEventListener("wheel", enableScrollTracking, {
+      passive: true,
+      signal,
+    });
+    window.addEventListener("touchmove", enableScrollTracking, {
+      passive: true,
+      signal,
+    });
+    window.addEventListener(
+      "pointerdown",
+      event => {
+        if (event.target === document.documentElement) enableScrollTracking();
+      },
+      { passive: true, signal }
+    );
+    window.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.defaultPrevented ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey
+        )
+          return;
+        if (event.target instanceof Element) {
+          if (
+            event.target.closest(
+              'input, textarea, select, [contenteditable="true"]'
+            )
+          )
+            return;
+          if (event.key === " " && event.target.closest("button")) return;
+        }
+        if (
+          [
+            "ArrowDown",
+            "ArrowUp",
+            "PageDown",
+            "PageUp",
+            "Home",
+            "End",
+            " ",
+          ].includes(event.key)
+        )
+          enableScrollTracking();
+      },
+      { signal }
+    );
     window.addEventListener("resize", scheduleNavigation, {
       passive: true,
       signal,

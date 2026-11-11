@@ -193,6 +193,10 @@ visible above the tabs. Only the selected panel occupies space. The tab labels
 are centered inside equally sized, outlined button shapes; the selected tab uses
 the theme's filled accent style and a heavier label. **View full CV** toggles an
 ordinary document with every section visible for comparison and browser Find.
+Entering this view highlights only Summary without scrolling to the top. It keeps
+that initial highlight through layout/size changes until the reader starts
+scrolling with a wheel/trackpad, touch, keyboard or scrollbar. The highlight then
+follows the visible section. Section links retain their explicit smooth scrolling.
 Its separate pill-shaped button has a section-list icon and stronger outline;
 it becomes filled when the full view is active. `?view=all` shares that view.
 Without JavaScript all sections and anchor links remain available; print styles
@@ -228,6 +232,39 @@ avoid shifting document content; its transparent unused area does not intercept
 clicks. Mobile retains the vertical non-sticky controls. Scroll/resize work shares
 one animation frame, a ResizeObserver tracks toolbar height, and both are cleaned
 up when leaving the page.
+
+Projects uses `ProjectCarousel.astro` with an accompanying custom element.
+Its horizontally scrollable tab bar uses compact rectangular bars showing each
+project's title, contribution type and first two technologies. An intrinsic-width
+grid gives all bars the width of the widest content, capped for narrow screens,
+instead of stretching a single bar across the row. CSS recalculates this as fonts
+load and text size changes. Selecting a bar
+scrolls the carousel to that project. Bars snap gently while browsing and the
+selected bar remains in view. Dedicated left/right buttons scroll the preview
+strip without changing the selected project; the separate carousel arrows change
+the project. No visible instruction text is needed. The full card retains the
+description, complete toolkit and source link. The current data contains one
+verified project (CMD Call Graph); both sets of arrows remain visible and disable
+directions that have no further content. Preview arrows update after scrolling
+or resizing, including when the strip has no overflow.
+Adding entries to `portfolio.projects` enables navigation automatically.
+
+With multiple projects, the viewport supports native swipe/trackpad scrolling,
+CSS scroll snapping, preview clicks, arrow controls and Left/Right/Home/End keys
+within the horizontal preview bar. Only the selected slide's links are focusable.
+Both the preview strip and slide viewport support mouse dragging with pointer
+capture; a six-pixel horizontal threshold preserves ordinary clicks. Releasing
+a drag suppresses its click, and pointer cancellation, lost capture, window blur
+or navigation releases the drag state. Touch and horizontal trackpad gestures
+retain native scrolling. Vertical wheel input over the preview strip scrolls it
+horizontally only while more content exists in that direction; at its boundaries
+the page remains scrollable. Ctrl-wheel zoom is preserved.
+There is no automatic rotation; reduced motion disables animated scrolling.
+A size observer aligns the selected slide when its Portfolio tab becomes visible.
+Without JavaScript, and when printing, project cards appear as an ordinary list.
+Tests cover single and multiple projects, interrupted smooth scrolling, hidden
+panels, keyboard selection, resizing and cleanup. These DOM-boundary checks do not
+replace testing swipe behavior and assistive technology in a real browser.
 
 Below 768px, page groups use a single column: the brand and menu button, menu
 links and theme control, hero introductions, CTAs, experience filters, metadata,
@@ -287,16 +324,19 @@ but the choice cannot be remembered after reloading. Storage is local to each
 browser and origin; localhost and the public site do not share preferences.
 
 Palette tokens live in `src/styles/theme.css`. Both themes use matte, desaturated
-surfaces. Light mode uses a `#eeefed` soft gray page, `#30353b` dark slate text and
-`#e7eae8` panels. Dark mode restores the palette read directly from the deployed
-site's CSS: `#181818` page, `#e8e8e8` text and `#202020` panels, with `#d4d4d4`
-filled controls. The contact panel uses `surface`, while
+surfaces with a warm red undertone. Light mode uses a `#f1e9e6` muted rose page,
+`#3d3231` brown-gray text and `#ece2dd` panels. Dark mode keeps the deployed
+charcoal appearance with a nearly imperceptible warm shift: `#1a1818` page,
+`#e8e5e4` text and `#222020` panels, with `#d4cfcc` filled controls.
+These are color choices for the requested appearance, not a sleep benefit or
+night-mode certification. CSS cannot set the display's physical brightness or
+substitute for device-level night-light settings. The contact panel uses `surface`, while
 form fields use `input-border` so their outlines remain distinct from decorative
 dividers. Buttons use separate foreground and hover colors in each theme.
 
 The token pairs were checked with the WCAG relative-luminance calculation:
-body text on the page background is 10.72:1 (light) and 14.49:1 (dark); secondary
-text is 5.31:1 and 8.19:1; button text is 8.45:1 and 12.09:1. Form borders exceed
+body text on the page background is 10.32:1 (light) and 14.11:1 (dark); secondary
+text is 5.97:1 and 7.98:1; button text is 7.95:1 and 11.56:1. Form borders exceed
 3:1 against both adjacent surfaces. Text pairs also exceed 4.5:1 on the panel,
 muted backgrounds and button hover states. These checks cover color pairs,
 not a full accessibility audit or a claim about users' color preferences.

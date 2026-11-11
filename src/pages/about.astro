@@ -28,9 +28,17 @@ const { Content } = await render(about);
 
   <Breadcrumb />
 
-  <Main pageTitle={about.data.title} class="app-prose">
+  <Main pageTitle={about.data.title} class="app-prose about-prose">
     <Content />
   </Main>
 
   <Footer />
 </Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  :global(.about-prose h2) {
+    @apply border-border text-accent mt-10 border-t pt-6 text-xl leading-snug font-semibold tracking-tight sm:text-2xl;
+  }
+</style>

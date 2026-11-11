@@ -47,7 +47,7 @@ export default {
     tagsDesc: "All the tags used in posts.",
 
     postsTitle: "Blog",
-    postsDesc: "Notes, ideas and things learned along the way.",
+    postsDesc: "Projects, questions and lessons as the work unfolds.",
 
     archivesTitle: "Archives",
     archivesDesc: "All the articles I've archived.",

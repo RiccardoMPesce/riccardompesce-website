@@ -11,13 +11,6 @@ import { portfolio } from "@/data/portfolio";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
-const filters = [
-  { value: "all", label: "All experience" },
-  { value: "leadership", label: "Leadership" },
-  { value: "systems", label: "Systems" },
-  { value: "data", label: "Data" },
-  { value: "business", label: "Business" },
-] as const;
 const sections = [
   { id: "summary", label: "Summary" },
   { id: "experience", label: "Experience" },
@@ -156,7 +149,7 @@ const sections = [
       >
         <p class="eyebrow">Experience</p>
         <h2 id="experience-title" class="section-title">
-          Roles across data, software and delivery.
+          Experience connecting engineering, people and business needs.
         </h2>
         <p class="section-intro">
           From commercial analysis and data integration to systems engineering
@@ -166,35 +159,10 @@ const sections = [
         <portfolio-explorer class="mt-7 block">
           <div data-controls hidden>
             <div
-              class="flex flex-col gap-2 md:flex-row md:flex-wrap"
-              role="group"
-              aria-label="Filter experience by focus"
+              class="mb-6 flex flex-col items-center gap-3 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between"
             >
-              {
-                filters.map(filter => (
-                  <button
-                    type="button"
-                    class="filter-button"
-                    data-filter={filter.value}
-                    aria-pressed={filter.value === "all" ? "true" : "false"}
-                    aria-controls="experience-list"
-                  >
-                    {filter.label}
-                  </button>
-                ))
-              }
-            </div>
-            <div
-              class="mt-4 mb-6 flex flex-col items-center gap-3 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between"
-            >
-              <p
-                data-results
-                role="status"
-                aria-live="polite"
-                aria-atomic="true"
-                class="text-muted-foreground"
-              >
-                Showing all {portfolio.experiences.length} roles
+              <p class="text-muted-foreground">
+                {portfolio.experiences.length} roles
               </p>
               <button
                 type="button"
@@ -202,18 +170,14 @@ const sections = [
                 class="text-link"
                 aria-controls="experience-list"
               >
-                Expand visible roles
+                Expand all roles
               </button>
             </div>
           </div>
           <ol id="experience-list" class="experience-timeline grid gap-4">
             {
               portfolio.experiences.map((experience, index) => (
-                <li
-                  id={experience.id}
-                  data-experience
-                  data-focus={experience.focus.join(" ")}
-                >
+                <li id={experience.id} data-experience>
                   <details class="experience-card" open={index === 0}>
                     <summary>
                       <span class="text-muted-foreground block text-sm tabular-nums">
@@ -528,77 +492,33 @@ const sections = [
       this.#controller = new AbortController();
       const { signal } = this.#controller;
       const controls = this.querySelector<HTMLElement>("[data-controls]");
-      const status = this.querySelector<HTMLElement>("[data-results]");
       const expand = this.querySelector<HTMLButtonElement>("[data-expand]");
-      const buttons = [
-        ...this.querySelectorAll<HTMLButtonElement>("[data-filter]"),
-      ];
       const entries = [
         ...this.querySelectorAll<HTMLElement>("[data-experience]"),
       ];
-      if (
-        !controls ||
-        !status ||
-        !expand ||
-        !buttons.length ||
-        !entries.length
-      ) {
+      if (!controls || !expand || !entries.length) {
         throw new Error(
-          "Portfolio explorer is missing its required controls or experience entries."
+          "Portfolio explorer is missing its controls or experience entries."
         );
       }
-
-      const visibleDetails = () =>
-        entries
-          .filter(entry => !entry.hidden)
-          .map(entry => {
-            const details = entry.querySelector<HTMLDetailsElement>("details");
-            if (!details)
-              throw new Error(
-                "Portfolio experience is missing its details element."
-              );
-            return details;
-          });
+      const details = entries.map(entry => {
+        const detail = entry.querySelector<HTMLDetailsElement>("details");
+        if (!detail)
+          throw new Error(
+            "Portfolio experience is missing its details element."
+          );
+        return detail;
+      });
 
       const updateExpandLabel = () => {
-        const details = visibleDetails();
-        expand.disabled = details.length === 0;
-        expand.textContent =
-          details.length > 0 && details.every(detail => detail.open)
-            ? "Collapse visible roles"
-            : "Expand visible roles";
+        expand.textContent = details.every(detail => detail.open)
+          ? "Collapse all roles"
+          : "Expand all roles";
       };
-
-      for (const button of buttons) {
-        button.addEventListener(
-          "click",
-          () => {
-            const filter = button.dataset.filter;
-            if (!filter)
-              throw new Error("Portfolio filter is missing its value.");
-            for (const entry of entries) {
-              entry.hidden =
-                filter !== "all" &&
-                !entry.dataset.focus?.split(" ").includes(filter);
-            }
-            for (const option of buttons) {
-              option.setAttribute("aria-pressed", String(option === button));
-            }
-            const count = entries.filter(entry => !entry.hidden).length;
-            status.textContent =
-              filter === "all"
-                ? `Showing all ${count} roles`
-                : `Showing ${count} ${count === 1 ? "role" : "roles"} · ${button.textContent?.trim()}`;
-            updateExpandLabel();
-          },
-          { signal }
-        );
-      }
 
       expand.addEventListener(
         "click",
         () => {
-          const details = visibleDetails();
           const open = !details.every(detail => detail.open);
           for (const detail of details) detail.open = open;
           updateExpandLabel();
@@ -822,17 +742,6 @@ const sections = [
   }
   .skill-tag {
     @apply bg-muted text-foreground rounded-md px-2.5 py-1 text-xs leading-relaxed;
-  }
-  .filter-button {
-    @apply border-input-border hover:bg-muted w-full rounded-full border px-3 py-2 text-center text-sm md:w-auto;
-    min-height: 44px;
-    transition:
-      background-color 160ms ease,
-      color 160ms ease,
-      border-color 160ms ease;
-  }
-  .filter-button[aria-pressed="true"] {
-    @apply border-accent bg-accent text-accent-foreground;
   }
   .portfolio summary {
     min-block-size: 44px;

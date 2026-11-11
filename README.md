@@ -173,9 +173,10 @@ check totals including the separate theses, verify the individual official sylla
 the generated page contains no individual grades or personal identifiers. Check
 both levels of disclosure with a keyboard and at narrow widths.
 
-The timeline offers focus filters, live result counts and expand/collapse of
-visible roles. Native disclosures and section links work without JavaScript;
-filter controls appear only after initialization. The custom element cleans up
+The timeline shows every role in chronological order with an expand/collapse-all
+control, without category filters. Native disclosures and section links work
+without JavaScript; the bulk disclosure control appears after initialization.
+The custom element cleans up
 event handlers when Astro navigation removes the page. The shared mobile menu
 now switches at 768px to accommodate the additional navigation link. Below that
 width, the hamburger uses three equal, fixed-length lines in a 24px icon and a
@@ -216,7 +217,7 @@ sticky and uses Left/Right. Home/End select the first/last tab; Enter/Space acti
 it. Arrow navigation activates immediately because all content is already loaded.
 The selected section is stored in the URL fragment. Existing section and role
 links, including `#toolkit`, reveal their containing panel; Back/Forward restores
-the URL's view. Switching tabs retains filters and disclosure state. Full CV mode
+the URL's view. Switching tabs retains disclosure state. Full CV mode
 restores ordinary document semantics. Both custom elements remove listeners on
 Astro navigation, and transitions respect reduced motion.
 
@@ -239,7 +240,9 @@ Its horizontally scrollable tab bar uses compact rectangular bars showing each
 project's title, contribution type and first two technologies. An intrinsic-width
 grid gives all bars the width of the widest content, capped for narrow screens,
 instead of stretching a single bar across the row. CSS recalculates this as fonts
-load and text size changes. Selecting a bar
+load and text size changes. Automatic inline margins center the whole group while
+it fits; when it overflows, the group starts at the leading edge and remains fully
+scrollable. Selecting a bar
 scrolls the carousel to that project. Bars snap gently while browsing and the
 selected bar remains in view. Dedicated left/right buttons scroll the preview
 strip without changing the selected project; the separate carousel arrows change
@@ -268,7 +271,7 @@ panels, keyboard selection, resizing and cleanup. These DOM-boundary checks do n
 replace testing swipe behavior and assistive technology in a real browser.
 
 Below 768px, page groups use a single column: the brand and menu button, menu
-links and theme control, hero introductions, CTAs, experience filters, metadata,
+links and theme control, hero introductions, CTAs, experience controls, metadata,
 course disclosures, technology lists, cards, social links and pagination. The
 portrait, headings, labels, metadata, tags and navigation controls are centered.
 Portfolio copy and contact input values are centered too; long-form article and
@@ -287,8 +290,8 @@ depends on scroll-triggered content hiding. The tab regression tests
 use DOM-boundary doubles, not a real browser; visual and assistive-technology checks remain
 necessary.
 
-When changing interactions, verify every filter, switching back to all roles,
-expand/collapse after filtering, individual disclosures, keyboard operation,
+When changing interactions, verify expand/collapse of all roles, individual
+disclosures, keyboard operation,
 tab selection, full CV mode, direct fragments and Back/Forward. Check navigation
 away and back, narrow and wide layouts, light/dark modes, printing, reduced motion
 and the page with JavaScript disabled. Run `node --test tests/*.test.mjs` for the

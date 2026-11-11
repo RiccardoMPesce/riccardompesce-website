@@ -308,7 +308,7 @@ It uses a circular frame, centered above the introduction on mobile and beside
 the heading on wider screens. It displays at 112px on mobile and 160px from 640px, with explicit dimensions
 reserving its square aspect ratio. It loads eagerly because it is above the fold;
 no extra high-priority hint competes with the page's primary text. Its alternative
-text identifies Riccardo Maria Pesce, following the
+text identifies Riccardo M. Pesce, following the
 [W3C informative image guidance](https://www.w3.org/WAI/tutorials/images/informative/).
 Replace the source image to update both placements, then check the face framing
 and generated sizes on narrow and wide screens. The source file is not copied

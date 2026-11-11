@@ -5,8 +5,8 @@ export default defineAstroPaperConfig({
     url: "https://riccardompesce.com/",
     title: "Riccardo M. Pesce",
     description:
-      "My corner of the web: what I work on, study and explore, and the things I learn along the way.",
-    author: "Riccardo Maria Pesce",
+      "Notes at the intersection of automation, cyber-physical systems, and technical strategy — what I analyze, deploy, and learn.",
+    author: "Riccardo M. Pesce",
     profile: "https://github.com/riccardompesce",
     ogImage: "og.png",
     lang: "en",

@@ -85,7 +85,7 @@ changes, then rebuild. There is no automatic Google Drive or LinkedIn
 synchronization, browser-side account access or credential requirement. The
 original Google Doc and LinkedIn profile are unchanged.
 
-The timeline includes nine roles, including earlier Appen and Teemwork.ai
+The timeline includes nine roles, including earlier Appen and iSoftStone.ai
 contracts. Separate sections cover the CMD Call Graph open-source contribution,
 twelve selected credentials and learning programmes, and community activities.
 The project's public repository verifies its description and Microsoft hosting;

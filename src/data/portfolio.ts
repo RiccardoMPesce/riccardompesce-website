@@ -204,13 +204,13 @@ export const portfolio = {
     },
     {
       id: "appen-pages",
-      employer: "Appen | iSoftStone.ai (Contract work)",
+      employer: "Appen | iSoftStone (Contract work)",
       role: "Rater",
       period: "Feb 2017 — Apr 2020",
       location: "Remote",
       focus: ["data", "business"],
       summary:
-        "Rater for Appen and iSoftStone.ai, evaluating relevance of search results, Facebook ads and accuracy of business page descriptions.",
+        "Rater for Appen and iSoftStone, evaluating relevance of search results, Facebook ads and accuracy of business page descriptions.",
       contributions: [
         "Assessed accuracy of business-page descriptions, and relevance of ads andsearch results.",
       ],

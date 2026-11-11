@@ -1,69 +1,90 @@
-const THEME_KEY = "theme";
-const LIGHT = "light";
-const DARK = "dark";
+type Theme = "light" | "dark";
 
-function getPreferredTheme(): string {
-  const stored = localStorage.getItem(THEME_KEY);
-  if (stored) return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? DARK
-    : LIGHT;
+const THEME_KEY = "theme";
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+function readSavedTheme(): Theme | null {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    return stored === "light" || stored === "dark" ? stored : null;
+  } catch {
+    // Storage can be blocked by browser policy; theme controls must remain usable.
+    return null;
+  }
 }
 
-// Reuse the value already set by the inline FOUC-prevention script if available.
-let themeValue: string =
-  (window as unknown as { __theme?: { value: string } }).__theme?.value ??
-  getPreferredTheme();
+function getSystemTheme(): Theme {
+  return systemTheme.matches ? "dark" : "light";
+}
 
-function persist(): void {
-  localStorage.setItem(THEME_KEY, themeValue);
-  reflect();
+let preference = readSavedTheme();
+let themeValue: Theme = preference ?? getSystemTheme();
+let buttonController: AbortController | undefined;
+
+function applyTheme(root: HTMLElement): void {
+  root.setAttribute("data-theme", themeValue);
+  root.classList.toggle("dark", themeValue === "dark");
+  root.style.colorScheme = themeValue;
 }
 
 function reflect(): void {
-  const root = document.firstElementChild;
-  root?.setAttribute("data-theme", themeValue);
-  root?.classList.toggle("dark", themeValue === DARK);
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  applyTheme(document.documentElement);
+  const label = `Switch to ${themeValue === "dark" ? "light" : "dark"} mode`;
+  const button = document.querySelector<HTMLButtonElement>("#theme-btn");
+  button?.setAttribute("aria-label", label);
+  button?.setAttribute("title", label);
 
-  // Fill <meta name="theme-color"> with the computed background colour so
-  // Android's browser chrome matches the page background.
-  const bg = window.getComputedStyle(document.body).backgroundColor;
+  const background = window.getComputedStyle(document.body).backgroundColor;
   document
     .querySelector("meta[name='theme-color']")
-    ?.setAttribute("content", bg);
+    ?.setAttribute("content", background);
 }
 
 function setup(): void {
+  buttonController?.abort();
+  buttonController = new AbortController();
   reflect();
-  document.querySelector("#theme-btn")?.addEventListener("click", () => {
-    themeValue = themeValue === LIGHT ? DARK : LIGHT;
-    persist();
-  });
+  document.querySelector<HTMLButtonElement>("#theme-btn")?.addEventListener(
+    "click",
+    () => {
+      themeValue = themeValue === "light" ? "dark" : "light";
+      preference = themeValue;
+      try {
+        localStorage.setItem(THEME_KEY, themeValue);
+      } catch {
+        // Retain the explicit choice in memory for this visit if persistence is denied.
+      }
+      reflect();
+    },
+    { signal: buttonController.signal }
+  );
 }
 
 setup();
-
-// Re-run after View Transitions navigation.
 document.addEventListener("astro:after-swap", setup);
 
-// Carry the theme-color value across View Transitions to prevent the
-// Android navigation bar from flashing during page transitions.
 document.addEventListener("astro:before-swap", event => {
+  const { newDocument } = event as Event & { readonly newDocument: Document };
+  // Apply before the swap so navigation cannot briefly restore the system default.
+  applyTheme(newDocument.documentElement);
   const color = document
     .querySelector("meta[name='theme-color']")
     ?.getAttribute("content");
-  if (color) {
-    (event as { newDocument: Document }).newDocument
+  if (color)
+    newDocument
       .querySelector("meta[name='theme-color']")
       ?.setAttribute("content", color);
-  }
 });
 
-// Sync with OS-level dark/light preference changes.
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", ({ matches }) => {
-    themeValue = matches ? DARK : LIGHT;
-    persist();
-  });
+systemTheme.addEventListener("change", () => {
+  if (preference !== null) return;
+  themeValue = getSystemTheme();
+  reflect();
+});
+
+window.addEventListener("storage", event => {
+  if (event.key !== THEME_KEY && event.key !== null) return;
+  preference = readSavedTheme();
+  themeValue = preference ?? getSystemTheme();
+  reflect();
+});

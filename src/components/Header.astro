@@ -60,15 +60,21 @@ const isActive = (path: string) => {
     >
       <button
         id="menu-btn"
-        class="focus-outline self-center p-2 md:hidden"
+        type="button"
+        class="focus-outline size-12 shrink-0 self-center p-3 md:hidden"
         aria-label={t.a11y.openMenu}
         aria-expanded="false"
         aria-controls="menu-items"
         data-label-open={t.a11y.openMenu}
         data-label-close={t.a11y.closeMenu}
       >
-        <IconX id="close-icon" class="hidden" />
-        <IconMenuDeep id="menu-icon" />
+        <IconX
+          id="close-icon"
+          class="hidden"
+          aria-hidden="true"
+          focusable="false"
+        />
+        <IconMenuDeep id="menu-icon" aria-hidden="true" focusable="false" />
       </button>
       <ul
         id="menu-items"

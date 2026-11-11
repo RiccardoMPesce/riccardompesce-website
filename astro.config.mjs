@@ -9,6 +9,17 @@ export default defineConfig({
   integrations: [],
   fonts: [
     {
+      name: "Atkinson Hyperlegible Next",
+      cssVariable: "--font-atkinson",
+      provider: fontProviders.google(),
+      weights: ["400 700"],
+      styles: ["normal", "italic"],
+      subsets: ["latin"],
+      formats: ["woff2"],
+      display: "swap",
+      fallbacks: ["Arial", "sans-serif"],
+    },
+    {
       name: "Google Sans Code",
       cssVariable: "--font-google-sans-code",
       provider: fontProviders.google(),

@@ -55,7 +55,11 @@ career goals and planned writing as intentions; distinguish academic foundations
 from professional practice. Add performance figures or outcome claims only when
 they have supporting evidence. Keep Home, About and site metadata consistent.
 
-Use `welcome.md` as a starting point for new posts. Each post needs `title`,
+`welcome.md` is the opening personal manifesto; keep its `/posts/welcome/` path
+stable so existing links and comments remain associated with it. Its content
+sets out a personal direction and intended problem-solving method, without
+disclosing private projects or organizational details.
+Use its frontmatter structure as a starting point for new posts. Each post needs `title`,
 `pubDatetime`, and `description`; `tags` and `draft: true` are optional. The latest
 posts appear on the landing page automatically, ordered by date. Drafts are hidden;
 future posts become visible on their publication day in the Europe/Rome timezone
@@ -172,7 +176,9 @@ The timeline offers focus filters, live result counts and expand/collapse of
 visible roles. Native disclosures and section links work without JavaScript;
 filter controls appear only after initialization. The custom element cleans up
 event handlers when Astro navigation removes the page. The shared mobile menu
-now switches at 768px to accommodate the additional navigation link.
+now switches at 768px to accommodate the additional navigation link. Below that
+width, the hamburger uses three equal, fixed-length lines in a 24px icon and a
+48px button; from 768px the button is hidden and the navigation stays visible.
 
 Section headings describe the actual career and academic content rather than
 evaluating its value. Role summaries remain visible when details are collapsed.
@@ -180,34 +186,75 @@ A timeline orders the roles; expanded content separates contributions from
 technologies on desktop and stacks them on mobile. Reading lines are limited
 to 65 characters where space permits.
 
-Section navigation marks the current section with `aria-current`. Below 768px,
-it stacks vertically and scrolls with the page so it cannot cover the reading
-area. From 768px it becomes a sticky horizontal row. Scroll and resize updates share
-one animation frame; a ResizeObserver updates the indicator when filtering or
-disclosures move section boundaries. Both custom elements release their
-listeners and observers when removed during Astro navigation.
+Portfolio navigation progressively enhances five sections into tabs: Summary
+(default), Experience, Education, Projects and Skills. Skills includes the
+toolkit; community involvement is in Summary. The short identity header remains
+visible above the tabs. Only the selected panel occupies space. The tab labels
+are centered inside equally sized, outlined button shapes; the selected tab uses
+the theme's filled accent style and a heavier label. **View full CV** toggles an
+ordinary document with every section visible for comparison and browser Find.
+Its separate pill-shaped button has a section-list icon and stronger outline;
+it becomes filled when the full view is active. `?view=all` shares that view.
+Without JavaScript all sections and anchor links remain available; print styles
+also reveal every section, keeping
+the existing disclosure states.
+
+The choice follows [NN/g's tabs guidance](https://www.nngroup.com/articles/tabs-used-right/)
+and [GOV.UK's trade-offs](https://design-system.service.gov.uk/components/tabs/):
+use a few clearly named groups, keep the initial overview useful, and provide
+another way to compare content. This is a design rationale, not a CV-specific
+usability finding. [W3C's tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
+informs roles, selected states, linked panels and roving keyboard focus.
+
+Below 768px the tab list is vertical and uses Up/Down; from 768px it is horizontal,
+sticky and uses Left/Right. Home/End select the first/last tab; Enter/Space activate
+it. Arrow navigation activates immediately because all content is already loaded.
+The selected section is stored in the URL fragment. Existing section and role
+links, including `#toolkit`, reveal their containing panel; Back/Forward restores
+the URL's view. Switching tabs retains filters and disclosure state. Full CV mode
+restores ordinary document semantics. Both custom elements remove listeners on
+Astro navigation, and transitions respect reduced motion.
+
+In full CV mode, section links smoothly scroll up or down to the selected section
+without hiding the other sections. Reduced-motion preferences use immediate
+scrolling. Explicit clicks update the URL; scrolling highlights the current
+section without creating history entries. The destination offset accounts for
+the measured compact toolbar height, keeping headings visible.
+
+On desktop, the sticky toolbar collapses to a single, smaller row when its marker
+passes the viewport top. The section buttons and full CV toggle remain available,
+with a 44px minimum target height. The expanded toolbar's space is reserved to
+avoid shifting document content; its transparent unused area does not intercept
+clicks. Mobile retains the vertical non-sticky controls. Scroll/resize work shares
+one animation frame, a ResizeObserver tracks toolbar height, and both are cleaned
+up when leaving the page.
 
 Below 768px, page groups use a single column: the brand and menu button, menu
 links and theme control, hero introductions, CTAs, experience filters, metadata,
 course disclosures, technology lists, cards, social links and pagination. The
-portrait and navigation controls are centered; prose stays start-aligned for
-reading. Desktop layouts resume at 768px. The theme control has its own full-width
+portrait, headings, labels, metadata, tags and navigation controls are centered.
+Portfolio copy and contact input values are centered too; long-form article and
+About paragraphs keep their reading alignment. The mobile experience cards use
+the full content width, with the timeline guide appearing from 768px. Desktop
+layouts and their original alignment resume at 768px. The theme control has its own full-width
 menu row with a visible label. Check the open and closed menu, theme switching,
-Portfolio section links and disclosures at 320px, 640px, 767px and 768px.
+Portfolio tabs, full CV view and disclosures at 320px, 640px, 767px and 768px.
 Breadcrumbs are an exception: they remain inline at every width and wrap only
 when space runs out, with separators visible on mobile too.
 
 Disclosures animate their height and opacity where `::details-content` and
 `interpolate-size` are supported; other browsers retain native immediate
 opening. Transitions and entry motion respect `prefers-reduced-motion`. Nothing
-depends on scroll-triggered content hiding. The navigation regression tests
-use DOM-boundary doubles, not a real browser; visual and keyboard checks remain
+depends on scroll-triggered content hiding. The tab regression tests
+use DOM-boundary doubles, not a real browser; visual and assistive-technology checks remain
 necessary.
 
 When changing interactions, verify every filter, switching back to all roles,
-expand/collapse after filtering, individual disclosures, keyboard operation and
-navigation away and back. Check narrow and wide layouts, light/dark modes,
-reduced motion and the page with JavaScript disabled.
+expand/collapse after filtering, individual disclosures, keyboard operation,
+tab selection, full CV mode, direct fragments and Back/Forward. Check navigation
+away and back, narrow and wide layouts, light/dark modes, printing, reduced motion
+and the page with JavaScript disabled. Run `node --test tests/*.test.mjs` for the
+interaction and configuration regressions.
 
 ## Portrait
 
@@ -228,17 +275,28 @@ directly into public output; Astro generates the served image variants.
 
 ## Colors and contrast
 
-Palette tokens live in `src/styles/theme.css`. Light mode takes its white page,
-black text and restrained gray accents from [antirez.com](https://antirez.com/)
-and its public stylesheet. Dark mode follows the supplied visual reference:
-`#191919` charcoal background, `#ececec` text and `#242424` panels. Both palettes
-use achromatic colors throughout. The contact panel uses `surface`, while
+On the first visit, the theme follows the operating system's
+`prefers-color-scheme` setting. System changes continue to apply until the visitor
+uses the theme button. Only that explicit choice is saved in `localStorage`
+under `theme`, and it takes priority on future visits and during Astro navigation.
+Other open tabs synchronize changes to that stored preference. Removing it restores
+system behavior; invalid values are ignored. The head script applies the same rule
+before the first paint. Native controls receive the matching `color-scheme`.
+If browser policy blocks storage, the toggle still works for the current visit,
+but the choice cannot be remembered after reloading. Storage is local to each
+browser and origin; localhost and the public site do not share preferences.
+
+Palette tokens live in `src/styles/theme.css`. Both themes use matte, desaturated
+surfaces. Light mode uses a `#eeefed` soft gray page, `#30353b` dark slate text and
+`#e7eae8` panels. Dark mode restores the palette read directly from the deployed
+site's CSS: `#181818` page, `#e8e8e8` text and `#202020` panels, with `#d4d4d4`
+filled controls. The contact panel uses `surface`, while
 form fields use `input-border` so their outlines remain distinct from decorative
 dividers. Buttons use separate foreground and hover colors in each theme.
 
 The token pairs were checked with the WCAG relative-luminance calculation:
-body text on the page background is 21.00:1 (light) and 14.88:1 (dark); secondary
-text is 5.74:1 and 6.97:1; button text is 9.74:1 and 14.88:1. Form borders exceed
+body text on the page background is 10.72:1 (light) and 14.49:1 (dark); secondary
+text is 5.31:1 and 8.19:1; button text is 8.45:1 and 12.09:1. Form borders exceed
 3:1 against both adjacent surfaces. Text pairs also exceed 4.5:1 on the panel,
 muted backgrounds and button hover states. These checks cover color pairs,
 not a full accessibility audit or a claim about users' color preferences.
@@ -248,11 +306,22 @@ when changing these tokens.
 
 ## Reading typography
 
-Page text uses locally available system sans-serif fonts, with Segoe UI, Arial
-and generic sans-serif fallbacks. No additional web font is downloaded for
-reading. This follows [W3C's CSS typography technique](https://www.w3.org/WAI/WCAG22/Techniques/css/C22),
-which recommends available fonts and fallbacks; it does not certify a particular
-font family as universally more readable.
+Page text uses [Atkinson Hyperlegible Next](https://www.brailleinstitute.org/freefont/),
+designed with distinctive letterforms and numerals for low-vision legibility.
+This design rationale does not establish one universally most readable font.
+Astro downloads and caches the Latin WOFF2 variable font at build time and serves
+it from this site. Normal and italic styles cover weights 400–700; only the normal
+style is preloaded. `font-display: swap` and Arial/system fallbacks keep text
+available while it loads. The SIL Open Font License is distributed at
+`public/fonts/atkinson-hyperlegible-next-OFL.txt`. No new package is required.
+
+The body requests `-webkit-font-smoothing: antialiased` and
+`-moz-osx-font-smoothing: grayscale`, plus normal kerning and automatic optical
+sizing where supported. These are rendering hints, not a configurable blur or
+anti-aliasing strength. As [MDN documents](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-smooth),
+the smoothing properties are non-standard and apply on macOS; other systems
+retain their native font rendering. Check both themes on the actual target
+screen before drawing conclusions about perceived sharpness or comfort.
 
 Long-form copy in About, posts, Home, Contacts and Portfolio uses `1.125rem`
 (18px with the browser's usual 16px default), unitless 1.75 line spacing and a
@@ -262,9 +331,9 @@ hierarchy. Headings use upright text; body text is aligned to the reading start,
 without justification. Browser text size remains user-controlled.
 
 These are design choices informed by [WCAG visual presentation](https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html),
-not proof of a reading-speed improvement or full AAA conformance. Exact neutral
+not proof of a reading-speed improvement or full AAA conformance. Exact palette
 hex values reflect the requested appearance; their evidence is measured contrast,
-not a claim that gray is universally more comfortable. Preserve both themes.
+not a claim that a color scheme is universally more comfortable. Preserve both themes.
 When editing typography, check 200% zoom, narrow layouts and
 [user text-spacing overrides](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html):
 1.5 line height, 2em paragraph spacing, 0.12em letter spacing and 0.16em word
@@ -335,7 +404,7 @@ Astro loads `astro.config.mjs` before `astro.config.ts`; default commands use th
 and 700 and TTF/WOFF sources for Satori. Google Fonts must be reachable on the
 first build. Astro caches downloaded fonts for later builds.
 
-The site uses system fonts for page text and generates `/og.png` and per-post
+The site uses Atkinson Hyperlegible Next for page text and generates `/og.png` and per-post
 social preview images with Satori and Sharp.
 
 ## Cloudflare Pages

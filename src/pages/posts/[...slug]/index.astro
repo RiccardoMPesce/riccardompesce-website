@@ -114,7 +114,10 @@ const ogImage = ogImageUrl
 
   <main
     id="main-content"
-    class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
+    class:list={[
+      "app-layout text-center md:text-start",
+      { "mt-8": !config.features.showBackButton },
+    ]}
     data-pagefind-body
   >
     <h1
@@ -125,7 +128,7 @@ const ogImage = ogImageUrl
     </h1>
 
     <div
-      class="my-2 flex flex-col items-start gap-2 md:flex-row md:items-center"
+      class="my-2 flex flex-col items-center gap-2 md:flex-row md:items-center"
     >
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
@@ -158,11 +161,13 @@ const ogImage = ogImageUrl
 
     <BackToTopButton headings={tocHeadings} />
 
-    <div class="md:my-8 md:flex md:items-start md:justify-between md:gap-8">
+    <div class="md:my-8 md:flex md:items-center md:justify-between md:gap-8">
       <div
-        class="mt-4 mb-8 flex flex-col items-start gap-4 md:my-0 md:flex-row md:justify-between"
+        class="mt-4 mb-8 flex flex-col items-center gap-4 md:my-0 md:flex-row md:items-start md:justify-between"
       >
-        <ul class="flex flex-col items-start gap-4 md:flex-row md:flex-wrap">
+        <ul
+          class="flex flex-col items-center gap-4 md:flex-row md:flex-wrap md:items-start"
+        >
           {
             tags.map(tag => (
               <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />

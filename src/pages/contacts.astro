@@ -17,13 +17,13 @@ import config from "@/config";
     pageTitle="Contacts"
     pageDesc="For projects, roles and technical conversations."
   >
-    <p class="reading-copy">
+    <p class="reading-copy max-md:mx-auto max-md:text-center">
       Have a technical challenge, a project idea or a question about something
       I’ve written? Tell me what you’re trying to do, the constraints you’re
       working with and where you’d like another perspective.
     </p>
     <section
-      class="border-border bg-surface mt-10 rounded-xl border p-5 sm:p-8"
+      class="border-border bg-surface mt-10 rounded-xl border p-5 text-center sm:p-8 md:text-start"
       aria-labelledby="contact-form-title"
     >
       <h2 id="contact-form-title" class="text-accent text-xl font-semibold">
@@ -96,16 +96,23 @@ import config from "@/config";
       </form>
     </section>
     <ul class="border-border mt-8 divide-y border-y">
-      <li class="py-5">
+      <li class="py-5 text-center md:text-start">
         <p class="text-muted-foreground mb-1 text-sm">Email</p>
         <p class="mb-2">Start a conversation about a problem or a project.</p>
         <!--email_off-->
         <a
           class="text-accent break-all underline decoration-solid underline-offset-4"
-          href="mailto:riccardompesce@gmail.com">riccardompesce@gmail.com</a
+          href="mailto:riccardompesce@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          >riccardompesce@gmail.com <span aria-hidden="true">↗</span><span
+            class="sr-only"
+          >
+            (opens your email app or a new tab)</span
+          ></a
         ><!--/email_off-->
       </li>
-      <li class="py-5">
+      <li class="py-5 text-center md:text-start">
         <p class="text-muted-foreground mb-1 text-sm">LinkedIn</p>
         <p class="mb-2">Connect around work, experience and opportunities.</p>
         <a
@@ -114,7 +121,7 @@ import config from "@/config";
           >riccardomariapesce <span aria-hidden="true">↗</span></a
         >
       </li>
-      <li class="py-5">
+      <li class="py-5 text-center md:text-start">
         <p class="text-muted-foreground mb-1 text-sm">GitHub</p>
         <p class="mb-2">Explore the code and repositories I share.</p>
         <a
@@ -137,5 +144,16 @@ import config from "@/config";
 
   .contact-form textarea {
     resize: vertical;
+  }
+  @media (width < 48rem) {
+    .contact-form {
+      margin-inline: auto;
+    }
+    .contact-form :is(input:not([type="hidden"]), textarea) {
+      text-align: center;
+    }
+    .contact-form button[type="submit"] {
+      justify-self: center;
+    }
   }
 </style>

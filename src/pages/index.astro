@@ -23,7 +23,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
     id="main-content"
     data-layout="index"
     data-home-path={homePath}
-    class="app-layout pb-12"
+    class="app-layout pb-12 text-center md:text-start"
   >
     <section
       aria-labelledby="intro-title"
@@ -39,13 +39,15 @@ const homePath = getRelativeLocaleUrl(locale, "");
           </p>
           <h1
             id="intro-title"
-            class="max-w-xl text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
+            class="max-w-xl text-4xl leading-tight font-semibold tracking-tight max-md:mx-auto sm:text-5xl"
           >
             Hey there, I’m Riccardo.
           </h1>
         </div>
       </div>
-      <p class="reading-copy text-muted-foreground mt-6">
+      <p
+        class="reading-copy text-muted-foreground mt-6 max-md:mx-auto max-md:text-center"
+      >
         My work spans complex systems engineering, business analysis and
         technical leadership. I’m interested in how the pieces fit together,
         from the flow of data to the decisions people make. Here, I share what I
@@ -63,7 +65,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
     <section aria-labelledby="latest-title" class="pt-10 sm:pt-12">
       <div
-        class="flex flex-col items-start gap-4 md:flex-row md:flex-wrap md:items-baseline md:justify-between"
+        class="flex flex-col items-center gap-4 md:flex-row md:flex-wrap md:items-baseline md:justify-between"
       >
         <h2 id="latest-title" class="text-xl font-semibold">Latest writing</h2>
         <a

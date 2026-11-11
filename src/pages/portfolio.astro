@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
 import Portrait from "@/components/Portrait.astro";
+import IconListTree from "@/assets/icons/IconListTree.svg";
 import { portfolio } from "@/data/portfolio";
 import config from "@/config";
 
@@ -17,11 +18,11 @@ const filters = [
   { value: "business", label: "Business" },
 ] as const;
 const sections = [
+  { id: "summary", label: "Summary" },
   { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "projects", label: "Projects" },
   { id: "capabilities", label: "Skills" },
-  { id: "education", label: "Education" },
-  { id: "toolkit", label: "Toolkit" },
 ] as const;
 ---
 
@@ -32,7 +33,7 @@ const sections = [
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout portfolio pb-16">
-    <section class="py-8 sm:py-12" aria-labelledby="portfolio-title">
+    <section class="py-6 sm:py-8" aria-labelledby="portfolio-title">
       <div
         class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
       >
@@ -47,379 +48,97 @@ const sections = [
           </h1>
         </div>
       </div>
-      <p
-        class="text-accent mt-5 max-w-2xl text-3xl leading-tight font-semibold tracking-tight sm:text-4xl"
-      >
-        From business analysis to data systems and technical leadership.
-      </p>
-      <p class="reading-copy text-muted-foreground mt-6">
-        Computer engineer and technical lead. My experience connects systems
-        design, data and delivery with stakeholder needs and commercial
-        decisions, across insurance, gaming and media.
-      </p>
-      <div
-        class="mt-7 flex flex-col items-stretch gap-5 md:flex-row md:flex-wrap md:items-center"
-      >
-        <a href="#experience" class="primary-link">
-          Explore my experience <span aria-hidden="true">↓</span>
-        </a>
-        <a href={getRelativeLocaleUrl(locale, "contacts")} class="text-link">
-          Let’s talk <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-      <dl class="border-border mt-10 grid gap-5 border-t pt-6 md:grid-cols-3">
-        <div>
-          <dt class="eyebrow">Engineering</dt>
-          <dd class="mt-2 font-medium">M.Sc. · 110/110 with honours</dd>
-        </div>
-        <div>
-          <dt class="eyebrow">Experience</dt>
-          <dd class="mt-2 font-medium">Technical & commercial</dd>
-        </div>
-        <div>
-          <dt class="eyebrow">Languages</dt>
-          <dd class="mt-2 font-medium">Italian · English C1</dd>
-        </div>
-      </dl>
     </section>
 
-    <portfolio-navigation class="section-navigation">
-      <nav class="section-nav" aria-label="Portfolio sections">
-        {
-          sections.map(section => (
-            <a href={`#${section.id}`}>{section.label}</a>
-          ))
-        }
-      </nav>
-    </portfolio-navigation>
-
-    <section
-      id="experience"
-      class="portfolio-section"
-      aria-labelledby="experience-title"
-    >
-      <p class="eyebrow">01 / Experience</p>
-      <h2 id="experience-title" class="section-title">
-        Roles across data, software and delivery.
-      </h2>
-      <p class="section-intro">
-        From commercial analysis and data integration to systems engineering and
-        technical ownership. Open a role to explore the work and tools behind
-        it.
-      </p>
-      <portfolio-explorer class="mt-7 block">
-        <div data-controls hidden>
+    <portfolio-tabs class="block">
+      <span data-navigation-sentinel class="block h-px" aria-hidden="true"
+      ></span>
+      <div class="section-navigation" data-section-navigation>
+        <div class="navigation-bar" data-navigation-bar>
           <div
-            class="flex flex-col gap-2 md:flex-row md:flex-wrap"
-            role="group"
-            aria-label="Filter experience by focus"
+            class="navigation-actions mb-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between"
+          >
+            <p class="eyebrow" id="portfolio-sections-label">
+              Explore the portfolio
+            </p>
+            <button type="button" class="full-cv-button" data-view-all hidden>
+              <IconListTree
+                class="size-5 shrink-0"
+                aria-hidden="true"
+                focusable="false"
+              />
+              View full CV
+            </button>
+          </div>
+          <div
+            class="section-nav"
+            data-tablist
+            aria-labelledby="portfolio-sections-label"
           >
             {
-              filters.map(filter => (
-                <button
-                  type="button"
-                  class="filter-button"
-                  data-filter={filter.value}
-                  aria-pressed={filter.value === "all" ? "true" : "false"}
-                  aria-controls="experience-list"
-                >
-                  {filter.label}
-                </button>
+              sections.map(section => (
+                <a id={`tab-${section.id}`} href={`#${section.id}`}>
+                  {section.label}
+                </a>
               ))
             }
           </div>
-          <div
-            class="mt-4 mb-6 flex flex-col items-start gap-3 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between"
-          >
-            <p
-              data-results
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-              class="text-muted-foreground"
-            >
-              Showing all {portfolio.experiences.length} roles
-            </p>
-            <button
-              type="button"
-              data-expand
-              class="text-link"
-              aria-controls="experience-list"
-            >
-              Expand visible roles
-            </button>
-          </div>
         </div>
-        <ol id="experience-list" class="experience-timeline grid gap-4">
-          {
-            portfolio.experiences.map((experience, index) => (
-              <li
-                id={experience.id}
-                data-experience
-                data-focus={experience.focus.join(" ")}
-              >
-                <details class="experience-card" open={index === 0}>
-                  <summary>
-                    <span class="text-muted-foreground block text-sm tabular-nums">
-                      {experience.period}
-                    </span>
-                    <span class="mt-2 flex flex-col items-start gap-4 md:flex-row md:justify-between">
-                      <span>
-                        <span class="text-accent block text-sm font-semibold">
-                          {experience.employer}
-                        </span>
-                        <span class="mt-1 block text-lg leading-snug font-semibold sm:text-xl">
-                          {experience.role}
-                        </span>
-                      </span>
-                      <span class="disclosure-icon" aria-hidden="true">
-                        +
-                      </span>
-                    </span>
-                    <span class="text-muted-foreground mt-3 block text-sm">
-                      {experience.location}
-                    </span>
-                    <span class="role-overview reading-copy mt-3 block">
-                      {experience.summary}
-                    </span>
-                  </summary>
-                  <div class="experience-body">
-                    <div class="role-contributions">
-                      <h3 class="font-semibold">Contributions</h3>
-                      <ul class="contributions mt-3">
-                        {experience.contributions.map(contribution => (
-                          <li>{contribution}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div class="role-tools">
-                      <h3 class="text-sm font-semibold">
-                        Tools & technologies
-                      </h3>
-                      <ul
-                        class="mt-3 flex flex-col items-start gap-2 md:flex-row md:flex-wrap"
-                        aria-label={`Tools used at ${experience.employer}`}
-                      >
-                        {experience.tools.map(tool => (
-                          <li class="skill-tag">{tool}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </details>
-              </li>
-            ))
-          }
-        </ol>
-      </portfolio-explorer>
-    </section>
-
-    <section
-      id="projects"
-      class="portfolio-section"
-      aria-labelledby="projects-title"
-    >
-      <p class="eyebrow">02 / Projects</p>
-      <h2 id="projects-title" class="section-title">
-        Visualizing dependencies in legacy scripts.
-      </h2>
-      <div class="mt-7 grid gap-4">
-        {
-          portfolio.projects.map(project => (
-            <article class="content-card">
-              <p class="eyebrow">{project.role}</p>
-              <h3 class="mt-3 text-xl font-semibold">{project.name}</h3>
-              <p class="reading-copy mt-3">{project.description}</p>
-              <ul
-                class="mt-4 flex flex-col items-start gap-2 md:flex-row md:flex-wrap"
-                aria-label={`${project.name} technologies`}
-              >
-                {project.tools.map(tool => (
-                  <li class="skill-tag">{tool}</li>
-                ))}
-              </ul>
-              <a href={project.url} class="text-link mt-5 inline-block">
-                Explore {project.name} on GitHub{" "}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-          ))
-        }
       </div>
-    </section>
-
-    <section
-      id="capabilities"
-      class="portfolio-section"
-      aria-labelledby="capabilities-title"
-    >
-      <p class="eyebrow">03 / Capabilities</p>
-      <h2 id="capabilities-title" class="section-title">
-        Responsibilities across roles.
-      </h2>
-      <p class="section-intro">
-        The responsibilities that run across my professional experience.
-      </p>
-      <div class="mt-7 grid gap-4 md:grid-cols-2">
-        {
-          portfolio.capabilities.map(capability => (
-            <article class="content-card">
-              <h3 class="text-accent text-lg font-semibold">
-                {capability.title}
-              </h3>
-              <p class="reading-copy mt-3">{capability.description}</p>
-              <ul class="contributions text-muted-foreground mt-4 text-sm">
-                {capability.items.map(item => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <section
-      id="education"
-      class="portfolio-section"
-      aria-labelledby="education-title"
-    >
-      <p class="eyebrow">04 / Education</p>
-      <h2 id="education-title" class="section-title">
-        Computer engineering, automation and control.
-      </h2>
-      <p class="section-intro">
-        Academic foundations in automation, control, electronics, networks and
-        computing. The subjects below describe university study, distinct from
-        the professional work above.
-      </p>
-      <div class="mt-7 grid gap-4">
-        {
-          portfolio.education.map(education => (
-            <article class="content-card">
-              <div class="flex flex-col items-start gap-3 md:flex-row md:flex-wrap md:items-baseline md:justify-between">
-                <h3 class="text-lg font-semibold">{education.degree}</h3>
-                <span class="text-muted-foreground text-sm">
-                  {education.year}
-                </span>
-              </div>
-              <p class="text-muted-foreground mt-2">{education.institution}</p>
-              {"result" in education && (
-                <p class="text-accent mt-3 font-semibold">{education.result}</p>
-              )}
-              <details
-                class="thesis-panel mt-6"
-                aria-label={`Thesis · ${education.degree}`}
-              >
-                <summary class="flex cursor-pointer list-none flex-col items-start gap-3 rounded-sm md:flex-row md:justify-between">
-                  <span>
-                    <span class="block font-semibold">
-                      {education.thesis.label}
-                    </span>
-                    {education.thesis.title && (
-                      <span class="mt-2 block text-lg font-semibold">
-                        {education.thesis.title}
-                      </span>
-                    )}
-                  </span>
-                  <span class="disclosure-icon" aria-hidden="true">
-                    +
-                  </span>
-                </summary>
-                <div class="mt-4">
-                  <p class="text-muted-foreground text-sm">
-                    Year {education.thesis.year} · {education.thesis.credits}{" "}
-                    credits
-                  </p>
-                  {education.thesis.sections.map(section => (
-                    <section class="mt-6" aria-label={section.heading}>
-                      <h4 class="font-semibold">{section.heading}</h4>
-                      {section.paragraphs.map(paragraph => (
-                        <p class="reading-copy mt-3">{paragraph}</p>
-                      ))}
-                    </section>
-                  ))}
-                </div>
-              </details>
-              <details class="coursework mt-5">
-                <summary class="text-link w-fit cursor-pointer">
-                  Explore {education.coursework.length} coursework activities
-                </summary>
-                <p class="text-muted-foreground mt-4 text-sm leading-relaxed">
-                  Course titles and credits follow my transcript, with details
-                  on recognized professional experience. Individual grades are
-                  omitted. Credit values are expressed in university credits.
-                </p>
-                {[1, 2, 3].map(year => {
-                  const subjects = education.coursework.filter(
-                    subject => subject.year === year
-                  );
-                  return (
-                    subjects.length > 0 && (
-                      <section
-                        class="mt-6"
-                        aria-label={`Year ${year} academic activities`}
-                      >
-                        <h4 class="text-accent text-sm font-semibold">
-                          Year {year}
-                        </h4>
-                        <ul class="border-border mt-3 divide-y border-y">
-                          {subjects.map(subject => (
-                            <li>
-                              <details class="course-entry py-3">
-                                <summary class="flex cursor-pointer list-none flex-col items-start gap-3 rounded-sm py-1 md:flex-row md:justify-between">
-                                  <span
-                                    lang={subject.language}
-                                    class="text-sm leading-relaxed font-medium"
-                                  >
-                                    {subject.name}
-                                  </span>
-                                  <span class="text-muted-foreground shrink-0 text-xs leading-6">
-                                    {subject.credits} credits{" "}
-                                    <span
-                                      aria-hidden="true"
-                                      class="course-symbol text-accent ms-2 inline-block"
-                                    >
-                                      +
-                                    </span>
-                                  </span>
-                                </summary>
-                                <p class="reading-copy mt-3">
-                                  {subject.description}
-                                </p>
-                              </details>
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    )
-                  );
-                })}
-              </details>
-            </article>
-          ))
-        }
-      </div>
-      <section class="mt-8" aria-labelledby="credentials-title">
-        <h3 id="credentials-title" class="text-accent text-xl font-semibold">
-          Credentials & continued learning
-        </h3>
-        <p class="section-intro text-sm">
-          Language assessment, technical courses and learning programmes listed
-          on my LinkedIn profile. These complement my academic and professional
-          experience.
+      <section
+        id="summary"
+        class="portfolio-section"
+        data-tab-panel
+        aria-labelledby="summary-title"
+      >
+        <p class="eyebrow">Summary</p>
+        <h2 id="summary-title" class="section-title">
+          From business analysis to data systems and technical leadership.
+        </h2>
+        <p class="reading-copy text-muted-foreground mt-6">
+          Computer engineer and technical lead. My experience connects systems
+          design, data and delivery with stakeholder needs and commercial
+          decisions, across insurance, gaming and media.
         </p>
-        <details class="content-card mt-5">
+        <div
+          class="mt-7 flex flex-col items-stretch gap-5 md:flex-row md:flex-wrap md:items-center"
+        >
+          <a href="#experience" class="primary-link">
+            Explore my experience <span aria-hidden="true">↓</span>
+          </a>
+          <a href={getRelativeLocaleUrl(locale, "contacts")} class="text-link">
+            Let’s talk <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <dl class="border-border mt-10 grid gap-5 border-t pt-6 md:grid-cols-3">
+          <div>
+            <dt class="eyebrow">Engineering</dt>
+            <dd class="mt-2 font-medium">M.Sc. · 110/110 with honours</dd>
+          </div>
+          <div>
+            <dt class="eyebrow">Experience</dt>
+            <dd class="mt-2 font-medium">Technical & commercial</dd>
+          </div>
+          <div>
+            <dt class="eyebrow">Languages</dt>
+            <dd class="mt-2 font-medium">Italian · English C1</dd>
+          </div>
+        </dl>
+        <details class="content-card mt-8">
           <summary class="text-link w-fit cursor-pointer"
-            >Explore {portfolio.credentials.length} selected credentials and programmes</summary
+            >Community involvement</summary
           >
-          <ul class="mt-5 grid gap-4 md:grid-cols-2">
+          <p class="mt-4 text-sm leading-relaxed">
+            Alongside my studies, my academic activities and associations
+            included EESTEC and GDG Catania.
+          </p>
+          <ul class="mt-4 grid gap-4">
             {
-              portfolio.credentials.map(credential => (
+              portfolio.community.map(activity => (
                 <li class="border-border border-t pt-4">
-                  <h4 class="font-semibold">{credential.name}</h4>
+                  <h3 class="font-semibold">{activity.role}</h3>
                   <p class="text-muted-foreground mt-2 text-sm">
-                    {credential.issuer} · {credential.issued}
+                    {activity.organization} · {activity.period}
                   </p>
                 </li>
               ))
@@ -427,56 +146,373 @@ const sections = [
           </ul>
         </details>
       </section>
-    </section>
 
-    <section
-      id="toolkit"
-      class="portfolio-section"
-      aria-labelledby="toolkit-title"
-    >
-      <p class="eyebrow">05 / Toolkit</p>
-      <h2 id="toolkit-title" class="section-title">
-        Technologies used across projects.
-      </h2>
-      <p class="section-intro">
-        Technologies from my CV. The experience above shows where I’ve used
-        them.
-      </p>
-      <dl class="border-border mt-7 divide-y border-y">
-        {
-          portfolio.toolkit.map(group => (
-            <div class="py-5">
-              <dt class="font-semibold">{group.title}</dt>
-              <dd class="text-muted-foreground mt-2 leading-relaxed">
-                {group.tools}
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
-
-    <details class="content-card mt-8">
-      <summary class="text-link w-fit cursor-pointer"
-        >Community involvement</summary
+      <section
+        id="experience"
+        data-tab-panel
+        class="portfolio-section"
+        aria-labelledby="experience-title"
       >
-      <p class="mt-4 text-sm leading-relaxed">
-        Alongside my studies, my academic activities and associations included
-        EESTEC and GDG Catania.
-      </p>
-      <ul class="mt-4 grid gap-4">
-        {
-          portfolio.community.map(activity => (
-            <li class="border-border border-t pt-4">
-              <h3 class="font-semibold">{activity.role}</h3>
-              <p class="text-muted-foreground mt-2 text-sm">
-                {activity.organization} · {activity.period}
+        <p class="eyebrow">Experience</p>
+        <h2 id="experience-title" class="section-title">
+          Roles across data, software and delivery.
+        </h2>
+        <p class="section-intro">
+          From commercial analysis and data integration to systems engineering
+          and technical ownership. Open a role to explore the work and tools
+          behind it.
+        </p>
+        <portfolio-explorer class="mt-7 block">
+          <div data-controls hidden>
+            <div
+              class="flex flex-col gap-2 md:flex-row md:flex-wrap"
+              role="group"
+              aria-label="Filter experience by focus"
+            >
+              {
+                filters.map(filter => (
+                  <button
+                    type="button"
+                    class="filter-button"
+                    data-filter={filter.value}
+                    aria-pressed={filter.value === "all" ? "true" : "false"}
+                    aria-controls="experience-list"
+                  >
+                    {filter.label}
+                  </button>
+                ))
+              }
+            </div>
+            <div
+              class="mt-4 mb-6 flex flex-col items-center gap-3 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between"
+            >
+              <p
+                data-results
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                class="text-muted-foreground"
+              >
+                Showing all {portfolio.experiences.length} roles
               </p>
-            </li>
-          ))
-        }
-      </ul>
-    </details>
+              <button
+                type="button"
+                data-expand
+                class="text-link"
+                aria-controls="experience-list"
+              >
+                Expand visible roles
+              </button>
+            </div>
+          </div>
+          <ol id="experience-list" class="experience-timeline grid gap-4">
+            {
+              portfolio.experiences.map((experience, index) => (
+                <li
+                  id={experience.id}
+                  data-experience
+                  data-focus={experience.focus.join(" ")}
+                >
+                  <details class="experience-card" open={index === 0}>
+                    <summary>
+                      <span class="text-muted-foreground block text-sm tabular-nums">
+                        {experience.period}
+                      </span>
+                      <span class="mt-2 flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-between">
+                        <span>
+                          <span class="text-accent block text-sm font-semibold">
+                            {experience.employer}
+                          </span>
+                          <span class="mt-1 block text-lg leading-snug font-semibold sm:text-xl">
+                            {experience.role}
+                          </span>
+                        </span>
+                        <span class="disclosure-icon" aria-hidden="true">
+                          +
+                        </span>
+                      </span>
+                      <span class="text-muted-foreground mt-3 block text-sm">
+                        {experience.location}
+                      </span>
+                      <span class="role-overview reading-copy mt-3 block">
+                        {experience.summary}
+                      </span>
+                    </summary>
+                    <div class="experience-body">
+                      <div class="role-contributions">
+                        <h3 class="font-semibold">Contributions</h3>
+                        <ul class="contributions mt-3">
+                          {experience.contributions.map(contribution => (
+                            <li>{contribution}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div class="role-tools">
+                        <h3 class="text-sm font-semibold">
+                          Tools & technologies
+                        </h3>
+                        <ul
+                          class="mt-3 flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start"
+                          aria-label={`Tools used at ${experience.employer}`}
+                        >
+                          {experience.tools.map(tool => (
+                            <li class="skill-tag">{tool}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </details>
+                </li>
+              ))
+            }
+          </ol>
+        </portfolio-explorer>
+      </section>
+
+      <section
+        id="education"
+        data-tab-panel
+        class="portfolio-section"
+        aria-labelledby="education-title"
+      >
+        <p class="eyebrow">Education</p>
+        <h2 id="education-title" class="section-title">
+          Computer engineering, automation and control.
+        </h2>
+        <p class="section-intro">
+          Academic foundations in automation, control, electronics, networks and
+          computing. The subjects below describe university study, distinct from
+          the professional work above.
+        </p>
+        <div class="mt-7 grid gap-4">
+          {
+            portfolio.education.map(education => (
+              <article class="content-card">
+                <div class="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:items-baseline md:justify-between">
+                  <h3 class="text-lg font-semibold">{education.degree}</h3>
+                  <span class="text-muted-foreground text-sm">
+                    {education.year}
+                  </span>
+                </div>
+                <p class="text-muted-foreground mt-2">
+                  {education.institution}
+                </p>
+                {"result" in education && (
+                  <p class="text-accent mt-3 font-semibold">
+                    {education.result}
+                  </p>
+                )}
+                <details
+                  class="thesis-panel mt-6"
+                  aria-label={`Thesis · ${education.degree}`}
+                >
+                  <summary class="flex cursor-pointer list-none flex-col items-center gap-3 rounded-sm md:flex-row md:items-start md:justify-between">
+                    <span>
+                      <span class="block font-semibold">
+                        {education.thesis.label}
+                      </span>
+                      {education.thesis.title && (
+                        <span class="mt-2 block text-lg font-semibold">
+                          {education.thesis.title}
+                        </span>
+                      )}
+                    </span>
+                    <span class="disclosure-icon" aria-hidden="true">
+                      +
+                    </span>
+                  </summary>
+                  <div class="mt-4">
+                    <p class="text-muted-foreground text-sm">
+                      Year {education.thesis.year} · {education.thesis.credits}{" "}
+                      credits
+                    </p>
+                    {education.thesis.sections.map(section => (
+                      <section class="mt-6" aria-label={section.heading}>
+                        <h4 class="font-semibold">{section.heading}</h4>
+                        {section.paragraphs.map(paragraph => (
+                          <p class="reading-copy mt-3">{paragraph}</p>
+                        ))}
+                      </section>
+                    ))}
+                  </div>
+                </details>
+                <details class="coursework mt-5">
+                  <summary class="text-link w-fit cursor-pointer">
+                    Explore {education.coursework.length} coursework activities
+                  </summary>
+                  <p class="text-muted-foreground mt-4 text-sm leading-relaxed">
+                    Course titles and credits follow my transcript, with details
+                    on recognized professional experience. Individual grades are
+                    omitted. Credit values are expressed in university credits.
+                  </p>
+                  {[1, 2, 3].map(year => {
+                    const subjects = education.coursework.filter(
+                      subject => subject.year === year
+                    );
+                    return (
+                      subjects.length > 0 && (
+                        <section
+                          class="mt-6"
+                          aria-label={`Year ${year} academic activities`}
+                        >
+                          <h4 class="text-accent text-sm font-semibold">
+                            Year {year}
+                          </h4>
+                          <ul class="border-border mt-3 divide-y border-y">
+                            {subjects.map(subject => (
+                              <li>
+                                <details class="course-entry py-3">
+                                  <summary class="flex cursor-pointer list-none flex-col items-center gap-3 rounded-sm py-1 md:flex-row md:items-start md:justify-between">
+                                    <span
+                                      lang={subject.language}
+                                      class="text-sm leading-relaxed font-medium"
+                                    >
+                                      {subject.name}
+                                    </span>
+                                    <span class="text-muted-foreground shrink-0 text-xs leading-6">
+                                      {subject.credits} credits{" "}
+                                      <span
+                                        aria-hidden="true"
+                                        class="course-symbol text-accent ms-2 inline-block"
+                                      >
+                                        +
+                                      </span>
+                                    </span>
+                                  </summary>
+                                  <p class="reading-copy mt-3">
+                                    {subject.description}
+                                  </p>
+                                </details>
+                              </li>
+                            ))}
+                          </ul>
+                        </section>
+                      )
+                    );
+                  })}
+                </details>
+              </article>
+            ))
+          }
+        </div>
+        <section class="mt-8" aria-labelledby="credentials-title">
+          <h3 id="credentials-title" class="text-accent text-xl font-semibold">
+            Credentials & continued learning
+          </h3>
+          <p class="section-intro text-sm">
+            Language assessment, technical courses and learning programmes
+            listed on my LinkedIn profile. These complement my academic and
+            professional experience.
+          </p>
+          <details class="content-card mt-5">
+            <summary class="text-link w-fit cursor-pointer"
+              >Explore {portfolio.credentials.length} selected credentials and programmes</summary
+            >
+            <ul class="mt-5 grid gap-4 md:grid-cols-2">
+              {
+                portfolio.credentials.map(credential => (
+                  <li class="border-border border-t pt-4">
+                    <h4 class="font-semibold">{credential.name}</h4>
+                    <p class="text-muted-foreground mt-2 text-sm">
+                      {credential.issuer} · {credential.issued}
+                    </p>
+                  </li>
+                ))
+              }
+            </ul>
+          </details>
+        </section>
+      </section>
+
+      <section
+        id="projects"
+        data-tab-panel
+        class="portfolio-section"
+        aria-labelledby="projects-title"
+      >
+        <p class="eyebrow">Projects</p>
+        <h2 id="projects-title" class="section-title">
+          Visualizing dependencies in legacy scripts.
+        </h2>
+        <div class="mt-7 grid gap-4">
+          {
+            portfolio.projects.map(project => (
+              <article class="content-card">
+                <p class="eyebrow">{project.role}</p>
+                <h3 class="mt-3 text-xl font-semibold">{project.name}</h3>
+                <p class="reading-copy mt-3">{project.description}</p>
+                <ul
+                  class="mt-4 flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start"
+                  aria-label={`${project.name} technologies`}
+                >
+                  {project.tools.map(tool => (
+                    <li class="skill-tag">{tool}</li>
+                  ))}
+                </ul>
+                <a href={project.url} class="text-link mt-5 inline-block">
+                  Explore {project.name} on GitHub{" "}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section
+        id="capabilities"
+        data-tab-panel
+        class="portfolio-section"
+        aria-labelledby="capabilities-title"
+      >
+        <p class="eyebrow">Capabilities</p>
+        <h2 id="capabilities-title" class="section-title">
+          Responsibilities across roles.
+        </h2>
+        <p class="section-intro">
+          The responsibilities that run across my professional experience.
+        </p>
+        <div class="mt-7 grid gap-4 md:grid-cols-2">
+          {
+            portfolio.capabilities.map(capability => (
+              <article class="content-card">
+                <h3 class="text-accent text-lg font-semibold">
+                  {capability.title}
+                </h3>
+                <p class="reading-copy mt-3">{capability.description}</p>
+                <ul class="contributions text-muted-foreground mt-4 text-sm">
+                  {capability.items.map(item => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+        <section id="toolkit" class="mt-10" aria-labelledby="toolkit-title">
+          <p class="eyebrow">Toolkit</p>
+          <h3 id="toolkit-title" class="section-title">
+            Technologies used across projects.
+          </h3>
+          <p class="section-intro">
+            Technologies from my CV. The experience above shows where I’ve used
+            them.
+          </p>
+          <dl class="border-border mt-7 divide-y border-y">
+            {
+              portfolio.toolkit.map(group => (
+                <div class="py-5">
+                  <dt class="font-semibold">{group.title}</dt>
+                  <dd class="text-muted-foreground mt-2 leading-relaxed">
+                    {group.tools}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </section>
+      </section>
+    </portfolio-tabs>
 
     <section
       class="content-card mt-12"
@@ -503,65 +539,7 @@ const sections = [
 </Layout>
 
 <script>
-  class PortfolioNavigation extends HTMLElement {
-    #controller: AbortController | undefined;
-    #frame: number | undefined;
-    #resizeObserver: ResizeObserver | undefined;
-
-    connectedCallback() {
-      this.#controller?.abort();
-      this.#controller = new AbortController();
-      const { signal } = this.#controller;
-      const links = [
-        ...this.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
-      ];
-      const sections = links.map(link => {
-        const section = document.getElementById(link.hash.slice(1));
-        if (!section)
-          throw new Error(
-            `Portfolio navigation target is missing: ${link.hash}`
-          );
-        return { link, section };
-      });
-      if (!sections.length)
-        throw new Error("Portfolio navigation has no section links.");
-
-      const update = () => {
-        this.#frame = undefined;
-        const threshold = Math.max(0, this.getBoundingClientRect().bottom) + 32;
-        let current = sections[0];
-        for (const entry of sections) {
-          if (entry.section.getBoundingClientRect().top <= threshold)
-            current = entry;
-        }
-        for (const { link } of sections) {
-          if (link === current.link)
-            link.setAttribute("aria-current", "location");
-          else link.removeAttribute("aria-current");
-        }
-      };
-      const schedule = () => {
-        if (this.#frame === undefined)
-          this.#frame = requestAnimationFrame(update);
-      };
-      window.addEventListener("scroll", schedule, { passive: true, signal });
-      window.addEventListener("resize", schedule, { passive: true, signal });
-      // Expanding or filtering content moves section boundaries without scrolling.
-      const main = this.closest("main");
-      if (!main) throw new Error("Portfolio navigation must be inside main.");
-      this.#resizeObserver?.disconnect();
-      this.#resizeObserver = new ResizeObserver(schedule);
-      this.#resizeObserver.observe(main);
-      update();
-    }
-
-    disconnectedCallback() {
-      this.#controller?.abort();
-      this.#resizeObserver?.disconnect();
-      if (this.#frame !== undefined) cancelAnimationFrame(this.#frame);
-      this.#frame = undefined;
-    }
-  }
+  import "@/scripts/portfolio-tabs";
 
   class PortfolioExplorer extends HTMLElement {
     #controller: AbortController | undefined;
@@ -666,16 +644,24 @@ const sections = [
   if (!customElements.get("portfolio-explorer")) {
     customElements.define("portfolio-explorer", PortfolioExplorer);
   }
-  if (!customElements.get("portfolio-navigation")) {
-    customElements.define("portfolio-navigation", PortfolioNavigation);
-  }
 </script>
 
 <style>
   @reference "../styles/global.css";
 
   .portfolio {
+    @apply text-center md:text-start;
     overflow-wrap: anywhere;
+  }
+  @media (width < 48rem) {
+    .portfolio .reading-copy:not(ul):not(ol),
+    .portfolio .section-intro {
+      margin-inline: auto;
+      text-align: center;
+    }
+    .portfolio summary.w-fit {
+      margin-inline: auto;
+    }
   }
   .eyebrow {
     @apply text-muted-foreground text-xs font-medium tracking-widest uppercase;
@@ -687,32 +673,105 @@ const sections = [
     @apply reading-copy text-muted-foreground mt-4;
   }
   .portfolio-section {
-    @apply pt-12 sm:pt-16;
-    scroll-margin-top: 4rem;
+    @apply pt-7 sm:pt-8;
+    scroll-margin-top: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .portfolio-section,
+    .portfolio :target {
+      scroll-margin-top: var(--portfolio-nav-offset, 9rem);
+    }
   }
   .text-link {
     @apply text-accent underline decoration-solid underline-offset-4;
   }
   .primary-link {
-    @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center gap-3 rounded-lg px-5 py-3 font-semibold transition-colors;
+    @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center justify-center gap-3 rounded-lg px-5 py-3 font-semibold transition-colors;
   }
   .section-navigation {
-    @apply bg-background block md:sticky md:top-0 md:z-10;
+    @apply block md:sticky md:top-0 md:z-10;
+  }
+  .navigation-bar {
+    @apply bg-background pt-3 pb-2;
   }
   .section-nav {
-    @apply border-border flex flex-col gap-1 border-y py-2 md:flex-row md:gap-5;
+    @apply border-border flex flex-col gap-2 border-y py-2 md:flex-row;
   }
   .section-nav a {
-    @apply text-muted-foreground hover:text-accent shrink-0 rounded-sm py-3 text-sm font-medium underline decoration-solid underline-offset-4 md:py-2;
+    @apply border-input-border bg-surface text-foreground hover:bg-muted flex flex-1 items-center justify-center rounded-lg border px-3 py-3 text-center text-sm font-medium no-underline;
+    min-block-size: 44px;
     transition:
       color 160ms ease,
-      text-decoration-color 160ms ease;
+      background-color 160ms ease,
+      border-color 160ms ease;
   }
+  .section-nav a[aria-selected="true"],
   .section-nav a[aria-current="location"] {
-    @apply text-accent decoration-2;
+    @apply border-accent bg-accent text-accent-foreground hover:bg-accent-hover font-semibold;
+  }
+  .full-cv-button {
+    @apply border-accent bg-muted text-foreground hover:bg-surface w-full items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 text-center text-sm font-semibold md:w-auto;
+    min-block-size: 44px;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease;
+  }
+  .full-cv-button:not([hidden]) {
+    display: inline-flex;
+  }
+  .full-cv-button[aria-pressed="true"] {
+    @apply bg-accent text-accent-foreground hover:bg-accent-hover;
+  }
+  @media (min-width: 768px) {
+    .section-navigation[data-stuck] {
+      /* Preserve the document position while only the visible toolbar shrinks. */
+      block-size: var(--portfolio-expanded-navigation);
+      pointer-events: none;
+    }
+    .section-navigation[data-stuck] .navigation-bar {
+      @apply border-border flex items-center gap-2 border-b py-1;
+      pointer-events: auto;
+    }
+    .section-navigation[data-stuck] .navigation-actions {
+      margin: 0;
+      order: 2;
+      flex: none;
+    }
+    .section-navigation[data-stuck] #portfolio-sections-label {
+      @apply sr-only;
+    }
+    .section-navigation[data-stuck] .section-nav {
+      @apply min-w-0 flex-1 gap-1 border-0 py-0;
+    }
+    .section-navigation[data-stuck] .section-nav a {
+      @apply border-transparent bg-transparent px-2 py-2 text-xs;
+    }
+    .section-navigation[data-stuck]
+      .section-nav
+      a:is([aria-selected="true"], [aria-current="location"]) {
+      @apply bg-muted text-foreground;
+    }
+    .section-navigation[data-stuck] .full-cv-button {
+      @apply border px-3 py-2 text-xs;
+    }
+    .section-navigation[data-stuck] .full-cv-button svg {
+      @apply size-4;
+    }
+  }
+  [data-tab-panel][hidden] {
+    display: none;
+  }
+  @media print {
+    .section-navigation {
+      display: none;
+    }
+    [data-tab-panel][hidden] {
+      display: block;
+    }
   }
   .experience-timeline {
-    @apply border-border ms-1 border-s ps-4 sm:ps-6;
+    @apply border-border md:ms-1 md:border-s md:ps-6;
   }
   .experience-timeline > li {
     position: relative;
@@ -720,7 +779,7 @@ const sections = [
   }
   .experience-timeline > li::before {
     content: "";
-    @apply border-accent bg-background absolute top-7 -left-5.25 size-2 rounded-full border sm:-left-7.25;
+    @apply border-accent bg-background absolute top-7 -left-7.25 hidden size-2 rounded-full border md:block;
   }
   .role-overview,
   .contributions {
@@ -786,7 +845,7 @@ const sections = [
     @apply bg-muted text-foreground rounded-md px-2.5 py-1 text-xs leading-relaxed;
   }
   .filter-button {
-    @apply border-input-border hover:bg-muted rounded-full border px-3 py-2 text-sm;
+    @apply border-input-border hover:bg-muted w-full rounded-full border px-3 py-2 text-center text-sm md:w-auto;
     min-height: 44px;
     transition:
       background-color 160ms ease,
@@ -803,7 +862,10 @@ const sections = [
   .course-symbol {
     transition: transform 180ms ease;
   }
-  @media (prefers-reduced-motion: no-preference) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    [data-tab-panel]:not([hidden]) {
+      animation: role-appear 180ms ease-out;
+    }
     .experience-timeline > li:not([hidden]) {
       animation: role-appear 180ms ease-out;
     }

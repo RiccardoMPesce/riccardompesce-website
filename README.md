@@ -228,15 +228,17 @@ directly into public output; Astro generates the served image variants.
 
 ## Colors and contrast
 
-Palette tokens live in `src/styles/theme.css`: off-white, white and charcoal for
-light mode; near-black and soft grays for dark mode. Both palettes use
-achromatic colors throughout. The contact panel uses `surface`, while
+Palette tokens live in `src/styles/theme.css`. Light mode takes its white page,
+black text and restrained gray accents from [antirez.com](https://antirez.com/)
+and its public stylesheet. Dark mode follows the supplied visual reference:
+`#191919` charcoal background, `#ececec` text and `#242424` panels. Both palettes
+use achromatic colors throughout. The contact panel uses `surface`, while
 form fields use `input-border` so their outlines remain distinct from decorative
 dividers. Buttons use separate foreground and hover colors in each theme.
 
 The token pairs were checked with the WCAG relative-luminance calculation:
-body text on the page background is 14.50:1 (light) and 14.49:1 (dark); secondary
-text is 6.02:1 and 8.19:1; button text is 12.63:1 and 12.09:1. Form borders exceed
+body text on the page background is 21.00:1 (light) and 14.88:1 (dark); secondary
+text is 5.74:1 and 6.97:1; button text is 9.74:1 and 14.88:1. Form borders exceed
 3:1 against both adjacent surfaces. Text pairs also exceed 4.5:1 on the panel,
 muted backgrounds and button hover states. These checks cover color pairs,
 not a full accessibility audit or a claim about users' color preferences.
@@ -288,6 +290,43 @@ characters. Check empty fields, invalid email, short/long messages, keyboard use
 mobile layout and both themes. Client validation is a usability aid; delivery
 and server-side processing depend on FormSubmit. Direct email remains available
 if the provider is unavailable. Changing recipients requires activation again.
+
+Public email links are enclosed in Cloudflare's documented
+[`email_off` HTML comments](https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/#prevent-cloudflare-from-obfuscating-email).
+Keep these markers in the generated HTML so the address and `mailto:` links work
+without Cloudflare's JavaScript decoder. After deployment, verify Contacts and
+the email icon on the public domain; local output cannot verify edge rewriting.
+If an old protected link persists, check the deployed version and cached HTML.
+
+## Blog comments
+
+Blog posts support [giscus](https://giscus.app/), backed by GitHub Discussions.
+Activation requires the public `RiccardoMPesce/riccardompesce-website` repository,
+Discussions enabled in its settings, and the [giscus GitHub App](https://github.com/apps/giscus)
+installed for that repository. These account steps are not performed by the build.
+
+The repository and Announcements category IDs in `src/data/comments.ts` were
+verified through GitHub and the giscus category API. Comments use these defaults
+without environment configuration. To change categories, select the repository
+at giscus.app and set `PUBLIC_GISCUS_CATEGORY` and `PUBLIC_GISCUS_CATEGORY_ID`
+from its generated script (see `.env.example`). Use `.env` locally or Cloudflare
+Pages Production/Preview variables, then rebuild. Changing repositories also
+requires updating the repository name and node ID in `src/data/comments.ts`.
+Incomplete overrides fail the build. Set both overrides to empty strings to
+omit the comments section.
+
+Readers choose **Load comments** before any giscus request is made. Comments are
+public, require GitHub sign-in, and can be moderated through GitHub. Each post
+uses its pathname with strict matching; preserve published post paths to keep
+their discussion association. The widget follows the site's light/dark theme,
+handles script download failures with retry, and offers a GitHub fallback link.
+The integration reconnects after Astro navigation and removes theme observers
+when leaving the page.
+
+After activation, check two different posts, light/dark switching, narrow layouts,
+keyboard use, blocked third-party scripts, and navigating between posts. Verify
+an actual comment on a deployed post before claiming end-to-end availability;
+avoid posting test comments from localhost because they use the same discussion mapping.
 
 ## Fonts and social previews
 

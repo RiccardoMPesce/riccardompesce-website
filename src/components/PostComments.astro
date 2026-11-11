@@ -1,0 +1,164 @@
+---
+import { resolveCommentsConfig } from "@/data/comments";
+
+const config = resolveCommentsConfig(
+  import.meta.env.PUBLIC_GISCUS_CATEGORY,
+  import.meta.env.PUBLIC_GISCUS_CATEGORY_ID
+);
+---
+
+{
+  config && (
+    <section
+      aria-labelledby="comments-heading"
+      class="border-border my-8 border-t pt-8"
+      data-pagefind-ignore
+    >
+      <h2 id="comments-heading" class="text-xl font-semibold">
+        Comments
+      </h2>
+      <p class="text-muted-foreground mt-3 mb-4 leading-relaxed">
+        Questions, corrections and different perspectives are welcome. Comments
+        are public and hosted on GitHub. A GitHub account is required to
+        participate.
+      </p>
+      <post-comments
+        data-repository={config.repository}
+        data-repository-id={config.repositoryId}
+        data-category={config.category}
+        data-category-id={config.categoryId}
+        class="block min-w-0"
+      >
+        <button
+          type="button"
+          class="border-input-border hover:bg-muted rounded-lg border px-5 py-3 font-medium focus-visible:outline-2 focus-visible:outline-offset-4"
+          data-load-comments
+        >
+          Load comments
+        </button>
+        <p
+          class="text-muted-foreground mt-3 text-sm"
+          role="status"
+          data-comments-status
+        >
+          Loading comments connects to giscus and GitHub.
+        </p>
+        <div class="giscus mt-4 min-w-0" />
+      </post-comments>
+      <p class="mt-4 text-sm">
+        <a
+          class="underline underline-offset-4"
+          href={`https://github.com/${config.repository}/discussions`}
+        >
+          Browse discussions on GitHub ↗
+        </a>
+      </p>
+      <noscript>
+        <p class="mt-3">
+          Enable JavaScript to load comments here, or visit GitHub using the
+          link above.
+        </p>
+      </noscript>
+    </section>
+  )
+}
+
+<script>
+  class PostComments extends HTMLElement {
+    private observer: MutationObserver | undefined;
+    private controller: AbortController | undefined;
+
+    connectedCallback(): void {
+      const button = this.querySelector<HTMLButtonElement>(
+        "[data-load-comments]"
+      );
+      const status = this.querySelector<HTMLElement>("[data-comments-status]");
+      const container = this.querySelector<HTMLElement>(".giscus");
+      if (!button || !status || !container) {
+        throw new Error("Comments markup is incomplete.");
+      }
+      this.controller?.abort();
+      this.controller = new AbortController();
+      button.addEventListener(
+        "click",
+        () => {
+          if (button.disabled) return;
+          button.disabled = true;
+          status.textContent = "Loading comments…";
+          const script = document.createElement("script");
+          script.src = "https://giscus.app/client.js";
+          script.async = true;
+          script.crossOrigin = "anonymous";
+          const attributes: Readonly<Record<string, string>> = {
+            repo: this.dataset.repository ?? "",
+            "repo-id": this.dataset.repositoryId ?? "",
+            category: this.dataset.category ?? "",
+            "category-id": this.dataset.categoryId ?? "",
+            mapping: "pathname",
+            strict: "1",
+            "reactions-enabled": "1",
+            "emit-metadata": "0",
+            "input-position": "top",
+            theme: this.theme(),
+            lang: "en",
+            loading: "lazy",
+          };
+          for (const [key, value] of Object.entries(attributes)) {
+            script.setAttribute(`data-${key}`, value);
+          }
+          script.addEventListener(
+            "load",
+            () => {
+              button.hidden = true;
+              status.textContent =
+                "If comments do not appear, use the GitHub link below.";
+            },
+            { signal: this.controller?.signal }
+          );
+          script.addEventListener(
+            "error",
+            () => {
+              script.remove();
+              button.disabled = false;
+              status.textContent =
+                "Comments could not load. Try again or open GitHub below.";
+            },
+            { signal: this.controller?.signal }
+          );
+          container.append(script);
+        },
+        { signal: this.controller.signal }
+      );
+
+      // The site theme can differ from the OS preference; keep the embedded UI in sync.
+      this.observer?.disconnect();
+      this.observer = new MutationObserver(() => {
+        this.querySelector<HTMLIFrameElement>(
+          "iframe.giscus-frame"
+        )?.contentWindow?.postMessage(
+          { giscus: { setConfig: { theme: this.theme() } } },
+          "https://giscus.app"
+        );
+      });
+      this.observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+    }
+
+    disconnectedCallback(): void {
+      this.controller?.abort();
+      this.observer?.disconnect();
+    }
+
+    private theme(): string {
+      return document.documentElement.dataset.theme === "dark"
+        ? "dark_dimmed"
+        : "light";
+    }
+  }
+
+  if (!customElements.get("post-comments")) {
+    customElements.define("post-comments", PostComments);
+  }
+</script>

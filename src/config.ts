@@ -43,7 +43,7 @@ export const SITE = {
   website: "https://riccardompesce.com",
   author: "Riccardo Maria Pesce",
   profile: "https://github.com/tuo-username",
-  desc: "Sistemi complessi, controllo ottimo, architetture dati e automazione industriale.",
+  desc: config.site.description,
   title: "Riccardo Maria Pesce",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,

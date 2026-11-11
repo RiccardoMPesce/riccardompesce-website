@@ -43,7 +43,8 @@ currently hidden from navigation to keep the site minimal.
 
 - Site identity, social links and features: `astro-paper.config.ts`.
 - Home page: `src/pages/index.astro`.
-- About: `src/content/pages/about.md`.
+- About: `src/content/pages/about.md`, including career direction and
+  author-provided personal interests. Keep references to relationships general.
 - Portfolio page and public CV data: `src/pages/portfolio.astro` and
   `src/data/portfolio.ts`; university activities and syllabus references are in
   `src/data/education.ts`.
@@ -446,6 +447,11 @@ first build. Astro caches downloaded fonts for later builds.
 
 The site uses Atkinson Hyperlegible Next for page text and generates `/og.png` and per-post
 social preview images with Satori and Sharp.
+The general description in `astro-paper.config.ts` covers work, study, exploration
+and learning. Home metadata, the default social description, the generated site
+preview image and RSS share this source. Individual pages and posts keep their
+specific descriptions. Rebuild and deploy to update the public previews; sharing
+services may retain previously fetched metadata or images in their own caches.
 
 ## Cloudflare Pages
 

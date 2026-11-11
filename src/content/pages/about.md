@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "Riccardo Pesce’s experience in data engineering, backend systems and technical leadership, and the direction behind his work."
+description: "Riccardo Pesce’s experience across data, systems and technical leadership, his career direction and his interests outside work."
 ---
 
 I’m Riccardo Pesce, a computer engineer. My work has taken me from business intelligence and data engineering to backend systems and technical leadership, across insurance, gaming and media.
@@ -22,5 +22,15 @@ Projects give me a way to explore that direction through practice: try an idea, 
 ## Projects, decisions and learning.
 
 This website is where I document that process. I want to explain the problem behind a project, the choices I make and what I learn along the way. The aim is to give you enough context to judge whether an idea could be useful in your own work.
+
+## Interests and life outside work.
+
+Personal growth matters to me: taking time to understand what I want, reflect on my choices and build habits that fit the life I want to lead.
+
+I’m passionate about flying (in all forms - PPL is on my list) and travel. I enjoy discovering new places and perspectives, and having opportunities to explore beyond my everyday routine.
+
+Training is another part of my life, particularly CrossFit, weightlifting and boxing. I enjoy making time for physical activity alongside my other interests.
+
+Good food and good company matter just as much: time with my girlfriend, my friends and the people close to me. Those relationships are part of what a fulfilling life means to me, alongside the work I choose to do.
 
 Explore my [portfolio](/portfolio/) for experience and education, read the [blog](/posts/) or start a conversation on the [contacts page](/contacts/).

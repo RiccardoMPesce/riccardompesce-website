@@ -3,7 +3,19 @@
 @layer base {
   /* ===== Override default Tailwind Typography styles ===== */
   .app-prose {
-    @apply prose;
+    @apply prose prose-lg;
+
+    font-size: 1.125rem;
+    line-height: 1.75;
+    text-align: start;
+
+    :where(p, ul, ol, blockquote) {
+      max-inline-size: 65ch;
+    }
+
+    p {
+      margin-block: 1.5em;
+    }
 
     h1,
     h2,
@@ -11,10 +23,6 @@
     h4,
     th {
       @apply text-foreground mb-3;
-    }
-
-    h3 {
-      @apply italic;
     }
 
     p,

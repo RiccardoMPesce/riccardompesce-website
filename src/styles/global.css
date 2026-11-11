@@ -6,6 +6,10 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer base {
+  body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
   * {
     @apply border-border outline-accent/75;
     scrollbar-width: auto;
@@ -20,6 +24,13 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+}
+
+@utility reading-copy {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  max-inline-size: 65ch;
+  text-align: start;
 }
 
 @utility max-w-app {

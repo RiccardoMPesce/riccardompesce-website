@@ -4,6 +4,8 @@ export interface UIStrings {
     posts: string;
     tags: string;
     about: string;
+    /** @description Label for the public career portfolio navigation link. */
+    readonly portfolio: string;
     contacts: string;
     archives: string;
     search: string;

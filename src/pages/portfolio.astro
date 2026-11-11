@@ -1,0 +1,832 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Footer from "@/components/Footer.astro";
+import { portfolio } from "@/data/portfolio";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const filters = [
+  { value: "all", label: "All experience" },
+  { value: "leadership", label: "Leadership" },
+  { value: "systems", label: "Systems" },
+  { value: "data", label: "Data" },
+  { value: "business", label: "Business" },
+] as const;
+const sections = [
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "capabilities", label: "Skills" },
+  { id: "education", label: "Education" },
+  { id: "toolkit", label: "Toolkit" },
+] as const;
+---
+
+<Layout
+  title={`Portfolio | ${config.site.title}`}
+  description="Riccardo Maria Pesce’s career across technical leadership, systems engineering, data and business solutions. Explore experience, skills and education."
+>
+  <Header />
+  <Breadcrumb />
+  <main id="main-content" class="app-layout portfolio pb-16">
+    <section class="py-8 sm:py-12" aria-labelledby="portfolio-title">
+      <p class="eyebrow">Riccardo Maria Pesce · Catania, Italy</p>
+      <h1 id="portfolio-title" class="mt-3 text-3xl font-semibold sm:text-4xl">
+        Portfolio
+      </h1>
+      <p
+        class="text-accent mt-5 max-w-2xl text-3xl leading-tight font-semibold tracking-tight sm:text-4xl"
+      >
+        From business analysis to data systems and technical leadership.
+      </p>
+      <p class="reading-copy text-muted-foreground mt-6">
+        Computer engineer and technical lead. My experience connects systems
+        design, data and delivery with stakeholder needs and commercial
+        decisions, across insurance, gaming and media.
+      </p>
+      <div class="mt-7 flex flex-wrap items-center gap-5">
+        <a href="#experience" class="primary-link">
+          Explore my experience <span aria-hidden="true">↓</span>
+        </a>
+        <a href={getRelativeLocaleUrl(locale, "contacts")} class="text-link">
+          Let’s talk <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <dl class="border-border mt-10 grid gap-5 border-t pt-6 sm:grid-cols-3">
+        <div>
+          <dt class="eyebrow">Engineering</dt>
+          <dd class="mt-2 font-medium">M.Sc. · 110/110 with honours</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Experience</dt>
+          <dd class="mt-2 font-medium">Technical & commercial</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Languages</dt>
+          <dd class="mt-2 font-medium">Italian · English C1</dd>
+        </div>
+      </dl>
+    </section>
+
+    <portfolio-navigation class="section-navigation">
+      <nav class="section-nav" aria-label="Portfolio sections">
+        {
+          sections.map(section => (
+            <a href={`#${section.id}`}>{section.label}</a>
+          ))
+        }
+      </nav>
+    </portfolio-navigation>
+
+    <section
+      id="experience"
+      class="portfolio-section"
+      aria-labelledby="experience-title"
+    >
+      <p class="eyebrow">01 / Experience</p>
+      <h2 id="experience-title" class="section-title">
+        Roles across data, software and delivery.
+      </h2>
+      <p class="section-intro">
+        From commercial analysis and data integration to systems engineering and
+        technical ownership. Open a role to explore the work and tools behind
+        it.
+      </p>
+      <portfolio-explorer class="mt-7 block">
+        <div data-controls hidden>
+          <div
+            class="flex flex-wrap gap-2"
+            role="group"
+            aria-label="Filter experience by focus"
+          >
+            {
+              filters.map(filter => (
+                <button
+                  type="button"
+                  class="filter-button"
+                  data-filter={filter.value}
+                  aria-pressed={filter.value === "all" ? "true" : "false"}
+                  aria-controls="experience-list"
+                >
+                  {filter.label}
+                </button>
+              ))
+            }
+          </div>
+          <div
+            class="mt-4 mb-6 flex flex-wrap items-center justify-between gap-3 text-sm"
+          >
+            <p
+              data-results
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              class="text-muted-foreground"
+            >
+              Showing all {portfolio.experiences.length} roles
+            </p>
+            <button
+              type="button"
+              data-expand
+              class="text-link"
+              aria-controls="experience-list"
+            >
+              Expand visible roles
+            </button>
+          </div>
+        </div>
+        <ol id="experience-list" class="experience-timeline grid gap-4">
+          {
+            portfolio.experiences.map((experience, index) => (
+              <li
+                id={experience.id}
+                data-experience
+                data-focus={experience.focus.join(" ")}
+              >
+                <details class="experience-card" open={index === 0}>
+                  <summary>
+                    <span class="text-muted-foreground block text-sm tabular-nums">
+                      {experience.period}
+                    </span>
+                    <span class="mt-2 flex items-start justify-between gap-4">
+                      <span>
+                        <span class="text-accent block text-sm font-semibold">
+                          {experience.employer}
+                        </span>
+                        <span class="mt-1 block text-lg leading-snug font-semibold sm:text-xl">
+                          {experience.role}
+                        </span>
+                      </span>
+                      <span class="disclosure-icon" aria-hidden="true">
+                        +
+                      </span>
+                    </span>
+                    <span class="text-muted-foreground mt-3 block text-sm">
+                      {experience.location}
+                    </span>
+                    <span class="role-overview reading-copy mt-3 block">
+                      {experience.summary}
+                    </span>
+                  </summary>
+                  <div class="experience-body">
+                    <div class="role-contributions">
+                      <h3 class="font-semibold">Contributions</h3>
+                      <ul class="contributions mt-3">
+                        {experience.contributions.map(contribution => (
+                          <li>{contribution}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div class="role-tools">
+                      <h3 class="text-sm font-semibold">
+                        Tools & technologies
+                      </h3>
+                      <ul
+                        class="mt-3 flex flex-wrap gap-2"
+                        aria-label={`Tools used at ${experience.employer}`}
+                      >
+                        {experience.tools.map(tool => (
+                          <li class="skill-tag">{tool}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </details>
+              </li>
+            ))
+          }
+        </ol>
+      </portfolio-explorer>
+    </section>
+
+    <section
+      id="projects"
+      class="portfolio-section"
+      aria-labelledby="projects-title"
+    >
+      <p class="eyebrow">02 / Projects</p>
+      <h2 id="projects-title" class="section-title">
+        Visualizing dependencies in legacy scripts.
+      </h2>
+      <div class="mt-7 grid gap-4">
+        {
+          portfolio.projects.map(project => (
+            <article class="content-card">
+              <p class="eyebrow">{project.role}</p>
+              <h3 class="mt-3 text-xl font-semibold">{project.name}</h3>
+              <p class="reading-copy mt-3">{project.description}</p>
+              <ul
+                class="mt-4 flex flex-wrap gap-2"
+                aria-label={`${project.name} technologies`}
+              >
+                {project.tools.map(tool => (
+                  <li class="skill-tag">{tool}</li>
+                ))}
+              </ul>
+              <a href={project.url} class="text-link mt-5 inline-block">
+                Explore {project.name} on GitHub{" "}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      id="capabilities"
+      class="portfolio-section"
+      aria-labelledby="capabilities-title"
+    >
+      <p class="eyebrow">03 / Capabilities</p>
+      <h2 id="capabilities-title" class="section-title">
+        Responsibilities across roles.
+      </h2>
+      <p class="section-intro">
+        The responsibilities that run across my professional experience.
+      </p>
+      <div class="mt-7 grid gap-4 sm:grid-cols-2">
+        {
+          portfolio.capabilities.map(capability => (
+            <article class="content-card">
+              <h3 class="text-accent text-lg font-semibold">
+                {capability.title}
+              </h3>
+              <p class="reading-copy mt-3">{capability.description}</p>
+              <ul class="contributions text-muted-foreground mt-4 text-sm">
+                {capability.items.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      id="education"
+      class="portfolio-section"
+      aria-labelledby="education-title"
+    >
+      <p class="eyebrow">04 / Education</p>
+      <h2 id="education-title" class="section-title">
+        Computer engineering, automation and control.
+      </h2>
+      <p class="section-intro">
+        Academic foundations in automation, control, electronics, networks and
+        computing. The subjects below describe university study, distinct from
+        the professional work above.
+      </p>
+      <div class="mt-7 grid gap-4">
+        {
+          portfolio.education.map(education => (
+            <article class="content-card">
+              <div class="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 class="text-lg font-semibold">{education.degree}</h3>
+                <span class="text-muted-foreground text-sm">
+                  {education.year}
+                </span>
+              </div>
+              <p class="text-muted-foreground mt-2">{education.institution}</p>
+              {"result" in education && (
+                <p class="text-accent mt-3 font-semibold">{education.result}</p>
+              )}
+              <details
+                class="thesis-panel mt-6"
+                aria-label={`Thesis · ${education.degree}`}
+              >
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-3 rounded-sm">
+                  <span>
+                    <span class="block font-semibold">
+                      {education.thesis.label}
+                    </span>
+                    {education.thesis.title && (
+                      <span class="mt-2 block text-lg font-semibold">
+                        {education.thesis.title}
+                      </span>
+                    )}
+                  </span>
+                  <span class="disclosure-icon" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div class="mt-4">
+                  <p class="text-muted-foreground text-sm">
+                    Year {education.thesis.year} · {education.thesis.credits}{" "}
+                    credits
+                  </p>
+                  {education.thesis.description && (
+                    <p class="reading-copy mt-3">
+                      {education.thesis.description}
+                    </p>
+                  )}
+                </div>
+              </details>
+              <details class="coursework mt-5">
+                <summary class="text-link w-fit cursor-pointer">
+                  Explore {education.coursework.length} coursework activities
+                </summary>
+                <p class="text-muted-foreground mt-4 text-sm leading-relaxed">
+                  Course titles and credits follow my transcript, with details
+                  on recognized professional experience. Individual grades are
+                  omitted. Credit values are expressed in university credits.
+                </p>
+                {[1, 2, 3].map(year => {
+                  const subjects = education.coursework.filter(
+                    subject => subject.year === year
+                  );
+                  return (
+                    subjects.length > 0 && (
+                      <section
+                        class="mt-6"
+                        aria-label={`Year ${year} academic activities`}
+                      >
+                        <h4 class="text-accent text-sm font-semibold">
+                          Year {year}
+                        </h4>
+                        <ul class="border-border mt-3 divide-y border-y">
+                          {subjects.map(subject => (
+                            <li>
+                              <details class="course-entry py-3">
+                                <summary class="flex cursor-pointer list-none items-start justify-between gap-3 rounded-sm py-1">
+                                  <span
+                                    lang={subject.language}
+                                    class="text-sm leading-relaxed font-medium"
+                                  >
+                                    {subject.name}
+                                  </span>
+                                  <span class="text-muted-foreground shrink-0 text-xs leading-6">
+                                    {subject.credits} credits{" "}
+                                    <span
+                                      aria-hidden="true"
+                                      class="course-symbol text-accent ms-2 inline-block"
+                                    >
+                                      +
+                                    </span>
+                                  </span>
+                                </summary>
+                                <p class="reading-copy mt-3">
+                                  {subject.description}
+                                </p>
+                              </details>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    )
+                  );
+                })}
+              </details>
+            </article>
+          ))
+        }
+      </div>
+      <section class="mt-8" aria-labelledby="credentials-title">
+        <h3 id="credentials-title" class="text-accent text-xl font-semibold">
+          Credentials & continued learning
+        </h3>
+        <p class="section-intro text-sm">
+          Language assessment, technical courses and learning programmes listed
+          on my LinkedIn profile. These complement my academic and professional
+          experience.
+        </p>
+        <details class="content-card mt-5">
+          <summary class="text-link w-fit cursor-pointer"
+            >Explore {portfolio.credentials.length} selected credentials and programmes</summary
+          >
+          <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+            {
+              portfolio.credentials.map(credential => (
+                <li class="border-border border-t pt-4">
+                  <h4 class="font-semibold">{credential.name}</h4>
+                  <p class="text-muted-foreground mt-2 text-sm">
+                    {credential.issuer} · {credential.issued}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
+      </section>
+    </section>
+
+    <section
+      id="toolkit"
+      class="portfolio-section"
+      aria-labelledby="toolkit-title"
+    >
+      <p class="eyebrow">05 / Toolkit</p>
+      <h2 id="toolkit-title" class="section-title">
+        Technologies used across projects.
+      </h2>
+      <p class="section-intro">
+        Technologies from my CV. The experience above shows where I’ve used
+        them.
+      </p>
+      <dl class="border-border mt-7 divide-y border-y">
+        {
+          portfolio.toolkit.map(group => (
+            <div class="py-5">
+              <dt class="font-semibold">{group.title}</dt>
+              <dd class="text-muted-foreground mt-2 leading-relaxed">
+                {group.tools}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <details class="content-card mt-8">
+      <summary class="text-link w-fit cursor-pointer"
+        >Community involvement</summary
+      >
+      <p class="mt-4 text-sm leading-relaxed">
+        Alongside my studies, my academic activities and associations included
+        EESTEC and GDG Catania.
+      </p>
+      <ul class="mt-4 grid gap-4">
+        {
+          portfolio.community.map(activity => (
+            <li class="border-border border-t pt-4">
+              <h3 class="font-semibold">{activity.role}</h3>
+              <p class="text-muted-foreground mt-2 text-sm">
+                {activity.organization} · {activity.period}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+
+    <section
+      class="content-card mt-12"
+      aria-labelledby="portfolio-contact-title"
+    >
+      <h2
+        id="portfolio-contact-title"
+        class="text-accent text-2xl leading-snug font-semibold"
+      >
+        Discuss a role or project.
+      </h2>
+      <p class="mt-3 max-w-xl leading-relaxed">
+        Tell me about the context, the constraints and what you’re trying to
+        achieve.
+      </p>
+      <a
+        href={getRelativeLocaleUrl(locale, "contacts")}
+        class="primary-link mt-5"
+        >Start a conversation <span aria-hidden="true">↗</span></a
+      >
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  class PortfolioNavigation extends HTMLElement {
+    #controller: AbortController | undefined;
+    #frame: number | undefined;
+    #resizeObserver: ResizeObserver | undefined;
+
+    connectedCallback() {
+      this.#controller?.abort();
+      this.#controller = new AbortController();
+      const { signal } = this.#controller;
+      const links = [
+        ...this.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+      ];
+      const sections = links.map(link => {
+        const section = document.getElementById(link.hash.slice(1));
+        if (!section)
+          throw new Error(
+            `Portfolio navigation target is missing: ${link.hash}`
+          );
+        return { link, section };
+      });
+      if (!sections.length)
+        throw new Error("Portfolio navigation has no section links.");
+
+      const update = () => {
+        this.#frame = undefined;
+        const threshold = this.getBoundingClientRect().height + 32;
+        let current = sections[0];
+        for (const entry of sections) {
+          if (entry.section.getBoundingClientRect().top <= threshold)
+            current = entry;
+        }
+        for (const { link } of sections) {
+          if (link === current.link)
+            link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+      };
+      const schedule = () => {
+        if (this.#frame === undefined)
+          this.#frame = requestAnimationFrame(update);
+      };
+      window.addEventListener("scroll", schedule, { passive: true, signal });
+      window.addEventListener("resize", schedule, { passive: true, signal });
+      // Expanding or filtering content moves section boundaries without scrolling.
+      const main = this.closest("main");
+      if (!main) throw new Error("Portfolio navigation must be inside main.");
+      this.#resizeObserver?.disconnect();
+      this.#resizeObserver = new ResizeObserver(schedule);
+      this.#resizeObserver.observe(main);
+      update();
+    }
+
+    disconnectedCallback() {
+      this.#controller?.abort();
+      this.#resizeObserver?.disconnect();
+      if (this.#frame !== undefined) cancelAnimationFrame(this.#frame);
+      this.#frame = undefined;
+    }
+  }
+
+  class PortfolioExplorer extends HTMLElement {
+    #controller: AbortController | undefined;
+
+    connectedCallback() {
+      this.#controller?.abort();
+      this.#controller = new AbortController();
+      const { signal } = this.#controller;
+      const controls = this.querySelector<HTMLElement>("[data-controls]");
+      const status = this.querySelector<HTMLElement>("[data-results]");
+      const expand = this.querySelector<HTMLButtonElement>("[data-expand]");
+      const buttons = [
+        ...this.querySelectorAll<HTMLButtonElement>("[data-filter]"),
+      ];
+      const entries = [
+        ...this.querySelectorAll<HTMLElement>("[data-experience]"),
+      ];
+      if (
+        !controls ||
+        !status ||
+        !expand ||
+        !buttons.length ||
+        !entries.length
+      ) {
+        throw new Error(
+          "Portfolio explorer is missing its required controls or experience entries."
+        );
+      }
+
+      const visibleDetails = () =>
+        entries
+          .filter(entry => !entry.hidden)
+          .map(entry => {
+            const details = entry.querySelector<HTMLDetailsElement>("details");
+            if (!details)
+              throw new Error(
+                "Portfolio experience is missing its details element."
+              );
+            return details;
+          });
+
+      const updateExpandLabel = () => {
+        const details = visibleDetails();
+        expand.disabled = details.length === 0;
+        expand.textContent =
+          details.length > 0 && details.every(detail => detail.open)
+            ? "Collapse visible roles"
+            : "Expand visible roles";
+      };
+
+      for (const button of buttons) {
+        button.addEventListener(
+          "click",
+          () => {
+            const filter = button.dataset.filter;
+            if (!filter)
+              throw new Error("Portfolio filter is missing its value.");
+            for (const entry of entries) {
+              entry.hidden =
+                filter !== "all" &&
+                !entry.dataset.focus?.split(" ").includes(filter);
+            }
+            for (const option of buttons) {
+              option.setAttribute("aria-pressed", String(option === button));
+            }
+            const count = entries.filter(entry => !entry.hidden).length;
+            status.textContent =
+              filter === "all"
+                ? `Showing all ${count} roles`
+                : `Showing ${count} ${count === 1 ? "role" : "roles"} · ${button.textContent?.trim()}`;
+            updateExpandLabel();
+          },
+          { signal }
+        );
+      }
+
+      expand.addEventListener(
+        "click",
+        () => {
+          const details = visibleDetails();
+          const open = !details.every(detail => detail.open);
+          for (const detail of details) detail.open = open;
+          updateExpandLabel();
+        },
+        { signal }
+      );
+
+      this.addEventListener("toggle", updateExpandLabel, {
+        capture: true,
+        signal,
+      });
+      updateExpandLabel();
+      // Native disclosures remain usable if enhancement cannot load.
+      controls.hidden = false;
+    }
+
+    disconnectedCallback() {
+      this.#controller?.abort();
+    }
+  }
+
+  if (!customElements.get("portfolio-explorer")) {
+    customElements.define("portfolio-explorer", PortfolioExplorer);
+  }
+  if (!customElements.get("portfolio-navigation")) {
+    customElements.define("portfolio-navigation", PortfolioNavigation);
+  }
+</script>
+
+<style>
+  @reference "../styles/global.css";
+
+  .portfolio {
+    overflow-wrap: anywhere;
+  }
+  .eyebrow {
+    @apply text-muted-foreground text-xs font-medium tracking-widest uppercase;
+  }
+  .section-title {
+    @apply mt-3 text-2xl leading-snug font-semibold tracking-tight sm:text-3xl;
+  }
+  .section-intro {
+    @apply reading-copy text-muted-foreground mt-4;
+  }
+  .portfolio-section {
+    @apply pt-12 sm:pt-16;
+    scroll-margin-top: 4rem;
+  }
+  .text-link {
+    @apply text-accent underline decoration-solid underline-offset-4;
+  }
+  .primary-link {
+    @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center gap-3 rounded-lg px-5 py-3 font-semibold transition-colors;
+  }
+  .section-navigation {
+    @apply bg-background sticky top-0 z-10 block;
+  }
+  .section-nav {
+    @apply border-border flex gap-5 overflow-x-auto border-y py-2;
+  }
+  .section-nav a {
+    @apply text-muted-foreground hover:text-accent shrink-0 rounded-sm py-2 text-sm font-medium underline decoration-solid underline-offset-4;
+    transition:
+      color 160ms ease,
+      text-decoration-color 160ms ease;
+  }
+  .section-nav a[aria-current="location"] {
+    @apply text-accent decoration-2;
+  }
+  .experience-timeline {
+    @apply border-border ms-1 border-s ps-4 sm:ps-6;
+  }
+  .experience-timeline > li {
+    position: relative;
+    scroll-margin-top: 5rem;
+  }
+  .experience-timeline > li::before {
+    content: "";
+    @apply border-accent bg-background absolute top-7 -left-5.25 size-2 rounded-full border sm:-left-7.25;
+  }
+  .role-overview,
+  .contributions {
+    max-inline-size: 65ch;
+  }
+  .content-card,
+  .experience-card {
+    @apply border-border bg-surface rounded-xl border;
+  }
+  .content-card {
+    @apply p-5 sm:p-6;
+  }
+  .thesis-panel {
+    @apply border-accent bg-muted rounded-r-lg border-s-2 py-4 ps-4 pe-4;
+  }
+  .experience-card > summary {
+    @apply cursor-pointer list-none rounded-xl p-5 sm:p-6;
+  }
+  .experience-card > summary::-webkit-details-marker,
+  .thesis-panel > summary::-webkit-details-marker {
+    display: none;
+  }
+  .experience-card > summary:hover {
+    @apply bg-muted;
+  }
+  .experience-card > summary:focus-visible,
+  .portfolio :is(a, button, summary):focus-visible {
+    @apply outline-accent outline-2 outline-offset-4 outline-solid;
+  }
+  .experience-body {
+    @apply border-border mx-5 grid gap-6 border-t py-5 sm:mx-6 sm:py-6;
+  }
+  @media (min-width: 768px) {
+    .experience-body {
+      grid-template-columns: minmax(0, 1fr) 9rem;
+      gap: 2rem;
+    }
+    .role-tools {
+      @apply border-border border-s ps-5;
+    }
+    .role-tools ul {
+      @apply flex-col items-start;
+    }
+  }
+  .disclosure-icon {
+    @apply text-accent inline-flex size-8 shrink-0 items-center justify-center rounded-full text-2xl leading-none;
+    transition: transform 180ms ease;
+  }
+  .experience-card[open] .disclosure-icon,
+  .thesis-panel[open] .disclosure-icon {
+    transform: rotate(45deg);
+  }
+  .course-entry > summary::-webkit-details-marker {
+    display: none;
+  }
+  .course-entry[open] > summary .course-symbol {
+    transform: rotate(45deg);
+  }
+  .contributions {
+    @apply reading-copy marker:text-accent ms-5 list-disc space-y-4;
+  }
+  .skill-tag {
+    @apply bg-muted text-foreground rounded-md px-2.5 py-1 text-xs leading-relaxed;
+  }
+  .filter-button {
+    @apply border-input-border hover:bg-muted rounded-full border px-3 py-2 text-sm;
+    min-height: 44px;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      border-color 160ms ease;
+  }
+  .filter-button[aria-pressed="true"] {
+    @apply border-accent bg-accent text-accent-foreground;
+  }
+  .portfolio summary {
+    min-block-size: 44px;
+    align-content: center;
+  }
+  .course-symbol {
+    transition: transform 180ms ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .experience-timeline > li:not([hidden]) {
+      animation: role-appear 180ms ease-out;
+    }
+    @supports (interpolate-size: allow-keywords) and
+      selector(details::details-content) {
+      .portfolio details {
+        interpolate-size: allow-keywords;
+      }
+      .portfolio details::details-content {
+        block-size: 0;
+        opacity: 0;
+        overflow: clip;
+        transition:
+          block-size 220ms ease,
+          opacity 180ms ease,
+          content-visibility 220ms allow-discrete;
+      }
+      .portfolio details[open]::details-content {
+        block-size: auto;
+        opacity: 1;
+      }
+    }
+  }
+  @keyframes role-appear {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+    .portfolio :is(a, button, summary, .disclosure-icon, .course-symbol) {
+      transition: none;
+    }
+  }
+</style>

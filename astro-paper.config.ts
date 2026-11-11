@@ -26,7 +26,7 @@ export default defineAstroPaperConfig({
   socials: [
     { name: "mail", url: "mailto:riccardompesce@gmail.com" },
     { name: "github", url: "https://github.com/riccardompesce" },
-    { name: "linkedin", url: "https://www.linkedin.com/in/riccardompesce/" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/riccardomariapesce/" },
   ],
   shareLinks: [],
 });

@@ -28,9 +28,25 @@ const currentYear = new Date().getFullYear();
         title={config.site.title}
         scope="site"
       />
-      <div class="flex shrink-0 items-center gap-2 md:min-h-11">
-        <span class="text-muted-foreground text-sm">{t.sharing.profiles}</span>
-        <Socials horizontal />
+      <div class="min-w-0 text-center md:text-end">
+        <div
+          class="flex items-center justify-center gap-2 md:min-h-11 md:justify-end"
+        >
+          <span class="text-muted-foreground text-sm">{t.sharing.profiles}</span
+          >
+          <Socials horizontal />
+        </div>
+        <p class="text-muted-foreground mt-1 text-sm">
+          {t.footer.builtWith}{" "}
+          <a href="https://astro.build/" class="underline underline-offset-4"
+            >Astro</a
+          >
+          {" "}&middot; {t.footer.basedOn}{" "}
+          <a
+            href="https://github.com/satnaing/astro-paper"
+            class="underline underline-offset-4">AstroPaper</a
+          >
+        </p>
       </div>
     </div>
     <div
@@ -42,17 +58,6 @@ const currentYear = new Date().getFullYear();
         >
         <span>{t.footer.allRightsReserved}</span>
       </div>
-      <p class="text-muted-foreground mt-1 text-sm">
-        {t.footer.builtWith}{" "}
-        <a href="https://astro.build/" class="underline underline-offset-4"
-          >Astro</a
-        >
-        {" "}&middot; {t.footer.basedOn}{" "}
-        <a
-          href="https://github.com/satnaing/astro-paper"
-          class="underline underline-offset-4">AstroPaper</a
-        >
-      </p>
     </div>
   </div>
 </footer>

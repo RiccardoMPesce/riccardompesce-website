@@ -26,6 +26,7 @@ export default {
     nextPost: "Next Post",
   },
   sharing: {
+    close: "Close sharing options",
     more: "More",
     profiles: "Find me",
     shareSite: "Share this site",

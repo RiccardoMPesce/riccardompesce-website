@@ -65,7 +65,6 @@ test("invalid and unsafe sharing URLs fail explicitly", () => {
 });
 
 function fixture({ secure = true, clipboard, share } = {}) {
-  const details = { open: false };
   class Control extends EventTarget {
     hidden = true;
     disabled = false;
@@ -82,23 +81,53 @@ function fixture({ secure = true, clipboard, share } = {}) {
     focus() {
       this.focused = true;
     }
-    closest() {
-      return details;
-    }
   }
   const input = new Control();
   const status = new Control();
   const copy = new Control();
   const native = new Control();
+  const modalCopy = new Control();
+  const modalStatus = new Control();
+  const opener = new Control();
+  const close = new Control();
+  class Dialog extends EventTarget {
+    open = false;
+    opens = 0;
+    showModal() {
+      this.open = true;
+      this.opens += 1;
+    }
+    close() {
+      if (!this.open) return;
+      this.open = false;
+      this.dispatchEvent(new Event("close"));
+    }
+    getBoundingClientRect() {
+      return { left: 100, right: 400, top: 100, bottom: 400 };
+    }
+    escape() {
+      const event = new Event("cancel", { cancelable: true });
+      this.dispatchEvent(event);
+      if (!event.defaultPrevented) this.close();
+    }
+  }
+  const dialog = new Dialog();
   const registry = new Map();
   class Element {
     dataset = { shareTitle: "Article title" };
+    querySelectorAll(selector) {
+      return selector === "[data-copy-link]" ? [copy, modalCopy] : [];
+    }
     querySelector(selector) {
       return {
         input,
         '[role="status"]': status,
         "[data-copy-link]": copy,
         "[data-native-share]": native,
+        dialog,
+        "[data-open-share]": opener,
+        "[data-close-share]": close,
+        "[data-modal-status]": modalStatus,
       }[selector];
     }
   }
@@ -116,7 +145,18 @@ function fixture({ secure = true, clipboard, share } = {}) {
   const Widget = registry.get("share-links");
   const widget = new Widget();
   widget.connectedCallback();
-  return { widget, input, status, copy, native, details };
+  return {
+    widget,
+    input,
+    status,
+    copy,
+    native,
+    dialog,
+    opener,
+    close,
+    modalCopy,
+    modalStatus,
+  };
 }
 
 test("manual copying remains available when APIs or secure context are absent", () => {
@@ -161,8 +201,8 @@ test("clipboard rejection selects the URL and reports the manual fallback", asyn
   });
   f.copy.dispatchEvent(new Event("click"));
   await setImmediate();
-  assert.equal(f.status.textContent, "Copy denied");
-  assert.equal(f.details.open, true);
+  assert.equal(f.modalStatus.textContent, "Copy denied");
+  assert.equal(f.dialog.open, true);
   assert.equal(f.input.selected, true);
   assert.equal(f.input.focused, true);
   assert.equal(f.copy.disabled, false);
@@ -213,4 +253,73 @@ test("reconnection avoids duplicate handlers and disconnection removes them", as
   f.copy.dispatchEvent(new Event("click"));
   await setImmediate();
   assert.equal(writes, 1);
+});
+
+test("More opens its own modal once, and closing restores focus to the trigger", () => {
+  const f = fixture();
+  const other = fixture();
+  assert.equal(f.opener.hidden, false);
+  f.opener.dispatchEvent(new Event("click"));
+  f.opener.dispatchEvent(new Event("click"));
+  assert.equal(f.dialog.open, true);
+  assert.equal(f.dialog.opens, 1);
+  assert.equal(other.dialog.open, false);
+  assert.equal(f.close.focused, true);
+  f.close.dispatchEvent(new Event("click"));
+  assert.equal(f.dialog.open, false);
+  assert.equal(f.opener.focused, true);
+});
+
+test("Escape is left to native dialog handling and restores focus", () => {
+  const f = fixture();
+  f.opener.dispatchEvent(new Event("click"));
+  f.dialog.escape();
+  assert.equal(f.dialog.open, false);
+  assert.equal(f.opener.focused, true);
+});
+
+function pointer(target, type, x, y) {
+  const event = new Event(type);
+  Object.assign(event, { clientX: x, clientY: y });
+  target.dispatchEvent(event);
+}
+
+test("only a gesture starting and ending outside dismisses the modal", () => {
+  const f = fixture();
+  f.opener.dispatchEvent(new Event("click"));
+  pointer(f.dialog, "pointerdown", 150, 150);
+  pointer(f.dialog, "click", 150, 150);
+  assert.equal(f.dialog.open, true);
+  pointer(f.dialog, "pointerdown", 150, 150);
+  pointer(f.dialog, "click", 10, 10);
+  assert.equal(f.dialog.open, true);
+  pointer(f.dialog, "pointerdown", 10, 10);
+  pointer(f.dialog, "click", 10, 10);
+  assert.equal(f.dialog.open, false);
+});
+
+test("modal copying announces success inside the active dialog", async () => {
+  const writes = [];
+  const f = fixture({
+    clipboard: {
+      async writeText(value) {
+        writes.push(value);
+      },
+    },
+  });
+  f.opener.dispatchEvent(new Event("click"));
+  f.modalCopy.dispatchEvent(new Event("click"));
+  await setImmediate();
+  assert.deepEqual(writes, [f.input.value]);
+  assert.equal(f.modalStatus.textContent, "Copied");
+  assert.equal(f.status.textContent, "");
+});
+
+test("navigation closes the dialog and removes modal listeners", () => {
+  const f = fixture();
+  f.opener.dispatchEvent(new Event("click"));
+  f.widget.disconnectedCallback();
+  assert.equal(f.dialog.open, false);
+  f.opener.dispatchEvent(new Event("click"));
+  assert.equal(f.dialog.open, false);
 });

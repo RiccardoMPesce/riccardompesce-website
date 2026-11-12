@@ -26,6 +26,7 @@ export interface UIStrings {
     nextPost: string;
   };
   sharing: {
+    readonly close: string;
     readonly more: string;
     readonly profiles: string;
     readonly shareSite: string;

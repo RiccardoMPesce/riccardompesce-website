@@ -10,7 +10,13 @@ links to Astro and the original AstroPaper theme for attribution.
 
 Articles show a flat sharing row below the title and publication date, before
 the article body. LinkedIn, X, Facebook and **Copy link** are immediately visible;
-**More** reveals WhatsApp, Telegram, email, native sharing and the manual URL field.
+**More**, with a fixed SVG chevron, opens a compact native `dialog` above the page
+without moving the sharing row. The dialog includes all sharing destinations,
+native sharing, a manual URL field and **Copy link**. A subtle backdrop separates
+it from the page. Escape, its close button and an outside click dismiss it; focus
+returns to the invoking control. Native `showModal()` contains keyboard focus.
+Outside dismissal requires the gesture to start and end outside the dialog so
+selecting text and releasing outside does not close it.
 The footer places **Share this site** above the copyright, beside a distinct
 **Find me** group of horizontal profile icons on wide screens. Both use
 `src/components/ShareLinks.astro` and the destinations in `shareLinks` in
@@ -24,9 +30,10 @@ fragments are not added. Each destination receives an encoded URL value;
 configure a base URL ending in its empty parameter (for example `?url=`).
 Invalid destinations fail the build rather than silently disappearing.
 
-The URL field remains available under **More** for manual copying without JavaScript.
+The modal requires JavaScript. Without it, secondary share links and a permalink
+appear directly, while the primary social links continue to work.
 **Copy link** uses the browser Clipboard API when available in a secure context;
-Denied writes open **More**, show an error and select the URL for manual copying. **More sharing
+denied writes open the dialog, show an error and select the URL for manual copying. **More sharing
 options…** uses the device's native share sheet where supported. Cancelling that
 sheet is normal; other errors direct readers to the links or URL field. The custom
 element removes listeners on navigation and reconnects with Astro page changes.
@@ -34,8 +41,9 @@ element removes listeners on navigation and reconnects with Astro page changes.
 The near-title position is a visibility choice, not evidence of increased sharing.
 The controls use 44px minimum height, accessible names and the site's keyboard
 focus treatment, informed by [WCAG target-size guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
-There are no panel backgrounds or borders around the sharing row; only the
-optional manual URL field has a border.
+The sharing row has no panel background or border. The compact dialog uses the
+site's existing palette. Its behavior follows the [WAI modal dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
+No embedded social frames or SDKs are introduced.
 
 Reference formats: [Telegram custom buttons](https://core.telegram.org/widgets/share),
 [WhatsApp click to chat](https://faq.whatsapp.com/5913398998672934),
@@ -48,8 +56,9 @@ those endpoints as external compatibility dependencies, not verified publishing
 integrations. Sharing always requires the reader to complete the platform's flow.
 
 Run `node --test tests/share-links.test.mjs`. Tests use browser API doubles, not
-live social accounts. Also check collapsed/expanded controls on narrow and wide
-screens, keyboard focus, both themes, JavaScript disabled, denied clipboard
+live social accounts. Also check the closed/open modal on narrow and wide
+screens, Tab/Shift+Tab containment, Escape, outside dismissal, restored focus,
+both themes, JavaScript disabled, denied clipboard
 access, native-sheet cancellation and navigation between an article and Home.
 Confirm each platform's composer with the public URL before claiming end-to-end
 sharing; no test posts need to be published. No monetization is enabled.

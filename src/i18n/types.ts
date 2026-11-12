@@ -39,6 +39,8 @@ export interface UIStrings {
   footer: {
     copyright: string;
     allRightsReserved: string;
+    builtWith: string;
+    basedOn: string;
   };
   pages: {
     tagTitle: string;

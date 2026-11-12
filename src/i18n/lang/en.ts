@@ -39,6 +39,8 @@ export default {
   footer: {
     copyright: "Copyright",
     allRightsReserved: "All rights reserved.",
+    builtWith: "Built with",
+    basedOn: "Based on",
   },
   pages: {
     tagTitle: "Tag",

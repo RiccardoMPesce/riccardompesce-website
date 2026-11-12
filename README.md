@@ -5,7 +5,7 @@ The home page introduces Riccardo and lists the three latest published posts.
 The navigation links to Home, Blog, About, Portfolio and Contacts, with light and dark themes.
 The shared footer uses the configured site author for its copyright notice and
 links to Astro and the original AstroPaper theme for attribution, below the
-**Find me** profile links.
+**Find me** profile links and aligned with the copyright in the bottom row on wide screens.
 
 ## Sharing
 

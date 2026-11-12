@@ -36,28 +36,28 @@ const currentYear = new Date().getFullYear();
           >
           <Socials horizontal />
         </div>
-        <p class="text-muted-foreground mt-1 text-sm">
-          {t.footer.builtWith}{" "}
-          <a href="https://astro.build/" class="underline underline-offset-4"
-            >Astro</a
-          >
-          {" "}&middot; {t.footer.basedOn}{" "}
-          <a
-            href="https://github.com/satnaing/astro-paper"
-            class="underline underline-offset-4">AstroPaper</a
-          >
-        </p>
       </div>
     </div>
     <div
-      class="text-muted-foreground min-w-0 text-center text-sm md:text-start"
+      class="text-muted-foreground grid min-w-0 gap-3 text-center text-sm md:grid-cols-[1fr_auto] md:items-start md:gap-6 md:text-start"
     >
-      <div class="flex flex-col gap-x-1 md:flex-row md:flex-wrap">
+      <div class="flex flex-col">
         <span
           >{t.footer.copyright} &#169; {currentYear} {config.site.author}.</span
         >
         <span>{t.footer.allRightsReserved}</span>
       </div>
+      <p class="md:text-end">
+        {t.footer.builtWith}{" "}
+        <a href="https://astro.build/" class="underline underline-offset-4"
+          >Astro</a
+        >
+        {" "}&middot; {t.footer.basedOn}{" "}
+        <a
+          href="https://github.com/satnaing/astro-paper"
+          class="underline underline-offset-4">AstroPaper</a
+        >
+      </p>
     </div>
   </div>
 </footer>

@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { toTransitionName } from "@/utils/toTransitionName";
 import Datetime from "./Datetime.astro";
+import ShareLinks from "./ShareLinks.astro";
 
 type Props = {
   variant?: "h2" | "h3";
@@ -11,11 +12,13 @@ type Props = {
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
 const { title, description, ...props } = data;
+const postUrl = getPostUrl(id, filePath, Astro.currentLocale);
+const shareUrl = data.canonicalURL ?? new URL(postUrl, Astro.site).href;
 ---
 
 <li class="my-6 text-center md:text-start">
   <a
-    href={getPostUrl(id, filePath, Astro.currentLocale)}
+    href={postUrl}
     class:list={[
       "text-accent inline-block text-lg font-medium",
       "decoration-solid underline-offset-4 hover:underline",
@@ -28,4 +31,12 @@ const { title, description, ...props } = data;
   </a>
   <Datetime {...props} />
   <p>{description}</p>
+  <div class="mt-1">
+    <ShareLinks
+      url={shareUrl}
+      {title}
+      scope="post"
+      instanceId={`post-card-${encodeURIComponent(id)}`}
+    />
+  </div>
 </li>

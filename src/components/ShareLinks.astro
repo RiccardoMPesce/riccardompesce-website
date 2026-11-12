@@ -13,11 +13,15 @@ interface Props {
   readonly url: string;
   readonly title: string;
   readonly scope: "post" | "site";
+  /** Distinguishes dialogs when a page renders multiple post previews. */
+  readonly instanceId?: string;
 }
 
-const { url, title, scope } = Astro.props;
+const { url, title, scope, instanceId = scope } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 const label = scope === "post" ? t.post.sharePostIntro : t.sharing.shareSite;
+const accessibleLabel =
+  scope === "post" ? `${label.replace(/:$/, "")}: ${title}` : label;
 const links = config.shareLinks.map(link => ({
   name: link.name,
   href: getShareUrl(link.url, url),
@@ -30,20 +34,20 @@ const primaryIcons = {
   facebook: facebook.default,
 };
 const primaryLinks = links.filter(link => link.name in primaryIcons);
-const dialogId = `share-dialog-${scope}`;
+const dialogId = `share-dialog-${instanceId}`;
 ---
 
 <share-links class="block min-w-0 text-sm" data-share-title={title}>
   <div
     class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 md:justify-start"
     role="group"
-    aria-label={label}
+    aria-label={accessibleLabel}
   >
     <span class="text-muted-foreground me-2">{label}</span>
     {
       primaryLinks.map(link => {
         const Icon = primaryIcons[link.name as keyof typeof primaryIcons];
-        const actionLabel = `${label.replace(/:$/, "")} — ${link.label} (${t.sharing.newTab})`;
+        const actionLabel = `${accessibleLabel} — ${link.label} (${t.sharing.newTab})`;
         return (
           <a
             href={link.href}
@@ -81,6 +85,7 @@ const dialogId = `share-dialog-${scope}`;
     <button
       type="button"
       data-open-share
+      aria-label={`${t.sharing.more}: ${title}`}
       hidden
       aria-haspopup="dialog"
       aria-controls={dialogId}
@@ -114,7 +119,7 @@ const dialogId = `share-dialog-${scope}`;
   </p>
   <dialog
     id={dialogId}
-    aria-label={label}
+    aria-label={accessibleLabel}
     class="border-border bg-background text-foreground fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-y-auto rounded-xl border p-5 text-start shadow-lg backdrop:bg-black/20"
   >
     <div class="mb-3 flex items-center justify-between gap-3">

@@ -10,7 +10,11 @@ links to Astro and the original AstroPaper theme for attribution, below the
 ## Sharing
 
 Articles show a flat sharing row below the title and publication date, before
-the article body. LinkedIn, X, Facebook and **Copy link** are immediately visible;
+the article body. LinkedIn, X, Facebook and **Copy link** are immediately visible.
+Post previews also show the same controls below their description in Blog, Home,
+tag and archive lists (when enabled). Each preview shares that article's canonical URL, with a
+distinct dialog ID and accessible labels identifying the article title.
+
 **More**, with a fixed SVG chevron, opens a compact native `dialog` above the page
 without moving the sharing row. The dialog includes all sharing destinations,
 native sharing, a manual URL field and **Copy link**. A subtle backdrop separates

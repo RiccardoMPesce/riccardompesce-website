@@ -1,0 +1,87 @@
+---
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+import { getShareUrl } from "@/utils/getShareUrl";
+
+interface Props {
+  readonly url: string;
+  readonly title: string;
+  readonly scope: "post" | "site";
+}
+
+const { url, title, scope } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
+const label = scope === "post" ? t.post.sharePostIntro : t.sharing.shareSite;
+const links = config.shareLinks.map(link => ({
+  href: getShareUrl(link.url, url),
+  label: link.linkTitle ?? link.name,
+  external: !link.url.startsWith("mailto:"),
+}));
+---
+
+<share-links class="block min-w-0 text-sm" data-share-title={title}>
+  <details>
+    <summary class="min-h-11 cursor-pointer py-3 underline underline-offset-4">
+      {label}
+    </summary>
+    <div class="border-border bg-surface mt-1 rounded-lg border p-3 text-start">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+        {
+          links.map(link => (
+            <a
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              class="hover:text-accent inline-flex min-h-11 items-center underline underline-offset-4"
+            >
+              {link.label}
+              {link.external && (
+                <span class="sr-only"> ({t.sharing.newTab})</span>
+              )}
+            </a>
+          ))
+        }
+        <button
+          type="button"
+          data-native-share
+          hidden
+          class="min-h-11 underline underline-offset-4"
+        >
+          {t.sharing.moreOptions}
+        </button>
+      </div>
+      <label class="mt-2 block">
+        <span>{t.sharing.linkLabel}</span>
+        <input
+          type="url"
+          readonly
+          value={url}
+          class="border-input-border bg-background mt-1 block min-h-11 w-full min-w-0 rounded border px-2"
+        />
+      </label>
+      <button
+        type="button"
+        data-copy-link
+        hidden
+        class="mt-2 min-h-11 underline underline-offset-4"
+      >
+        {t.sharing.copyLink}
+      </button>
+      <p
+        class="text-muted-foreground mt-1"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-copied={t.sharing.copied}
+        data-copy-error={t.sharing.copyError}
+        data-share-error={t.sharing.shareError}
+      >
+        {t.sharing.manualCopy}
+      </p>
+    </div>
+  </details>
+</share-links>
+
+<script>
+  import "@/scripts/share-links";
+</script>

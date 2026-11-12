@@ -25,6 +25,17 @@ export default {
     previousPost: "Previous Post",
     nextPost: "Next Post",
   },
+  sharing: {
+    shareSite: "Share this site",
+    moreOptions: "More sharing options…",
+    linkLabel: "Link to share",
+    copyLink: "Copy link",
+    copied: "Link copied.",
+    manualCopy: "Select the link to copy it manually.",
+    copyError: "Could not copy automatically. Copy the selected link manually.",
+    shareError: "Sharing is unavailable. Use a social link or copy the URL.",
+    newTab: "opens in a new tab",
+  },
   pagination: {
     prev: "Prev",
     next: "Next",

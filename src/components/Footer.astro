@@ -3,6 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import Socials from "./Socials.astro";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
+import ShareLinks from "./ShareLinks.astro";
 
 type Props = {
   noMarginTop?: boolean;
@@ -40,6 +41,11 @@ const currentYear = new Date().getFullYear();
           class="underline underline-offset-4">AstroPaper</a
         >
       </p>
+      <ShareLinks
+        url={config.site.url}
+        title={config.site.title}
+        scope="site"
+      />
     </div>
   </div>
 </footer>

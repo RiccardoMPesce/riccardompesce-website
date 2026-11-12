@@ -25,6 +25,17 @@ export interface UIStrings {
     previousPost: string;
     nextPost: string;
   };
+  sharing: {
+    readonly shareSite: string;
+    readonly moreOptions: string;
+    readonly linkLabel: string;
+    readonly copyLink: string;
+    readonly copied: string;
+    readonly manualCopy: string;
+    readonly copyError: string;
+    readonly shareError: string;
+    readonly newTab: string;
+  };
   pagination: {
     prev: string;
     next: string;

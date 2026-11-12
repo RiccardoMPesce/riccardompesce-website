@@ -84,19 +84,12 @@ interface SocialLink {
 }
 
 interface ShareLink {
-  /**
-   * Must match an SVG filename in src/assets/icons/socials/.
-   * e.g. "facebook" → src/assets/icons/socials/facebook.svg
-   */
-  name: string;
-  /** Base share URL. The post URL will be appended as a query param. */
-  url: string;
-  /**
-   * Accessible label for the icon link (aria-label, title attribute).
-   * Auto-generated if omitted: "Share this post on Facebook", "Share this post via WhatsApp", etc.
-   * Override when the default wording doesn't fit.
-   */
-  linkTitle?: string;
+  /** Platform identifier, used as the label when linkTitle is omitted. */
+  readonly name: string;
+  /** HTTPS or mailto URL ending in an empty query parameter for the encoded URL. */
+  readonly url: string;
+  /** Visible platform label, e.g. "LinkedIn" or "Email". */
+  readonly linkTitle?: string;
 }
 
 interface AstroPaperConfig {
@@ -105,7 +98,7 @@ interface AstroPaperConfig {
   features?: FeaturesConfig;
   /** Social profile links shown in header/footer */
   socials?: SocialLink[];
-  /** Share links shown on post detail pages */
+  /** Share destinations used by article and site sharing controls. */
   shareLinks?: ShareLink[];
 }
 

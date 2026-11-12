@@ -10,7 +10,7 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
 import EditPost from "./_components/EditPost.astro";
-import ShareLinks from "./_components/ShareLinks.astro";
+import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
@@ -177,7 +177,11 @@ const ogImage = ogImageUrl
         <EditPost class="flex-none sm:hidden" {hideEditPost} {post} />
       </div>
 
-      <ShareLinks />
+      <ShareLinks
+        url={canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href}
+        title={title}
+        scope="post"
+      />
     </div>
 
     <hr class="my-8 border-dashed" />

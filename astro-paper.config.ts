@@ -26,7 +26,29 @@ export default defineAstroPaperConfig({
   socials: [
     { name: "mail", url: "mailto:riccardompesce@gmail.com" },
     { name: "github", url: "https://github.com/riccardompesce" },
-    { name: "linkedin", url: "https://www.linkedin.com/in/riccardomariapesce/" },
+    {
+      name: "linkedin",
+      url: "https://www.linkedin.com/in/riccardomariapesce/",
+    },
   ],
-  shareLinks: [],
+  shareLinks: [
+    {
+      name: "linkedin",
+      url: "https://www.linkedin.com/sharing/share-offsite/?url=",
+      linkTitle: "LinkedIn",
+    },
+    { name: "x", url: "https://twitter.com/intent/tweet?url=", linkTitle: "X" },
+    {
+      name: "facebook",
+      url: "https://www.facebook.com/sharer/sharer.php?u=",
+      linkTitle: "Facebook",
+    },
+    { name: "whatsapp", url: "https://wa.me/?text=", linkTitle: "WhatsApp" },
+    {
+      name: "telegram",
+      url: "https://t.me/share/url?url=",
+      linkTitle: "Telegram",
+    },
+    { name: "mail", url: "mailto:?body=", linkTitle: "Email" },
+  ],
 });

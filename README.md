@@ -6,6 +6,45 @@ The navigation links to Home, Blog, About, Portfolio and Contacts, with light an
 The shared footer uses the configured site author for its copyright notice and
 links to Astro and the original AstroPaper theme for attribution.
 
+## Sharing
+
+Articles end with a collapsed **Share this post** disclosure. The footer's
+**Share this site** disclosure shares the configured site homepage. Both use
+`src/components/ShareLinks.astro` and the destinations in `shareLinks` in
+`astro-paper.config.ts`: LinkedIn, X, Facebook, WhatsApp, Telegram and email.
+These are ordinary links, with no social SDKs, share counters or click tracking.
+External share destinations open in a new tab only when selected.
+
+Article links use their explicit canonical URL when supplied, otherwise the
+public site URL and article path. Local preview origins, query strings and
+fragments are not added. Each destination receives an encoded URL value;
+configure a base URL ending in its empty parameter (for example `?url=`).
+Invalid destinations fail the build rather than silently disappearing.
+
+The URL field remains available for manual copying without JavaScript.
+**Copy link** uses the browser Clipboard API when available in a secure context;
+denied writes show an error and select the URL for manual copying. **More sharing
+options…** uses the device's native share sheet where supported. Cancelling that
+sheet is normal; other errors direct readers to the links or URL field. The custom
+element removes listeners on navigation and reconnects with Astro page changes.
+
+Reference formats: [Telegram custom buttons](https://core.telegram.org/widgets/share),
+[WhatsApp click to chat](https://faq.whatsapp.com/5913398998672934),
+[LinkedIn sharing](https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/plugins/share-plugin),
+[Facebook Share Button](https://developers.facebook.com/docs/plugins/share-button/),
+and [X Publish](https://publish.x.com/). LinkedIn's documented SDK is deliberately
+not loaded; its offsite sharing URL is used instead. Facebook's documentation was
+rate limited and X's legacy intent guide redirected during this change. Treat
+those endpoints as external compatibility dependencies, not verified publishing
+integrations. Sharing always requires the reader to complete the platform's flow.
+
+Run `node --test tests/share-links.test.mjs`. Tests use browser API doubles, not
+live social accounts. Also check collapsed/expanded controls on narrow and wide
+screens, keyboard focus, both themes, JavaScript disabled, denied clipboard
+access, native-sheet cancellation and navigation between an article and Home.
+Confirm each platform's composer with the public URL before claiming end-to-end
+sharing; no test posts need to be published. No monetization is enabled.
+
 ## Development
 
 Use Node.js 24.21.0 (`.nvmrc`). With nvm installed:

@@ -2,6 +2,11 @@
 import config from "@/config";
 import LinkButton from "./LinkButton.astro";
 
+interface Props {
+  readonly horizontal?: boolean;
+}
+
+const { horizontal = false } = Astro.props;
 const { site, socials } = config;
 
 const icons = import.meta.glob<{
@@ -22,7 +27,12 @@ const items = await Promise.all(
 );
 ---
 
-<div class="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:gap-1">
+<div
+  class:list={[
+    "flex items-center md:flex-row md:flex-wrap md:gap-1",
+    horizontal ? "flex-row flex-wrap gap-1" : "flex-col gap-2",
+  ]}
+>
   <!-- Cloudflare must preserve mailto links even when its decoder cannot run. -->
   <!--email_off-->
   {

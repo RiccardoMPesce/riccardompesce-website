@@ -26,6 +26,8 @@ export default {
     nextPost: "Next Post",
   },
   sharing: {
+    more: "More",
+    profiles: "Find me",
     shareSite: "Share this site",
     moreOptions: "More sharing options…",
     linkLabel: "Link to share",

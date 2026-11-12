@@ -65,6 +65,7 @@ test("invalid and unsafe sharing URLs fail explicitly", () => {
 });
 
 function fixture({ secure = true, clipboard, share } = {}) {
+  const details = { open: false };
   class Control extends EventTarget {
     hidden = true;
     disabled = false;
@@ -80,6 +81,9 @@ function fixture({ secure = true, clipboard, share } = {}) {
     }
     focus() {
       this.focused = true;
+    }
+    closest() {
+      return details;
     }
   }
   const input = new Control();
@@ -112,7 +116,7 @@ function fixture({ secure = true, clipboard, share } = {}) {
   const Widget = registry.get("share-links");
   const widget = new Widget();
   widget.connectedCallback();
-  return { widget, input, status, copy, native };
+  return { widget, input, status, copy, native, details };
 }
 
 test("manual copying remains available when APIs or secure context are absent", () => {
@@ -158,6 +162,7 @@ test("clipboard rejection selects the URL and reports the manual fallback", asyn
   f.copy.dispatchEvent(new Event("click"));
   await setImmediate();
   assert.equal(f.status.textContent, "Copy denied");
+  assert.equal(f.details.open, true);
   assert.equal(f.input.selected, true);
   assert.equal(f.input.focused, true);
   assert.equal(f.copy.disabled, false);

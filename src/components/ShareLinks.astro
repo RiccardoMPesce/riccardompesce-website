@@ -3,6 +3,12 @@ import config from "@/config";
 import { useTranslations } from "@/i18n";
 import { getShareUrl } from "@/utils/getShareUrl";
 
+const [linkedIn, x, facebook] = await Promise.all([
+  import("@/assets/icons/socials/linkedin.svg"),
+  import("@/assets/icons/socials/x.svg"),
+  import("@/assets/icons/socials/facebook.svg"),
+]);
+
 interface Props {
   readonly url: string;
   readonly title: string;
@@ -13,73 +19,120 @@ const { url, title, scope } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 const label = scope === "post" ? t.post.sharePostIntro : t.sharing.shareSite;
 const links = config.shareLinks.map(link => ({
+  name: link.name,
   href: getShareUrl(link.url, url),
   label: link.linkTitle ?? link.name,
   external: !link.url.startsWith("mailto:"),
 }));
+const primaryIcons = {
+  linkedin: linkedIn.default,
+  x: x.default,
+  facebook: facebook.default,
+};
+const primaryLinks = links.filter(link => link.name in primaryIcons);
+const otherLinks = links.filter(link => !(link.name in primaryIcons));
 ---
 
 <share-links class="block min-w-0 text-sm" data-share-title={title}>
-  <details>
-    <summary class="min-h-11 cursor-pointer py-3 underline underline-offset-4">
-      {label}
-    </summary>
-    <div class="border-border bg-surface mt-1 rounded-lg border p-3 text-start">
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-        {
-          links.map(link => (
-            <a
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-              class="hover:text-accent inline-flex min-h-11 items-center underline underline-offset-4"
-            >
-              {link.label}
-              {link.external && (
-                <span class="sr-only"> ({t.sharing.newTab})</span>
-              )}
-            </a>
-          ))
-        }
-        <button
-          type="button"
-          data-native-share
-          hidden
-          class="min-h-11 underline underline-offset-4"
-        >
-          {t.sharing.moreOptions}
-        </button>
+  <div
+    class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 md:justify-start"
+    role="group"
+    aria-label={label}
+  >
+    <span class="text-muted-foreground me-2">{label}</span>
+    {
+      primaryLinks.map(link => {
+        const Icon = primaryIcons[link.name as keyof typeof primaryIcons];
+        const actionLabel = `${label.replace(/:$/, "")} — ${link.label} (${t.sharing.newTab})`;
+        return (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={actionLabel}
+            aria-label={actionLabel}
+            class="hover:text-accent inline-flex size-11 shrink-0 items-center justify-center"
+          >
+            <Icon class="size-5" aria-hidden="true" />
+          </a>
+        );
+      })
+    }
+    <button
+      type="button"
+      data-copy-link
+      hidden
+      class="hover:text-accent inline-flex min-h-11 items-center gap-2 px-2"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        aria-hidden="true"
+      >
+        <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+        <path d="M16 8V4H4v12h4"></path>
+      </svg>
+      {t.sharing.copyLink}
+    </button>
+    <details class="max-w-full min-w-0 text-start">
+      <summary
+        class="text-muted-foreground hover:text-accent min-h-11 cursor-pointer content-center px-2"
+      >
+        {t.sharing.more}
+      </summary>
+      <div class="py-2">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+          {
+            otherLinks.map(link => (
+              <a
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                class="hover:text-accent inline-flex min-h-11 items-center underline underline-offset-4"
+              >
+                {link.label}
+                {link.external && (
+                  <span class="sr-only"> ({t.sharing.newTab})</span>
+                )}
+              </a>
+            ))
+          }
+          <button
+            type="button"
+            data-native-share
+            hidden
+            class="hover:text-accent min-h-11 underline underline-offset-4"
+          >
+            {t.sharing.moreOptions}
+          </button>
+        </div>
+        <label class="mt-2 block">
+          <span>{t.sharing.linkLabel}</span>
+          <input
+            type="url"
+            readonly
+            value={url}
+            class="border-input-border bg-background mt-1 block min-h-11 w-full min-w-0 rounded border px-2"
+          />
+        </label>
+        <p class="text-muted-foreground mt-1">{t.sharing.manualCopy}</p>
       </div>
-      <label class="mt-2 block">
-        <span>{t.sharing.linkLabel}</span>
-        <input
-          type="url"
-          readonly
-          value={url}
-          class="border-input-border bg-background mt-1 block min-h-11 w-full min-w-0 rounded border px-2"
-        />
-      </label>
-      <button
-        type="button"
-        data-copy-link
-        hidden
-        class="mt-2 min-h-11 underline underline-offset-4"
-      >
-        {t.sharing.copyLink}
-      </button>
-      <p
-        class="text-muted-foreground mt-1"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        data-copied={t.sharing.copied}
-        data-copy-error={t.sharing.copyError}
-        data-share-error={t.sharing.shareError}
-      >
-        {t.sharing.manualCopy}
-      </p>
-    </div>
-  </details>
+    </details>
+  </div>
+  <p
+    class="text-muted-foreground text-center empty:hidden md:text-start"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    data-copied={t.sharing.copied}
+    data-copy-error={t.sharing.copyError}
+    data-share-error={t.sharing.shareError}
+  >
+  </p>
 </share-links>
 
 <script>

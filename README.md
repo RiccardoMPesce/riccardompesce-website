@@ -8,8 +8,11 @@ links to Astro and the original AstroPaper theme for attribution.
 
 ## Sharing
 
-Articles end with a collapsed **Share this post** disclosure. The footer's
-**Share this site** disclosure shares the configured site homepage. Both use
+Articles show a flat sharing row below the title and publication date, before
+the article body. LinkedIn, X, Facebook and **Copy link** are immediately visible;
+**More** reveals WhatsApp, Telegram, email, native sharing and the manual URL field.
+The footer places **Share this site** above the copyright, beside a distinct
+**Find me** group of horizontal profile icons on wide screens. Both use
 `src/components/ShareLinks.astro` and the destinations in `shareLinks` in
 `astro-paper.config.ts`: LinkedIn, X, Facebook, WhatsApp, Telegram and email.
 These are ordinary links, with no social SDKs, share counters or click tracking.
@@ -21,12 +24,18 @@ fragments are not added. Each destination receives an encoded URL value;
 configure a base URL ending in its empty parameter (for example `?url=`).
 Invalid destinations fail the build rather than silently disappearing.
 
-The URL field remains available for manual copying without JavaScript.
+The URL field remains available under **More** for manual copying without JavaScript.
 **Copy link** uses the browser Clipboard API when available in a secure context;
-denied writes show an error and select the URL for manual copying. **More sharing
+Denied writes open **More**, show an error and select the URL for manual copying. **More sharing
 options…** uses the device's native share sheet where supported. Cancelling that
 sheet is normal; other errors direct readers to the links or URL field. The custom
 element removes listeners on navigation and reconnects with Astro page changes.
+
+The near-title position is a visibility choice, not evidence of increased sharing.
+The controls use 44px minimum height, accessible names and the site's keyboard
+focus treatment, informed by [WCAG target-size guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
+There are no panel backgrounds or borders around the sharing row; only the
+optional manual URL field has a border.
 
 Reference formats: [Telegram custom buttons](https://core.telegram.org/widgets/share),
 [WhatsApp click to chat](https://faq.whatsapp.com/5913398998672934),

@@ -19,11 +19,23 @@ const currentYear = new Date().getFullYear();
   class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
   {...attrs}
 >
-  <div
-    class="border-border flex flex-col items-center justify-between border-t py-6 md:flex-row-reverse md:py-4"
-  >
-    <Socials />
-    <div class="my-2 min-w-0 text-center md:text-start">
+  <div class="border-border border-t py-6 md:py-4">
+    <div
+      class="flex flex-col items-center gap-3 pb-4 md:flex-row md:items-start md:justify-between md:gap-6"
+    >
+      <ShareLinks
+        url={config.site.url}
+        title={config.site.title}
+        scope="site"
+      />
+      <div class="flex shrink-0 items-center gap-2 md:min-h-11">
+        <span class="text-muted-foreground text-sm">{t.sharing.profiles}</span>
+        <Socials horizontal />
+      </div>
+    </div>
+    <div
+      class="text-muted-foreground min-w-0 text-center text-sm md:text-start"
+    >
       <div class="flex flex-col gap-x-1 md:flex-row md:flex-wrap">
         <span
           >{t.footer.copyright} &#169; {currentYear} {config.site.author}.</span
@@ -41,11 +53,6 @@ const currentYear = new Date().getFullYear();
           class="underline underline-offset-4">AstroPaper</a
         >
       </p>
-      <ShareLinks
-        url={config.site.url}
-        title={config.site.title}
-        scope="site"
-      />
     </div>
   </div>
 </footer>

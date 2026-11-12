@@ -143,6 +143,12 @@ const ogImage = ogImageUrl
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
     </div>
 
+    <ShareLinks
+      url={canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href}
+      title={title}
+      scope="post"
+    />
+
     <div class="post-body mt-8">
       <PostToc headings={tocHeadings} />
       <article
@@ -176,12 +182,6 @@ const ogImage = ogImageUrl
         </ul>
         <EditPost class="flex-none sm:hidden" {hideEditPost} {post} />
       </div>
-
-      <ShareLinks
-        url={canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href}
-        title={title}
-        scope="post"
-      />
     </div>
 
     <hr class="my-8 border-dashed" />

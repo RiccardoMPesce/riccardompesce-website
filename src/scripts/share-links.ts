@@ -29,6 +29,8 @@ class ShareLinks extends HTMLElement {
             status.textContent = status.dataset.copied ?? "Link copied.";
           } catch {
             if (signal.aborted) return;
+            const details = input.closest("details");
+            if (details) details.open = true;
             input.focus();
             input.select();
             status.textContent =

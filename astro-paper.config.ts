@@ -5,7 +5,7 @@ export default defineAstroPaperConfig({
     url: "https://riccardompesce.com/",
     title: "Riccardo M. Pesce",
     description:
-      "Notes at the intersection of automation, cyber-physical systems, and technical strategy — what I analyze, deploy, and learn.",
+      "First-principles engineering across industrial automation, Edge AI, OT security, and quantitative systems — architectural notes and B2B strategy.",
     author: "Riccardo M. Pesce",
     profile: "https://github.com/riccardompesce",
     ogImage: "og.png",

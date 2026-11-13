@@ -564,12 +564,35 @@ avoid posting test comments from localhost because they use the same discussion 
 ## Fonts and social previews
 
 Astro loads `astro.config.mjs` before `astro.config.ts`; default commands use the
-`.mjs` configuration. Keep `--font-google-sans-code` registered with weights 400
-and 700 and TTF/WOFF sources for Satori. Google Fonts must be reachable on the
-first build. Astro caches downloaded fonts for later builds.
+`.mjs` configuration. Both configurations avoid remote font providers.
 
-The site uses Atkinson Hyperlegible Next for page text and generates `/og.png` and per-post
-social preview images with Satori and Sharp.
+Page fonts are self-hosted Fontsource variable fonts: Space Grotesk for headings,
+Inter for body/UI, and JetBrains Mono for code and technical metadata. Explicit
+`@font-face` declarations in `src/styles/fonts.css` include only Latin and Latin
+Extended (plus real Inter/Mono italics), with `font-display: swap`. The layout
+preloads the exact Latin Inter and Space Grotesk WOFF2 URLs used by CSS. Extended
+subsets and noncritical faces load only when needed. KaTeX CSS and math fonts
+are bundled from the installed package, without a CDN. Satori uses local static
+Inter WOFF at 400/700 from `@fontsource/inter` because variable WOFF2 is unsupported.
+No Google Fonts connection is required at build time or in the browser.
+
+Tailwind v4 semantic tokens live in `src/styles/theme.css`; AstroPaper's fill,
+text-base, card and card-muted aliases share the existing component tokens.
+Light uses paper/slate/navy; dark uses obsidian/slate/sky. Prose is limited to 68ch,
+with 17px text on desktop, 1.68 line height and 1.35em paragraph spacing. Code,
+tables, blockquotes and horizontally scrolling math follow both themes.
+
+The requested palette gives AAA contrast for body text, headings and primary links
+on page/card surfaces. Muted captions and the light link hover meet AA, not AAA
+for normal-size text; syntax colors require separate per-token auditing. This is
+not a whole-site AAA certification. Minimum contrast across page/card surfaces is
+13.29:1 (light body), 14.39:1 (dark body), 8.05:1 (light accent) and 8.28:1
+(dark accent); muted text is 6.89:1 / 6.92:1 and light hover is 6.09:1.
+Preloads reduce font-related layout shifts,
+but `swap` and system fallback metrics cannot guarantee zero CLS on a cold or
+slow connection; measure this on deployment as well as local pages.
+
+The site generates `/og.png` and per-post social preview images with Satori and Sharp.
 The general description in `astro-paper.config.ts` covers work, study, exploration
 and learning. Home metadata, the default social description, the generated site
 preview image and RSS share this source. Individual pages and posts keep their
@@ -585,7 +608,7 @@ services may retain previously fetched metadata or images in their own caches.
   if a dashboard override is configured.
 
 Pages publishes the static output without an Astro Cloudflare adapter. The build
-requires access to Google Fonts. A local build does not verify remote deployment.
+uses locally installed fonts. A local build does not verify remote deployment.
 
 ## License
 

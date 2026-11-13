@@ -151,14 +151,7 @@ const ogImage = ogImageUrl
 
     <div class="post-body mt-8">
       <PostToc headings={tocHeadings} />
-      <article
-        id="article"
-        class:list={[
-          "w-full",
-          "app-prose max-w-app",
-          "prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)",
-        ]}
-      >
+      <article id="article" class:list={["w-full", "app-prose"]}>
         <Content />
       </article>
     </div>

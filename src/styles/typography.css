@@ -3,26 +3,49 @@
 @layer base {
   /* ===== Override default Tailwind Typography styles ===== */
   .app-prose {
-    @apply prose prose-lg;
+    @apply prose;
 
-    font-size: 1.125rem;
-    line-height: 1.75;
+    font-size: 1rem;
+    line-height: 1.68;
+    max-inline-size: 68ch;
+    min-inline-size: 0;
+
+    @media (min-width: 48rem) {
+      font-size: 1.0625rem;
+    }
     text-align: start;
 
     :where(p, ul, ol, blockquote) {
-      max-inline-size: 65ch;
+      max-inline-size: 68ch;
     }
 
     p {
-      margin-block: 1.5em;
+      margin-block: 1.35em;
     }
 
     h1,
     h2,
     h3,
-    h4,
+    h4 {
+      @apply font-display text-heading mb-3;
+      line-height: 1.2;
+    }
+
+    h1,
+    h2 {
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      margin-block-start: 2.5rem;
+    }
+
+    h3 {
+      margin-block-start: 1.75rem;
+    }
+
     th {
-      @apply text-foreground mb-3;
+      @apply text-heading;
     }
 
     p,
@@ -36,7 +59,7 @@
     }
 
     a {
-      @apply text-foreground hover:text-accent wrap-break-word decoration-solid underline-offset-4 focus-visible:no-underline;
+      @apply text-accent hover:text-accent-hover wrap-break-word decoration-solid underline-offset-4 focus-visible:no-underline;
     }
 
     ul {
@@ -64,17 +87,18 @@
     }
 
     figcaption {
-      @apply opacity-75;
+      @apply text-muted-foreground;
     }
 
     table {
       th,
       td {
-        @apply border-border border p-2;
+        @apply border-border border-b;
+        padding: 0.65rem 0.9rem;
       }
 
       th {
-        @apply py-1.5;
+        @apply bg-surface;
       }
 
       th[align="center"],
@@ -102,15 +126,32 @@
     }
 
     code {
-      @apply bg-muted/75 text-foreground rounded p-1 wrap-break-word before:content-none after:content-none;
+      @apply text-foreground rounded font-mono wrap-break-word before:content-none after:content-none;
+      background: rgb(148 163 184 / 0.15);
+      padding: 0.15em 0.35em;
+      font-size: 0.875em;
     }
 
-    .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-0;
+    pre code {
+      @apply bg-transparent p-0;
+      font-size: inherit;
+      white-space: inherit;
+      overflow-wrap: normal;
     }
 
     blockquote {
-      @apply border-s-accent/80 wrap-break-word opacity-80;
+      @apply text-foreground wrap-break-word;
+      border-inline-start: 3px solid var(--accent);
+      background: color-mix(in srgb, var(--accent) 7%, var(--background));
+      padding: 0.75rem 1.25rem;
+      font-style: normal;
+
+      p:first-child {
+        margin-block-start: 0;
+      }
+      p:last-child {
+        margin-block-end: 0;
+      }
     }
 
     details:not(.callout) {
@@ -122,17 +163,20 @@
     }
 
     pre {
-      @apply focus-visible:outline-accent focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-dashed;
+      @apply border-border bg-surface text-foreground focus-visible:outline-accent overflow-x-auto rounded-lg border font-mono focus-visible:outline-2 focus-visible:outline-dashed;
+      padding: 1rem 1.25rem;
+      line-height: 1.6;
     }
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .astro-code {
-    @apply outline-border flex border bg-(--shiki-light-bg) text-(--shiki-light) [&_span]:text-(--shiki-light);
+    @apply outline-border border text-(--shiki-light) [&_span]:text-(--shiki-light);
+    background: var(--surface) !important;
   }
 
   html[data-theme="dark"] .astro-code {
-    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+    @apply text-(--shiki-dark) [&_span]:text-(--shiki-dark);
   }
 
   /* Styles for Shiki transformers */
@@ -151,4 +195,17 @@
       @apply border-border rounded-sm border px-0.5 py-px;
     }
   }
+}
+
+/* Keep KaTeX's own math families; only scale and contain its display wrapper. */
+.katex {
+  font-size: 1.05em;
+}
+
+.katex-display {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.5rem;
+  margin-block: 1.35em;
 }

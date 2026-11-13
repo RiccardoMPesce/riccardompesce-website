@@ -184,7 +184,7 @@ const sections = [
                 <li id={experience.id} data-experience>
                   <details class="experience-card" open={index === 0}>
                     <summary>
-                      <span class="text-muted-foreground block text-sm tabular-nums">
+                      <span class="text-muted-foreground block font-mono text-sm tabular-nums">
                         {experience.period}
                       </span>
                       <span class="mt-2 flex flex-col items-center gap-4 md:flex-row md:items-start md:justify-between">
@@ -567,7 +567,7 @@ const sections = [
     }
   }
   .eyebrow {
-    @apply text-muted-foreground text-xs font-medium tracking-widest uppercase;
+    @apply text-muted-foreground font-mono text-xs font-medium tracking-[0.06em] uppercase;
   }
   .section-title {
     @apply mt-3 text-2xl leading-snug font-semibold tracking-tight sm:text-3xl;

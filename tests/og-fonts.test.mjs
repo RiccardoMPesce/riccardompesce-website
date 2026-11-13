@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import config from "../astro.config.mjs";
+import { loadOgFonts } from "../src/utils/loadOgFonts.ts";
+import satori from "satori";
 import { getFontPathByWeight } from "../src/utils/getFontPathByWeight.ts";
 
 const fonts = [
@@ -24,15 +25,25 @@ const fonts = [
   },
 ];
 
-test("the default Astro config registers both OG weights in a Satori-compatible format", () => {
-  const family = config.fonts.find(
-    font => font.cssVariable === "--font-google-sans-code"
-  );
-  assert.ok(family);
-  assert.ok(family.weights.includes(400));
-  assert.ok(family.weights.includes(700));
-  assert.ok(family.styles.includes("normal"));
-  assert.ok(family.formats.includes("ttf"));
+test("local OG fonts render regular, bold and Italian text without network access", async () => {
+  const [regular, bold] = await loadOgFonts();
+  assert.equal(regular.subarray(0, 4).toString(), "wOFF");
+  assert.equal(bold.subarray(0, 4).toString(), "wOFF");
+  const svg = await satori({
+    type: "div",
+    props: { style: { display: "flex" }, children: [
+      { type: "span", props: { children: "Ingegneria, città e perché" } },
+      { type: "strong", props: { children: "Autorità" } },
+    ] },
+  }, {
+    width: 1200, height: 630,
+    fonts: [
+      { name: "Inter", data: regular, weight: 400, style: "normal" },
+      { name: "Inter", data: bold, weight: 700, style: "normal" },
+    ],
+  });
+  assert.match(svg, /<svg/);
+  assert.match(svg, /<path/);
 });
 
 test("selects regular and bold TTF sources, with explicit style and format overrides", () => {

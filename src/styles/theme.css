@@ -1,7 +1,12 @@
-/* Register design tokens for Tailwind v4 */
+/* Keep AstroPaper aliases and Tailwind utilities on the same semantic tokens. */
 @theme inline {
+  --color-fill: var(--background);
+  --color-text-base: var(--foreground);
+  --color-card: var(--surface);
+  --color-card-muted: var(--muted);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
@@ -10,36 +15,37 @@
   --color-surface: var(--surface);
   --color-input-border: var(--input-border);
   --color-accent-hover: var(--accent-hover);
-  --font-app:
-    var(--font-atkinson), system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Arial, sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", sans-serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
+  --font-app: var(--font-sans);
 }
 
-/* Matte warm surfaces use a restrained red undertone and dark brown-gray text. */
 :root,
 [data-theme="light"] {
-  --background: #f1e9e6;
-  --foreground: #3d3231;
-  --accent: #57413d;
-  --accent-foreground: #f3eae5;
-  --accent-hover: #463431;
-  --muted: #e8dcd7;
-  --muted-foreground: #68534e;
-  --border: #d2bfb7;
-  --surface: #ece2dd;
-  --input-border: #8d756e;
+  --background: #f9fafb;
+  --foreground: #1e293b;
+  --heading: #0f172a;
+  --accent: #0f4c81;
+  --accent-foreground: #f8fafc;
+  --accent-hover: #1d4ed8;
+  --muted: #e5e7eb;
+  --muted-foreground: #475569;
+  --border: #e5e7eb;
+  --surface: #f3f4f6;
+  --input-border: #64748b;
 }
 
-/* Retain the deployed charcoal appearance with a nearly imperceptible warm bias. */
 [data-theme="dark"] {
-  --background: #1a1818;
-  --foreground: #e8e5e4;
-  --accent: #d4cfcc;
-  --accent-foreground: #191717;
-  --accent-hover: #e5e0dd;
-  --muted: #2c2929;
-  --muted-foreground: #b3adab;
-  --border: #3c3838;
-  --surface: #222020;
-  --input-border: #847d7b;
+  --background: #0b0f17;
+  --foreground: #e2e8f0;
+  --heading: #f8fafc;
+  --accent: #38bdf8;
+  --accent-foreground: #0b0f17;
+  --accent-hover: #93c5fd;
+  --muted: #1f2937;
+  --muted-foreground: #94a3b8;
+  --border: #1f2937;
+  --surface: #111827;
+  --input-border: #64748b;
 }

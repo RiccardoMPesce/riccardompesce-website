@@ -135,18 +135,21 @@ for reference. That directory is not loaded as public blog content.
 
 ## Portfolio
 
-### Downloadable master résumé
+### Downloadable full portfolio
 
 The portfolio offers English and Italian downloads in PDF and editable DOCX.
-The single-column master résumé follows the supplied reference's section order
+The single-column full portfolio follows the supplied reference's section order
 and includes all public roles, contributions, coursework, thesis research,
 credentials, projects and community activities. It is intentionally detailed,
 not a short application CV. The July 2026 ALTEN transition follows the current
 portfolio. The private telephone number is omitted.
 
 `ResumeDownload.astro` progressively enhances four static download links with
-language and format selectors; without JavaScript all four links remain usable.
-DOCX uses native Word paragraphs, headings and lists, Arial, one column and no
+a small **Download full portfolio** button beside **View full CV**. The button
+opens a native dialog with language and format selectors, keyboard focus
+containment, Escape/close dismissal and focus restoration. Without JavaScript,
+a compact disclosure provides all four direct download links.
+DOCX uses native Word paragraphs, headings and lists, Calibri, one column and no
 tables, text boxes, macros or content in headers/footers. Google Docs supports
 [editing Office files](https://support.google.com/docs/answer/9406611?hl=en).
 This conservative layout supports editing in Word and Google Docs; identical
@@ -159,22 +162,25 @@ structure, entry counts, numbers and evidence URLs in both languages. Original
 thesis and credential titles and technology names are retained. Export rejects
 missing entries or changed evidence URLs. Translation meaning still needs review.
 `scripts/generate-resume.py` owns document layout and the bilingual introduction.
-Generated files are committed under `public/resume/`, so deployment needs no
+Generated files are committed under `public/portfolio-downloads/`, so deployment needs no
 Python or office conversion service.
 
 After content or layout changes, regenerate all four files. Use a Python
 environment containing `python-docx`, `pdf2image` and `pypdf`, plus LibreOffice
 and Poppler. Set `RESUME_PYTHON` to that interpreter and `RESUME_RENDERER` to
 the Documents skill's `render_docx.py` (the Codex bundled runtime was used for
-the initial exports). From the repository root:
+the initial exports). Calibri must be installed and visible to the renderer;
+configure its font search path if necessary, and verify that `pdffonts` reports
+embedded Calibri rather than a substitute. Font files are not distributed in
+this repository. From the repository root:
 
 ```sh
 node scripts/export-resume.mjs /tmp/master-resume-source.json
-"$RESUME_PYTHON" scripts/generate-resume.py /tmp/master-resume-source.json public/resume
-"$RESUME_PYTHON" "$RESUME_RENDERER" public/resume/riccardo-pesce-master-resume-en.docx --output_dir /tmp/resume-en --emit_pdf
-"$RESUME_PYTHON" "$RESUME_RENDERER" public/resume/riccardo-pesce-master-resume-it.docx --output_dir /tmp/resume-it --emit_pdf
-cp /tmp/resume-en/riccardo-pesce-master-resume-en.pdf public/resume/
-cp /tmp/resume-it/riccardo-pesce-master-resume-it.pdf public/resume/
+"$RESUME_PYTHON" scripts/generate-resume.py /tmp/master-resume-source.json public/portfolio-downloads
+"$RESUME_PYTHON" "$RESUME_RENDERER" public/portfolio-downloads/riccardo-pesce-full-portfolio-en.docx --output_dir /tmp/resume-en --emit_pdf
+"$RESUME_PYTHON" "$RESUME_RENDERER" public/portfolio-downloads/riccardo-pesce-full-portfolio-it.docx --output_dir /tmp/resume-it --emit_pdf
+cp /tmp/resume-en/riccardo-pesce-full-portfolio-en.pdf public/portfolio-downloads/
+cp /tmp/resume-it/riccardo-pesce-full-portfolio-it.pdf public/portfolio-downloads/
 ```
 
 Inspect every rendered page and check both language versions before accepting

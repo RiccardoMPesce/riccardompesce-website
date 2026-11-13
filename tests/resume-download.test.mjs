@@ -12,6 +12,15 @@ function fixture({ incomplete = false } = {}) {
   const registry = new Map();
   class Element extends EventTarget {
     value = "";
+    open = false;
+    modalCalls = 0;
+    focus() { this.focused = true; }
+    showModal() { this.open = true; this.modalCalls++; }
+    close() {
+      if (!this.open) return;
+      this.open = false;
+      this.dispatchEvent(new Event("close"));
+    }
     hidden = true;
     textContent = "";
     querySelector(selector) { return this.elements[selector] ?? null; }
@@ -22,7 +31,8 @@ function fixture({ incomplete = false } = {}) {
     customElements: { get: name => registry.get(name), define: (name, value) => registry.set(name, value) },
   });
   const element = new (registry.get("resume-download"))();
-  element.elements = Object.fromEntries(["language", "format", "link", "controls", "fallback", "status"].map(name => [`[data-resume-${name}]`, new Element()]));
+  element.elements = Object.fromEntries(["language", "format", "link", "open", "close", "fallback", "status"].map(name => [`[data-resume-${name}]`, new Element()]));
+  element.elements.dialog = new Element();
   element.elements["[data-resume-language]"].value = "en";
   element.elements["[data-resume-format]"].value = "pdf";
   if (incomplete) delete element.elements["[data-resume-status]"];
@@ -40,13 +50,13 @@ test("all four choices select their actual download with an accessible label", (
       language.value = lang;
       format.value = extension;
       format.dispatchEvent(new Event("change"));
-      assert.equal(link.href, `/resume/riccardo-pesce-master-resume-${lang}.${extension}`);
-      assert.equal(link.download, `riccardo-pesce-master-resume-${lang}.${extension}`);
+      assert.equal(link.href, `/portfolio-downloads/riccardo-pesce-full-portfolio-${lang}.${extension}`);
+      assert.equal(link.download, `riccardo-pesce-full-portfolio-${lang}.${extension}`);
       assert.match(link.textContent, new RegExp(extension.toUpperCase()));
       assert.match(element.elements["[data-resume-status]"].textContent, /ready to download/);
     }
   }
-  assert.equal(element.elements["[data-resume-controls]"].hidden, false);
+  assert.equal(element.elements["[data-resume-open]"].hidden, false);
   assert.equal(element.elements["[data-resume-fallback]"].hidden, true);
 });
 
@@ -65,8 +75,38 @@ test("listeners disconnect and reconnect after Astro navigation", () => {
 test("incomplete controls fail explicitly while static fallback links stay available", () => {
   const element = fixture({ incomplete: true });
   assert.throws(() => element.connectedCallback(), /incomplete/);
-  assert.equal(element.elements["[data-resume-controls]"].hidden, true);
+  assert.equal(element.elements["[data-resume-open]"].hidden, true);
   const component = readFileSync(new URL("../src/components/ResumeDownload.astro", import.meta.url), "utf8");
   assert.match(component, /data-resume-fallback/);
   assert.match(component, /formats.map/);
+});
+
+
+test("dialog opens once, focuses language and restores trigger focus after closing", () => {
+  const element = fixture();
+  element.connectedCallback();
+  const opener = element.elements["[data-resume-open]"];
+  const close = element.elements["[data-resume-close]"];
+  opener.dispatchEvent(new Event("click"));
+  opener.dispatchEvent(new Event("click"));
+  assert.equal(element.elements.dialog.open, true);
+  assert.equal(element.elements.dialog.modalCalls, 1);
+  assert.equal(element.elements["[data-resume-language]"].focused, true);
+  close.dispatchEvent(new Event("click"));
+  assert.equal(element.elements.dialog.open, false);
+  assert.equal(opener.focused, true);
+});
+
+test("navigation closes the modal and removes trigger listeners before reconnecting", () => {
+  const element = fixture();
+  element.connectedCallback();
+  const opener = element.elements["[data-resume-open]"];
+  opener.dispatchEvent(new Event("click"));
+  element.disconnectedCallback();
+  assert.equal(element.elements.dialog.open, false);
+  opener.dispatchEvent(new Event("click"));
+  assert.equal(element.elements.dialog.open, false);
+  element.connectedCallback();
+  opener.dispatchEvent(new Event("click"));
+  assert.equal(element.elements.dialog.modalCalls, 2);
 });

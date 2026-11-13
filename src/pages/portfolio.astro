@@ -45,8 +45,6 @@ const sections = [
       </div>
     </section>
 
-    <ResumeDownload />
-
     <portfolio-tabs class="block">
       <span data-navigation-sentinel class="block h-px" aria-hidden="true"
       ></span>
@@ -58,14 +56,17 @@ const sections = [
             <p class="eyebrow" id="portfolio-sections-label">
               Explore the portfolio
             </p>
-            <button type="button" class="full-cv-button" data-view-all hidden>
-              <IconListTree
-                class="size-5 shrink-0"
-                aria-hidden="true"
-                focusable="false"
-              />
-              View full CV
-            </button>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <button type="button" class="full-cv-button" data-view-all hidden>
+                <IconListTree
+                  class="size-5 shrink-0"
+                  aria-hidden="true"
+                  focusable="false"
+                />
+                View full CV
+              </button>
+              <ResumeDownload />
+            </div>
           </div>
           <div
             class="section-nav"
@@ -612,7 +613,7 @@ const sections = [
     @apply border-accent bg-accent text-accent-foreground hover:bg-accent-hover font-semibold;
   }
   .full-cv-button {
-    @apply border-accent bg-muted text-foreground hover:bg-surface w-full items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 text-center text-sm font-semibold md:w-auto;
+    @apply border-accent bg-muted text-foreground hover:bg-surface w-auto items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 text-center text-sm font-semibold;
     min-block-size: 44px;
     transition:
       color 160ms ease,
@@ -633,18 +634,21 @@ const sections = [
     }
     .section-navigation[data-stuck] .navigation-bar {
       @apply border-border flex items-center gap-2 border-b py-1;
+      flex-wrap: wrap;
       pointer-events: auto;
     }
     .section-navigation[data-stuck] .navigation-actions {
       margin: 0;
       order: 2;
       flex: none;
+      margin-inline-start: auto;
     }
     .section-navigation[data-stuck] #portfolio-sections-label {
       @apply sr-only;
     }
     .section-navigation[data-stuck] .section-nav {
       @apply min-w-0 flex-1 gap-1 border-0 py-0;
+      flex-basis: 100%;
     }
     .section-navigation[data-stuck] .section-nav a {
       @apply border-transparent bg-transparent px-2 py-2 text-xs;

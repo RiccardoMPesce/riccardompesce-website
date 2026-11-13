@@ -1,4 +1,4 @@
-"""Create conservative, editable OOXML resumes from the exported bilingual portfolio."""
+"""Create conservative, editable OOXML portfolios from the exported bilingual portfolio."""
 
 import argparse
 import json
@@ -28,7 +28,7 @@ def build(content, language, destination):
     section.top_margin = section.bottom_margin = Cm(1.8)
     section.left_margin = section.right_margin = Cm(1.9)
     normal = doc.styles["Normal"]
-    normal.font.name = "Arial"
+    normal.font.name = "Calibri"
     normal.font.size = Pt(10.5)
     normal.paragraph_format.space_after = Pt(5)
     normal.paragraph_format.line_spacing = 1.08
@@ -38,14 +38,14 @@ def build(content, language, destination):
     normal.element.get_or_add_rPr().append(lang)
     for name, size in [("Title", 22), ("Subtitle", 11), ("Heading 1", 14), ("Heading 2", 11.5), ("Heading 3", 10.5)]:
         style = doc.styles[name]
-        style.font.name = "Arial"
+        style.font.name = "Calibri"
         style.font.size = Pt(size)
         style.font.color.rgb = RGBColor(0, 0, 0)
         style.font.bold = name != "Subtitle"
         style.paragraph_format.space_before = Pt(12 if name == "Heading 1" else 7)
         style.paragraph_format.space_after = Pt(5)
         style.paragraph_format.keep_with_next = True
-    doc.core_properties.title = "Riccardo Maria Pesce Curriculum vitae" if italian else "Riccardo Maria Pesce Master Resume"
+    doc.core_properties.title = "Riccardo Maria Pesce Portfolio completo" if italian else "Riccardo Maria Pesce Full Portfolio"
     doc.core_properties.author = "Riccardo Maria Pesce"
     doc.core_properties.subject = "Portfolio professionale completo" if italian else "Detailed professional portfolio"
     doc.core_properties.language = "it-IT" if italian else "en-GB"
@@ -149,4 +149,4 @@ if __name__ == "__main__":
     source = json.loads(args.source.read_text())
     args.output.mkdir(parents=True, exist_ok=True)
     for language in ("en", "it"):
-        build(source[language], language, args.output / f"riccardo-pesce-master-resume-{language}.docx")
+        build(source[language], language, args.output / f"riccardo-pesce-full-portfolio-{language}.docx")

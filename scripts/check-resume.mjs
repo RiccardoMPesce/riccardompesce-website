@@ -2,16 +2,16 @@ import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { resumeDigest } from "./resume-source.mjs";
 
-const root = new URL("../public/resume/", import.meta.url);
+const root = new URL("../public/portfolio-downloads/", import.meta.url);
 const digest = await resumeDigest();
 const files = {};
 for (const language of ["en", "it"]) {
   for (const format of ["pdf", "docx"]) {
-    const name = `riccardo-pesce-master-resume-${language}.${format}`;
+    const name = `riccardo-pesce-full-portfolio-${language}.${format}`;
     const bytes = await readFile(new URL(name, root));
     const signature = format === "pdf" ? "%PDF-" : "PK";
     if (bytes.length < 1000 || !bytes.subarray(0, signature.length).equals(Buffer.from(signature))) {
-      throw new Error(`Invalid resume asset: ${name}`);
+      throw new Error(`Invalid portfolio asset: ${name}`);
     }
     files[name] = createHash("sha256").update(bytes).digest("hex");
   }
@@ -23,6 +23,6 @@ if (process.argv.includes("--write")) {
 } else {
   const saved = JSON.parse(await readFile(target, "utf8"));
   if (JSON.stringify(manifest) !== JSON.stringify(saved)) {
-    throw new Error("Resume assets are stale or modified. Regenerate both languages and formats, review the rendered documents, then run node scripts/check-resume.mjs --write. See README.md.");
+    throw new Error("Portfolio assets are stale or modified. Regenerate both languages and formats, review the rendered documents, then run node scripts/check-resume.mjs --write. See README.md.");
   }
 }

@@ -28,7 +28,7 @@ def build(content, language, destination):
     section.top_margin = section.bottom_margin = Cm(1.8)
     section.left_margin = section.right_margin = Cm(1.9)
     normal = doc.styles["Normal"]
-    normal.font.name = "Calibri"
+    normal.font.name = "Arial"
     normal.font.size = Pt(10.5)
     normal.paragraph_format.space_after = Pt(5)
     normal.paragraph_format.line_spacing = 1.08
@@ -38,7 +38,7 @@ def build(content, language, destination):
     normal.element.get_or_add_rPr().append(lang)
     for name, size in [("Title", 22), ("Subtitle", 11), ("Heading 1", 14), ("Heading 2", 11.5), ("Heading 3", 10.5)]:
         style = doc.styles[name]
-        style.font.name = "Calibri"
+        style.font.name = "Arial"
         style.font.size = Pt(size)
         style.font.color.rgb = RGBColor(0, 0, 0)
         style.font.bold = name != "Subtitle"

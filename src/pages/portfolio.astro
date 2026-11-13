@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
 import Portrait from "@/components/Portrait.astro";
 import ProjectCarousel from "@/components/ProjectCarousel.astro";
+import ResumeDownload from "@/components/ResumeDownload.astro";
 import IconListTree from "@/assets/icons/IconListTree.svg";
 import { portfolio } from "@/data/portfolio";
 import config from "@/config";
@@ -43,6 +44,8 @@ const sections = [
         </div>
       </div>
     </section>
+
+    <ResumeDownload />
 
     <portfolio-tabs class="block">
       <span data-navigation-sentinel class="block h-px" aria-hidden="true"

@@ -1,0 +1,94 @@
+---
+const languages = [
+  { value: "en", label: "English" },
+  { value: "it", label: "Italiano" },
+] as const;
+const formats = ["pdf", "docx"] as const;
+---
+
+<resume-download
+  class="border-border bg-surface mt-6 block rounded-xl border p-5 sm:p-6"
+>
+  <h2 class="text-lg font-semibold" id="resume-download-title">
+    Download the master résumé
+  </h2>
+  <p
+    class="text-muted-foreground mt-2 text-sm leading-relaxed"
+    id="resume-download-description"
+  >
+    The detailed portfolio, including experience, education, thesis research,
+    skills and credentials. Choose PDF or an editable Word / Google Docs
+    document.
+  </p>
+  <div data-resume-controls hidden>
+    <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end">
+      <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
+        Language
+        <select
+          data-resume-language
+          class="border-input-border bg-background min-w-0 rounded-md border px-3 py-2 text-base"
+        >
+          {
+            languages.map(language => (
+              <option value={language.value}>{language.label}</option>
+            ))
+          }
+        </select>
+      </label>
+      <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
+        Format
+        <select
+          data-resume-format
+          class="border-input-border bg-background min-w-0 rounded-md border px-3 py-2 text-base"
+        >
+          <option value="pdf">PDF (.pdf)</option>
+          <option value="docx">Word / Google Docs (.docx)</option>
+        </select>
+      </label>
+      <a
+        data-resume-link
+        href="/resume/riccardo-pesce-master-resume-en.pdf"
+        download
+        class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 font-semibold"
+        aria-describedby="resume-download-description"
+        >Download résumé · English · PDF</a
+      >
+    </div>
+    <p
+      data-resume-status
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+    </p>
+  </div>
+  <ul data-resume-fallback class="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+    {
+      languages.flatMap(language =>
+        formats.map(format => (
+          <li>
+            <a
+              class="underline underline-offset-4"
+              href={`/resume/riccardo-pesce-master-resume-${language.value}.${format}`}
+              download
+              lang={language.value}
+            >
+              {language.label} · {format.toUpperCase()}
+            </a>
+          </li>
+        ))
+      )
+    }
+  </ul>
+</resume-download>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script>
+  import "@/scripts/resume-download";
+</script>

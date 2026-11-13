@@ -1,0 +1,774 @@
+{
+  "experiences": [
+    {
+      "id": "alten-lead",
+      "employer": "ALTEN",
+      "role": "Responsabile tecnico · Sisal Community",
+      "period": "Lug 2026 — Presente",
+      "location": "Roma, Italia · Interamente da remoto",
+      "focus": ["leadership", "systems", "business"],
+      "summary": "Responsabilità tecnica di un progetto a prezzo fisso, collegando architettura, delivery e priorità aziendali.",
+      "contributions": [
+        "Guida di architettura delle soluzioni, studi di fattibilità, standard di ingegneria, coordinamento del team e pianificazione dei rilasci nel rispetto dei vincoli di budget.",
+        "Traduzione dei requisiti di business in soluzioni tecniche, negoziazione del perimetro e dei compromessi di delivery, coordinamento di fornitori e stakeholder nel Regno Unito, in Thailandia e in Albania.",
+        "Guida di integrazioni e migrazioni di sistemi distribuiti con Kafka, Redis, Kubernetes, Azure Pub/Sub e GitOps.",
+        "Gestione di integrazioni e migrazioni con Tipster e Social Plus, allineando scelte tecniche, capacità dei fornitori e priorità di delivery.",
+        "Supervisione di sicurezza e governance dei dati, a supporto della conformità relativa al GDPR, degli audit tecnici e della qualità della delivery.",
+        "Guida della consegna del perimetro concordato nei tempi e nel budget, contribuendo alle trattative per un’estensione annuale fino al 2027 e per l’acquisto di funzionalità aggiuntive, con ulteriori rilasci pianificati.",
+        "Conduzione di colloqui tecnici per ALTEN Italia e Svizzera."
+      ],
+      "tools": [
+        "Java",
+        "Spring Boot",
+        "Kafka",
+        "Redis",
+        "Kubernetes",
+        "Azure",
+        "Argo CD",
+        "GitOps"
+      ]
+    },
+    {
+      "id": "alten-backend",
+      "employer": "ALTEN",
+      "role": "Ingegnere backend · Sisal PAM",
+      "period": "Mag 2025 — Lug 2026",
+      "location": "Roma, Italia · Interamente da remoto",
+      "focus": ["systems", "data"],
+      "summary": "Modernizzazione dei servizi di gestione dei conti giocatore, da una base di codice PL/SQL complessa a servizi Java modulari.",
+      "contributions": [
+        "Contributo, sotto il coordinamento del team lead, alla scomposizione di una base di codice PL/SQL in circa otto microservizi Java/Spring Boot, semplificando sviluppo, test e deployment nell’ambito di un incarico time-and-materials.",
+        "Sviluppo di servizi a eventi con Kafka e pattern transactional outbox e CQRS per l’elaborazione distribuita dei dati e l’integrazione.",
+        "Sviluppo di componenti di integrazione e batch con Spring Data, Spring Batch, Spring Kafka, Spring Security e Spring Cloud, utilizzando database SQL, Oracle Cloud Infrastructure e Kubernetes.",
+        "Supporto a osservabilità, affidabilità e modernizzazione continua con team di ingegneria distribuiti, tra cui Sisal Albania.",
+        "Partecipazione a discussioni architetturali e valutazioni tecnologiche, incluse sperimentazioni con versioni emergenti di Java."
+      ],
+      "tools": [
+        "Java",
+        "Spring Boot",
+        "Spring Batch",
+        "Spring Security",
+        "Spring Cloud",
+        "Kafka",
+        "SQL",
+        "Oracle Cloud",
+        "Kubernetes"
+      ]
+    },
+    {
+      "id": "discovery-reply",
+      "employer": "Discovery Reply",
+      "role": "Ingegnere software e soluzioni",
+      "period": "Lug 2023 — Mag 2025",
+      "location": "Roma, Italia · Interamente da remoto",
+      "focus": ["systems", "business"],
+      "summary": "Integrazione enterprise, piattaforme digitali e analisi delle soluzioni nel settore media e in altri contesti cliente.",
+      "contributions": [
+        "Sviluppo di microservizi contract-first per Sky Italia con OpenAPI, Java/Spring Boot e Kong, contribuendo all’integrazione enterprise con Kubernetes, Terraform e Jenkins.",
+        "Personalizzazione di una piattaforma di Digital Asset Management con Java, PHP e React; contributo a funzionalità di modifica immagini e autenticazione mediante modernizzazione serverless AWS con Lambda, DynamoDB e Cognito.",
+        "Partecipazione a un incarico di consulenza in sede per Sky Deutschland a Monaco, intervistando stakeholder e documentando casi d’uso per la sostituzione di ScheduALL.",
+        "Realizzazione e manutenzione di soluzioni web per Italgas, BAPS e Mediaset con WordPress, PHP e Figma; sviluppo di plugin personalizzati e affiancamento di un collega junior.",
+        "Esplorazione dell’orchestrazione dei workflow con Camunda e sperimentazione dello sviluppo assistito da IA con Cline e strumenti interni Reply."
+      ],
+      "tools": [
+        "Java",
+        "Spring Boot",
+        "OpenAPI",
+        "Kong",
+        "AWS",
+        "Terraform",
+        "Jenkins",
+        "PHP",
+        "React",
+        "WordPress",
+        "Figma"
+      ]
+    },
+    {
+      "id": "gig",
+      "employer": "Gaming Innovation Group",
+      "role": "Ingegnere di soluzioni Big Data",
+      "period": "Gen 2022 — Lug 2023",
+      "location": "Saint Julian, Malta · Interamente da remoto",
+      "focus": ["systems", "data"],
+      "summary": "Piattaforme dati a eventi per prodotti internazionali, rendicontazione normativa e analisi a valle.",
+      "contributions": [
+        "Sviluppo di microservizi e pipeline dati distribuite in grado di supportare fino a 5.000 messaggi al secondo per prodotti Lottery, Sports e Casino.",
+        "Progettazione e implementazione di workflow ETL e data warehousing con RabbitMQ, NiFi, Avro, Kafka e ClickHouse in una Lambda Architecture.",
+        "Sviluppo di soluzioni di riconciliazione, validazione e governance dei dati per requisiti di reporting in mercati tra cui Serbia, Argentina, Croazia e Maryland, USA.",
+        "Responsabilità dei progetti assegnati dalla progettazione al deployment, monitoraggio e risoluzione dei problemi, collaborando con team interni e stakeholder regolamentari esterni.",
+        "Implementazione di monitoraggio e alert per rilevare errori di elaborazione e avvisare i team interessati tramite Slack ed email.",
+        "Supporto ai team BI, Data Science e QA, con esposizione a workflow di deployment di modelli di machine learning basati su FastAPI."
+      ],
+      "tools": [
+        "Kafka",
+        "RabbitMQ",
+        "NiFi",
+        "Avro",
+        "ClickHouse",
+        "PostgreSQL",
+        "Python",
+        "Kubernetes/OpenShift"
+      ]
+    },
+    {
+      "id": "evolution",
+      "employer": "Evolution Gaming",
+      "role": "Analista commerciale e di Business Intelligence",
+      "period": "Gen 2021 — Giu 2021",
+      "location": "Saint Julian’s, Malta · Ibrido",
+      "focus": ["data", "business"],
+      "summary": "Analisi commerciale e reporting per Key Account Manager internazionali e direzione aziendale.",
+      "contributions": [
+        "Progettazione e presentazione di dashboard BI per Key Account Manager a supporto dell’analisi dei portafogli clienti e delle prestazioni dei prodotti: GGR, volumi di gioco, attività dei giocatori, abbandono e fidelizzazione, con confronti mensili e annuali.",
+        "Supporto ai team commerciali statunitensi nei mercati di nuova regolamentazione e al reporting dei marchi integrati NetEnt e Red Tiger.",
+        "Creazione di fonti analitiche con Apache Hive e report Excel personalizzati per esigenze commerciali e indagini sulle prestazioni.",
+        "Collaborazione con direttori commerciali e responsabili della strategia aziendale, con occasionale coinvolgimento di stakeholder C-level, per collegare analisi e pianificazione commerciale."
+      ],
+      "tools": ["Tableau", "Hive", "SQL", "Excel", "Jira"]
+    },
+    {
+      "id": "oney",
+      "employer": "Oney Insurance",
+      "role": "Analista di soluzioni business e dati",
+      "period": "Feb 2020 — Set 2020",
+      "location": "Sliema, Malta · Ibrido",
+      "focus": ["data", "business"],
+      "summary": "Riconciliazione aziendale, integrazione dei dati e analisi di fattibilità per attività assicurative rivolte ai mercati europei nel gruppo francese Oney.",
+      "contributions": [
+        "Analisi di dati commerciali e operativi per indagare discrepanze e supportare la coerenza tra sistemi assicurativi.",
+        "Collaborazione con stakeholder di business per tradurre i requisiti in workflow di trasformazione e integrazione dei dati.",
+        "Contributo ad analisi di fattibilità e prove di concetto di machine learning per potenziali applicazioni aziendali.",
+        "Collegamento tra analisi, ingegneria dei dati e requisiti operativi dei prodotti assicurativi europei, lavorando direttamente con gli stakeholder di business."
+      ],
+      "tools": ["Java", "Groovy", "SQL", "Python", "Excel"]
+    },
+    {
+      "id": "appen-pages",
+      "employer": "Appen | iSoftStone (Collaborazioni a contratto)",
+      "role": "Valutatore",
+      "period": "Feb 2017 — Apr 2020",
+      "location": "Da remoto",
+      "focus": ["data", "business"],
+      "summary": "Valutatore per Appen e iSoftStone della pertinenza dei risultati di ricerca e delle inserzioni Facebook e dell’accuratezza delle descrizioni delle pagine aziendali.",
+      "contributions": [
+        "Valutazione dell’accuratezza delle descrizioni delle pagine aziendali e della pertinenza di annunci e risultati di ricerca."
+      ],
+      "tools": [
+        "Facebook Business Pages",
+        "Facebook Ads",
+        "Internal web-based evaluation platform"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "CMD Call Graph",
+      "role": "Contributo open source",
+      "description": "Contributo a uno strumento Python che trasforma le chiamate negli script Windows CMD in visualizzazioni Graphviz, facilitando l’analisi della struttura degli script legacy. Il progetto è ospitato nell’organizzazione GitHub pubblica di Microsoft.",
+      "url": "https://github.com/microsoft/cmd-call-graph",
+      "tools": ["Python", "Graphviz", "Static analysis", "Windows CMD"]
+    }
+  ],
+  "credentials": [
+    {
+      "name": "First Certificate in English · Grade A, punteggio 180",
+      "issuer": "Cambridge English",
+      "issued": "Mar 2022"
+    },
+    {
+      "name": "Data Engineer",
+      "issuer": "Databricks",
+      "issued": "Lug 2021"
+    },
+    {
+      "name": "Data Scientist",
+      "issuer": "Databricks",
+      "issued": "Lug 2021"
+    },
+    {
+      "name": "SQL Analyst",
+      "issuer": "Databricks",
+      "issued": "Lug 2021"
+    },
+    {
+      "name": "Data Analysis with Python",
+      "issuer": "University of Helsinki",
+      "issued": "Dic 2020"
+    },
+    {
+      "name": "Cloud Core",
+      "issuer": "IBM",
+      "issued": "Dic 2020"
+    },
+    {
+      "name": "Scientific Computing with Python",
+      "issuer": "freeCodeCamp",
+      "issued": "Nov 2020"
+    },
+    {
+      "name": "Natural Language Processing Specialization",
+      "issuer": "Coursera",
+      "issued": "Ott 2020"
+    },
+    {
+      "name": "AI for Medicine Specialization",
+      "issuer": "Coursera",
+      "issued": "Ago 2020"
+    },
+    {
+      "name": "DeepLearning.AI TensorFlow Developer Specialization",
+      "issuer": "Coursera",
+      "issued": "Lug 2020"
+    },
+    {
+      "name": "Deep Learning Specialization",
+      "issuer": "Coursera",
+      "issued": "Giu 2020"
+    },
+    {
+      "name": "Machine Learning by Stanford University on Coursera",
+      "issuer": "Coursera",
+      "issued": "Feb 2019"
+    }
+  ],
+  "community": [
+    {
+      "role": "Volontario per le relazioni con la comunità",
+      "organization": "IPSIA E. Fermi",
+      "period": "Dic 2013 — Feb 2014"
+    },
+    {
+      "role": "Guida turistica volontaria",
+      "organization": "eTwinning",
+      "period": "Ott 2013"
+    }
+  ],
+  "capabilities": [
+    {
+      "title": "Leadership tecnica",
+      "description": "Dalla fattibilità alla consegna, con responsabilità delle decisioni intermedie.",
+      "items": [
+        "Responsabilità tecnica",
+        "Architettura e studi di fattibilità",
+        "Coordinamento del team",
+        "Pianificazione dei rilasci e standard di ingegneria"
+      ]
+    },
+    {
+      "title": "Relazioni commerciali e di business",
+      "description": "Collegamento tra scelte tecniche, persone, priorità e vincoli.",
+      "items": [
+        "Analisi dei requisiti e degli stakeholder",
+        "Clienti e fornitori internazionali",
+        "Negoziazione del perimetro",
+        "Intelligence commerciale e analisi dei KPI"
+      ]
+    },
+    {
+      "title": "Sistemi e integrazione",
+      "description": "Integrazione di servizi, piattaforme e flussi dati in contesti enterprise.",
+      "items": [
+        "Sistemi distribuiti e a eventi",
+        "Integrazione enterprise",
+        "Infrastrutture cloud",
+        "Affidabilità e osservabilità"
+      ]
+    },
+    {
+      "title": "Dati e governance",
+      "description": "Dai dati operativi al reporting e alle decisioni aziendali.",
+      "items": [
+        "Ingegneria dei dati e BI",
+        "Riconciliazione e validazione",
+        "Reporting normativo",
+        "Governance dei dati e sicurezza delle informazioni"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Laurea magistrale in Ingegneria informatica · LM-32",
+      "year": "2023",
+      "result": "110/110 e lode",
+      "institution": "Università di Catania, Italia",
+      "credits": 120,
+      "thesis": {
+        "label": "Tesi magistrale",
+        "title": "Deep Learning for Rest State Classification Using EEG/fMRI Data",
+        "sections": [
+          {
+            "heading": "Motivazione",
+            "paragraphs": [
+              "EEG e fMRI offrono due viste registrate dell’attività cerebrale. La tesi ha studiato come modelli di deep learning potessero apprendere da ciascuna modalità e combinarne le rappresentazioni per classificare osservazioni dello stato di riposo."
+            ]
+          },
+          {
+            "heading": "Obiettivo",
+            "paragraphs": [
+              "Confrontare classificazione solo EEG, solo fMRI e multimodale su registrazioni appaiate, valutando se la combinazione degli embedding migliorasse i risultati. Analisi anche dell’effetto dei canali carbon-wire-loop (CWL) e del filtraggio delle frequenze alfa sulle prestazioni EEG."
+            ]
+          },
+          {
+            "heading": "Esperimento",
+            "paragraphs": [
+              "Utilizzo del dataset CWL EEG/fMRI, abbinando sequenze EEG ai corrispondenti frame fMRI. I modelli EEG comprendevano una baseline convoluzionale 1-D a cinque livelli e EEGNet 2-D. Baseline valutata con e senza i canali CWL di monitoraggio degli artefatti; EEGNet valutato anche sulle sole frequenze alfa (8–12 Hz).",
+              "Una CNN 3-D elaborava singoli frame fMRI. I vettori di caratteristiche delle reti EEG e fMRI venivano concatenati e forniti a un percettrone multistrato per la classificazione multimodale. Confronto dell’accuratezza di training, validazione e test, riportando il test al checkpoint con la massima accuratezza di validazione."
+            ]
+          },
+          {
+            "heading": "Risultati",
+            "paragraphs": [
+              "Le tabelle riepilogative riportano un’accuratezza di test dell’80,36% per EEGNet e del 67,41% per la variante filtrata in alfa. La baseline 1-D senza CWL ha raggiunto il 50,00%; il modello fMRI il 51,04% e quello multimodale il 47,92%. In questi esperimenti la combinazione delle modalità non ha migliorato la classificazione.",
+              "La sensibilità ai canali CWL era un problema interpretativo centrale; il modello fMRI a singolo frame non forniva una base utile alla fusione delle caratteristiche. Le conclusioni sottolineavano comprensione e preprocessing delle registrazioni, validazione di ogni modalità ed esplorazione di altre architetture o sequenze fMRI complete. Resoconto basato sulla presentazione della tesi, non su una replica indipendente."
+            ]
+          }
+        ],
+        "credits": 18,
+        "year": 2
+      },
+      "coursework": [
+        {
+          "name": "Ingegneria del software",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Processi di sviluppo, analisi dei requisiti, architettura e progettazione. Modellazione UML, pattern architetturali e di progettazione, verifica, validazione e test collegano le fasi del ciclo di vita del software.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13293",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Tecnologie dei sistemi di controllo",
+          "language": "en",
+          "credits": 6,
+          "year": 1,
+          "description": "Architetture dei sistemi di controllo, sensori, attuatori e conversione analogico-digitale. Taratura PID e implementazione digitale, microcontrollori, vincoli temporali nei loop di controllo e introduzione all’ottimizzazione lineare, con esercitazioni MATLAB.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13295",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Sicurezza dei sistemi informativi",
+          "language": "en",
+          "credits": 6,
+          "year": 1,
+          "description": "Sicurezza di rete teorica e applicata: crittografia, metodi di cifratura, protocolli di sicurezza e progettazione di applicazioni sicure. Autenticazione, riservatezza e configurazione dei servizi di sicurezza di rete.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13296",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Architetture e tecnologie dei sistemi di telecomunicazione",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Teoria dell’informazione, codifica, mezzi trasmissivi e progettazione di reti IP per servizi convergenti. Reti fisse e mobili, accesso radio, gestione della mobilità, GSM, UMTS, LTE ed evoluzione verso il 5G.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13294",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Reti per l’automazione industriale",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Comunicazione in tempo reale e schedulabilità nei sistemi industriali e automotive. CAN, LIN, bus di campo, Industrial Ethernet, PROFINET, EtherCAT e TSN; reti wireless per l’automazione e valutazione dei protocolli con OMNeT++.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13297",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Architetture avanzate dei calcolatori",
+          "language": "en",
+          "credits": 6,
+          "year": 1,
+          "description": "Pipeline dei processori, predizione dei salti, gerarchie di memoria e analisi delle prestazioni. Parallelismo a livello di istruzioni, dati e thread, architetture superscalari e VLIW, SIMD/GPGPU e coerenza delle cache nei multiprocessori.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=13298",
+            "academicYear": "2019/2020"
+          }
+        },
+        {
+          "name": "Ulteriori conoscenze utili per l’inserimento nel mondo del lavoro",
+          "language": "en",
+          "credits": 3,
+          "year": 1,
+          "description": "Corso Project Life Cycle di AXLE ICT Solutions: 30 ore in inglese. Intero ciclo di vita del progetto, dall’impostazione iniziale alla conclusione e manutenzione, combinando strumenti tecnici, strategie comportamentali, soft skill e tecniche di comunicazione.",
+          "syllabus": null
+        },
+        {
+          "name": "Attività a scelta · Esperienza professionale riconosciuta",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Riconoscimento dell’esperienza professionale presso Oney Insurance, integrata da data science, sviluppo software, machine learning e analisi dei dati.",
+          "syllabus": null
+        },
+        {
+          "name": "Linguaggi di programmazione avanzati",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Progettazione dei linguaggi e linguaggi formali, sistemi di tipi, gestione della memoria, eccezioni e paradigmi di programmazione. Studio comparativo di C++, Go, Python, R e C#, inclusa programmazione a oggetti, funzionale e concorrente.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=15517",
+            "academicYear": "2020/2021"
+          }
+        },
+        {
+          "name": "Sistemi intelligenti basati su Internet of Things",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Sistemi cyber-fisici ed embedded, sensori intelligenti e applicazioni IoT. MQTT, CoAP, LoRa e NB-IoT, sistemi operativi IoT, modellazione e verifica, progettazione a basso consumo ed energy harvesting.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=15516",
+            "academicYear": "2020/2021"
+          }
+        },
+        {
+          "name": "Sistemi distribuiti e Big Data",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Architetture distribuite, servizi, container, messaggistica e cloud/fog computing. Orologi logici, coordinamento, tolleranza ai guasti, consenso, transazioni distribuite, consistenza e replica; introduzione alle architetture Big Data.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=15519",
+            "academicYear": "2020/2021"
+          }
+        },
+        {
+          "name": "Informatica industriale",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Architetture PLC e programmazione IEC 61131-3, inclusi Ladder Diagram e Sequential Function Chart. Esercitazioni Siemens TIA Portal, controllo distribuito su PROFIBUS/PROFINET e modelli informativi, servizi e comunicazione publish/subscribe OPC UA.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=15518",
+            "academicYear": "2020/2021"
+          }
+        },
+        {
+          "name": "Cognitive computing e intelligenza artificiale",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Sistemi intelligenti che combinano machine learning, analisi multimediale, rappresentazione della conoscenza, logica e ragionamento automatico. Apprendimento supervisionato e non supervisionato, pattern recognition, agenti autonomi ed esercitazioni con deep learning e web semantico.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/lm-32/insegnamenti/?cod=15515",
+            "academicYear": "2020/2021"
+          }
+        }
+      ]
+    },
+    {
+      "degree": "Laurea in Ingegneria informatica · L-8",
+      "year": "2019",
+      "institution": "Università di Catania, Italia",
+      "credits": 180,
+      "thesis": {
+        "label": "Tesi triennale",
+        "title": "Domain Adaptation through Regression",
+        "sections": [
+          {
+            "heading": "Motivazione",
+            "paragraphs": [
+              "I classificatori di immagini preaddestrati offrono caratteristiche riutilizzabili, ma architetture convoluzionali diverse producono rappresentazioni differenti. La tesi ha esplorato la regressione per mappare gli embedding di una rete nello spazio di un’altra e riutilizzare un classificatore già adattato al compito di destinazione."
+            ]
+          },
+          {
+            "heading": "Obiettivo",
+            "paragraphs": [
+              "Classificare immagini di formiche e api confrontando l’adattamento tramite regressione con l’addestramento individuale sul compito. Analisi di accuratezza e tempi di addestramento misurati per diverse coppie di reti sorgente e riferimento."
+            ]
+          },
+          {
+            "heading": "Esperimento",
+            "paragraphs": [
+              "Utilizzo di Inception v3, ResNet18 e DenseNet121 preaddestrate su ImageNet, con Python e PyTorch. Ridimensionamento e normalizzazione delle immagini prima dell’estrazione degli embedding precedenti il livello di classificazione. Per ogni coppia, la stessa immagine veniva elaborata da entrambe le reti; una rete adattata al compito fungeva da riferimento.",
+              "Un regressore Ridge di scikit-learn mappava gli embedding sorgente nello spazio di riferimento prima della classificazione. Confronto di tutte le sei coppie direzionali con le reti addestrate individualmente. Esecuzione su CPU; addestramento individuale delle CNN per 25 epoche con discesa stocastica del gradiente, batch di quattro, learning rate 0,1 e momentum 0,9."
+            ]
+          },
+          {
+            "heading": "Risultati",
+            "paragraphs": [
+              "ResNet18 adattata a DenseNet121 e DenseNet121 adattata a ResNet18 hanno entrambe raggiunto il 95% di accuratezza, con tempi riportati di 3 minuti e 33 secondi e 3 minuti e 38 secondi. L’addestramento individuale ha raggiunto il 96% per ResNet18 in 12 minuti e 43 secondi e il 95% per DenseNet121 in 14 minuti e 52 secondi.",
+              "Le coppie con Inception hanno raggiunto il 61–74%, sotto il 96% dell’addestramento individuale. I risultati variavano quindi con la coppia di reti. Valutazione su un piccolo dataset a due classi e sulla relativa partizione di validazione; le misure descrivono tale configurazione e non dimostrano la stessa accuratezza o lo stesso risparmio di tempo su altri dataset."
+            ]
+          }
+        ],
+        "credits": 3,
+        "year": 3
+      },
+      "coursework": [
+        {
+          "name": "Analisi matematica I",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Numeri reali e complessi, limiti e continuità, calcolo differenziale per funzioni di una variabile, serie numeriche e integrazione di Riemann. Strumenti matematici per analizzare funzioni e risolvere problemi quantitativi.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2916",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Chimica",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Struttura atomica, legami chimici, stati della materia e comportamento dei materiali comuni. Termodinamica chimica, cinetica, equilibri, soluzioni elettrolitiche, elettrochimica e introduzione alla chimica organica.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2922",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Economia applicata all’ingegneria",
+          "language": "en",
+          "credits": 6,
+          "year": 1,
+          "description": "Ragionamento economico per le decisioni ingegneristiche: costi e benefici, mercati, produzione e organizzazione aziendale. Bilanci, analisi degli investimenti di progetto e valutazione economica delle alternative tecniche.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2919",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Fondamenti di informatica",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Fondamenti di informatica e programmazione procedurale. Strutture dati fondamentali, algoritmi di base, introduzione alla complessità computazionale e sviluppo di applicazioni in ANSI C, con attenzione a problem solving e debugging.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2928",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Algebra lineare e geometria",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Sistemi e applicazioni lineari, autovalori e diagonalizzazione delle matrici. Geometria lineare di rette e piani, coniche e superfici quadriche.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2913",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Fisica I",
+          "language": "en",
+          "credits": 9,
+          "year": 1,
+          "description": "Meccanica e termodinamica: moto, leggi di Newton, lavoro, energia e principi di conservazione. Sistemi di particelle, dinamica del corpo rigido e oscillazioni collegano modelli matematici e problemi fisici.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=2925",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Accertamento delle conoscenze di lingua straniera",
+          "language": "en",
+          "credits": 3,
+          "year": 1,
+          "description": "Accertamento linguistico registrato come attività da 3 CFU. Il certificato degli esami non specifica lingua, livello di competenza o programma separato per questa attività.",
+          "syllabus": null
+        },
+        {
+          "name": "Fisica II",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Elettromagnetismo e ottica: campi elettrici e magnetici, induzione elettromagnetica, equazioni di Maxwell e propagazione delle onde. Ottica geometrica e fisica: riflessione, rifrazione, interferenza e diffrazione.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1681",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Sistemi operativi",
+          "language": "en",
+          "credits": 6,
+          "year": 2,
+          "description": "Progettazione dei sistemi operativi e gestione delle risorse, con Linux come riferimento principale. Processi, thread, scheduling CPU, sincronizzazione, IPC, deadlock, memoria virtuale, file system, I/O e programmazione POSIX.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1682",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Analisi matematica II",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Successioni e serie di funzioni, calcolo differenziale e integrale in più variabili, equazioni e sistemi differenziali. Metodi per comprendere e costruire modelli matematici in ingegneria.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1683",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Programmazione a oggetti",
+          "language": "en",
+          "credits": 6,
+          "year": 2,
+          "description": "Programmazione a oggetti in Java: classi, incapsulamento, ereditarietà, polimorfismo e gestione delle eccezioni. Generics, multithreading, programmazione di rete e interfacce grafiche con Swing.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1679",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Elettrotecnica",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Modelli circuitali, leggi di Kirchhoff, teoremi delle reti e metodi sistematici di analisi. Risposte transitorie e sinusoidali, fasori, metodi di Laplace, circuiti accoppiati e introduzione ai sistemi trifase e alle applicazioni di potenza.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1680",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Automatica",
+          "language": "en",
+          "credits": 12,
+          "year": 2,
+          "description": "Corso integrato di Teoria dei sistemi e Controlli automatici: modelli dinamici, spazio di stato, funzioni di trasferimento, stabilità, controllabilità e osservabilità. Progettazione in retroazione, compensazione, metodi in frequenza e controllo digitale, con esercitazioni MATLAB.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1684",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Teoria dei segnali",
+          "language": "en",
+          "credits": 9,
+          "year": 2,
+          "description": "Rappresentazione dei segnali deterministici e aleatori nel tempo e in frequenza. Trasformazioni attraverso sistemi lineari e non lineari, con basi probabilistiche per l’analisi dei segnali aleatori e le telecomunicazioni.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=1678",
+            "academicYear": "2015/2016"
+          }
+        },
+        {
+          "name": "Architettura dei calcolatori",
+          "language": "en",
+          "credits": 9,
+          "year": 3,
+          "description": "Logica combinatoria e sequenziale, macchine a stati finiti e progettazione hardware in VHDL. Organizzazione dei calcolatori, assembly MIPS64, datapath, unità di controllo, pipeline, gerarchie di memoria e prestazioni delle cache.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3008",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Elettronica",
+          "language": "en",
+          "credits": 9,
+          "year": 3,
+          "description": "Dispositivi elettronici e loro impiego nei circuiti analogici e digitali. Diodi, transistor bipolari e MOS, amplificatori, risposta in frequenza, circuiti digitali e conversione analogico-digitale.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3007",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Architettura di Internet e programmazione web",
+          "language": "en",
+          "credits": 9,
+          "year": 3,
+          "description": "Architettura di Internet e reti di calcolatori: protocolli applicativi, TCP/UDP, indirizzamento IP, subnetting, routing e tecnologie di collegamento cablate e wireless. La programmazione web collega servizi di rete e sviluppo applicativo.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3010",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Ulteriori conoscenze utili per l’inserimento nel mondo del lavoro",
+          "language": "en",
+          "credits": 3,
+          "year": 3,
+          "description": "Discussione teorica di una pipeline dati end-to-end di machine learning, collegata al lavoro di valutazione di annunci e descrizioni di pagine aziendali per Appen. Architettura ipotetica per estrarre contenuti e giudizi, trasformarli mediante pulizia, normalizzazione, deduplicazione e controlli delle etichette, e caricare dati grezzi, dataset curati e metadati di annotazione in livelli di storage distinti. Discussione di versionamento dei dataset, separazione training/validazione/test, preparazione delle caratteristiche e impiego dei giudizi umani per addestrare e valutare modelli di classificazione o ranking. Architettura illustrativa, non descrittiva della piattaforma interna di Appen.",
+          "syllabus": null
+        },
+        {
+          "name": "Laboratorio di architetture dei sistemi fissi e mobili",
+          "language": "en",
+          "credits": 6,
+          "year": 3,
+          "description": "Programmazione di microcontrollori e prototipazione hardware/software con Arduino. Sensori e interfacce fisiche, I/O, bus di comunicazione, sistemi operativi IoT e introduzione all’implementazione FPGA.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3011",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Basi di dati e sistemi informativi",
+          "language": "en",
+          "credits": 9,
+          "year": 3,
+          "description": "Modellazione relazionale, SQL, transazioni, normalizzazione, indicizzazione e ottimizzazione delle query, oltre a concetti NoSQL. Sistemi informativi web con database, MVC, programmazione client/server e sicurezza delle applicazioni web.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3009",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Comunicazioni elettriche",
+          "language": "en",
+          "credits": 6,
+          "year": 3,
+          "description": "Trasmissione digitale in banda base, codifica di linea, interferenza intersimbolica e tassi di errore. Campionamento, quantizzazione e PCM, modulazione analogica e digitale, MIMO e OFDM.",
+          "syllabus": {
+            "url": "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3012",
+            "academicYear": "2016/2017"
+          }
+        },
+        {
+          "name": "Big Data",
+          "language": "en",
+          "credits": 6,
+          "year": 3,
+          "description": "Analisi di grandi dataset con MapReduce e Hadoop, algoritmi per insiemi frequenti e ricerca per similarità. Sistemi di raccomandazione, riduzione della dimensionalità, PageRank, analisi di grafi e reti e text mining.",
+          "syllabus": {
+            "url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?cod=10817",
+            "academicYear": "2018/2019"
+          }
+        },
+        {
+          "name": "Machine Learning",
+          "language": "en",
+          "credits": 6,
+          "year": 3,
+          "description": "Fondamenti probabilistici, modelli lineari per regressione e classificazione, reti neurali e deep learning. Progettazione degli algoritmi, ottimizzazione, valutazione dei modelli e prototipazione con librerie Python.",
+          "syllabus": {
+            "url": "https://web.dmi.unict.it/courses/lm-18/course-units/?cod=10843",
+            "academicYear": "2018/2019"
+          }
+        }
+      ]
+    }
+  ],
+  "toolkit": [
+    {
+      "title": "Programmazione e framework",
+      "tools": "Java, Spring Boot, Python, SQL, PHP, JavaScript"
+    },
+    {
+      "title": "Cloud e infrastrutture",
+      "tools": "AWS, Oracle Cloud, Azure, Kubernetes/OpenShift, Docker, Terraform, Argo CD, GitOps, CI/CD"
+    },
+    {
+      "title": "Dati e integrazione",
+      "tools": "Kafka, RabbitMQ, NiFi, Avro, ClickHouse, PostgreSQL, Oracle, MySQL, Redis, Hive, DynamoDB"
+    }
+  ]
+}

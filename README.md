@@ -135,6 +135,56 @@ for reference. That directory is not loaded as public blog content.
 
 ## Portfolio
 
+### Downloadable master résumé
+
+The portfolio offers English and Italian downloads in PDF and editable DOCX.
+The single-column master résumé follows the supplied reference's section order
+and includes all public roles, contributions, coursework, thesis research,
+credentials, projects and community activities. It is intentionally detailed,
+not a short application CV. The July 2026 ALTEN transition follows the current
+portfolio. The private telephone number is omitted.
+
+`ResumeDownload.astro` progressively enhances four static download links with
+language and format selectors; without JavaScript all four links remain usable.
+DOCX uses native Word paragraphs, headings and lists, Arial, one column and no
+tables, text boxes, macros or content in headers/footers. Google Docs supports
+[editing Office files](https://support.google.com/docs/answer/9406611?hl=en).
+This conservative layout supports editing in Word and Google Docs; identical
+pagination across versions and fonts is not guaranteed. Native Word and Google
+Docs round-trip verification remains necessary before claiming full compatibility.
+
+The English source is `src/data/portfolio.ts` and `src/data/education.ts`;
+`src/data/resume-it.json` is the reviewed Italian counterpart. Keep the same
+structure, entry counts, numbers and evidence URLs in both languages. Original
+thesis and credential titles and technology names are retained. Export rejects
+missing entries or changed evidence URLs. Translation meaning still needs review.
+`scripts/generate-resume.py` owns document layout and the bilingual introduction.
+Generated files are committed under `public/resume/`, so deployment needs no
+Python or office conversion service.
+
+After content or layout changes, regenerate all four files. Use a Python
+environment containing `python-docx`, `pdf2image` and `pypdf`, plus LibreOffice
+and Poppler. Set `RESUME_PYTHON` to that interpreter and `RESUME_RENDERER` to
+the Documents skill's `render_docx.py` (the Codex bundled runtime was used for
+the initial exports). From the repository root:
+
+```sh
+node scripts/export-resume.mjs /tmp/master-resume-source.json
+"$RESUME_PYTHON" scripts/generate-resume.py /tmp/master-resume-source.json public/resume
+"$RESUME_PYTHON" "$RESUME_RENDERER" public/resume/riccardo-pesce-master-resume-en.docx --output_dir /tmp/resume-en --emit_pdf
+"$RESUME_PYTHON" "$RESUME_RENDERER" public/resume/riccardo-pesce-master-resume-it.docx --output_dir /tmp/resume-it --emit_pdf
+cp /tmp/resume-en/riccardo-pesce-master-resume-en.pdf public/resume/
+cp /tmp/resume-it/riccardo-pesce-master-resume-it.pdf public/resume/
+```
+
+Inspect every rendered page and check both language versions before accepting
+new assets. Then run `node scripts/check-resume.mjs --write` to record their
+hashes, `node --test tests/resume-download.test.mjs`, and `pnpm build`.
+The build rejects stale content/layout fingerprints, missing assets or modified
+file hashes. Updating the manifest alone does not regenerate or validate content.
+Test all four selections, keyboard navigation, narrow layouts, both themes,
+JavaScript disabled and navigation away/back when browser verification is available.
+
 The Portfolio combines the English Google Doc titled `RiccardoMPesce` with the
 author's [LinkedIn profile](https://www.linkedin.com/in/riccardomariapesce/),
 reviewed on 11 November 2026. The author confirmed July 2026 for the transition

@@ -13,6 +13,7 @@ type Props = {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  ogType?: "website" | "article";
 };
 
 const { site } = config;
@@ -20,12 +21,23 @@ const t = useTranslations(Astro.currentLocale ?? site.lang);
 
 const {
   title = site.title,
+  ogType = "website",
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
+const personJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": new URL("#person", site.url).href,
+  name: site.author,
+  url: site.url,
+  sameAs: config.socials
+    .filter(({ url }) => /^https?:/.test(url))
+    .map(({ url }) => url),
+}).replace(/</g, "\\u003c");
 const rssHref = getAssetPath("rss.xml");
 ---
 
@@ -65,20 +77,23 @@ const rssHref = getAssetPath("rss.xml");
     <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content={title} />
 
     <!-- Twitter / X -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={title} />
 
+    <script type="application/ld+json" is:inline set:html={personJson} />
     <!-- RSS autodiscovery -->
     <link
       rel="alternate"
@@ -140,6 +155,7 @@ const rssHref = getAssetPath("rss.xml");
     <script>
       import "@/scripts/theme";
       import "@/scripts/print";
+      import "@/scripts/section-navigation";
     </script>
   </body>
 </html>

@@ -1,4 +1,9 @@
 /* Keep AstroPaper aliases and Tailwind utilities on the same semantic tokens. */
+@theme {
+  --radius-sm: 4px;
+  --radius-lg: 8px;
+}
+
 @theme inline {
   --color-fill: var(--background);
   --color-text-base: var(--foreground);
@@ -23,46 +28,46 @@
 
 :root,
 [data-theme="light"] {
-  --background: #f9fafb;
-  --foreground: #1e293b;
-  --heading: #0f172a;
-  --accent: #0f4c81;
-  --accent-foreground: #f8fafc;
-  --accent-hover: #1d4ed8;
-  --muted: #e5e7eb;
-  --muted-foreground: #475569;
-  --border: #e5e7eb;
-  --surface: #f3f4f6;
-  --input-border: #64748b;
+  --background: #faf7f2;
+  --foreground: #352b25;
+  --heading: #241c17;
+  --accent: #78401e;
+  --accent-foreground: #fffaf3;
+  --accent-hover: #663316;
+  --muted: #e5dcd1;
+  --muted-foreground: #645348;
+  --border: #e5dcd1;
+  --surface: #f1eae0;
+  --input-border: #887568;
 }
 
 [data-theme="dark"] {
-  --background: #0b0f17;
-  --foreground: #e2e8f0;
-  --heading: #f8fafc;
-  --accent: #38bdf8;
-  --accent-foreground: #0b0f17;
-  --accent-hover: #93c5fd;
-  --muted: #1f2937;
-  --muted-foreground: #94a3b8;
-  --border: #1f2937;
-  --surface: #111827;
-  --input-border: #64748b;
+  --background: #1b1512;
+  --foreground: #eee4d8;
+  --heading: #fffaf3;
+  --accent: #efbc87;
+  --accent-foreground: #1b1512;
+  --accent-hover: #f6cca0;
+  --muted: #362a23;
+  --muted-foreground: #bca895;
+  --border: #362a23;
+  --surface: #261e19;
+  --input-border: #887568;
 }
 
 /* Native theme fallback remains legible when JavaScript is disabled. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --background: #0b0f17;
-    --foreground: #e2e8f0;
-    --heading: #f8fafc;
-    --accent: #38bdf8;
-    --accent-foreground: #0b0f17;
-    --accent-hover: #93c5fd;
-    --muted: #1f2937;
-    --muted-foreground: #94a3b8;
-    --border: #1f2937;
-    --surface: #111827;
-    --input-border: #64748b;
+    --background: #1b1512;
+    --foreground: #eee4d8;
+    --heading: #fffaf3;
+    --accent: #efbc87;
+    --accent-foreground: #1b1512;
+    --accent-hover: #f6cca0;
+    --muted: #362a23;
+    --muted-foreground: #bca895;
+    --border: #362a23;
+    --surface: #261e19;
+    --input-border: #887568;
   }
 }

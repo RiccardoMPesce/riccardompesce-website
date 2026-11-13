@@ -102,12 +102,19 @@ const ogImage = ogImageUrl
 
 <PostLayout
   title={`${title} | ${config.site.title}`}
+  headline={title}
+  author={post.data.author}
+  keywords={tags}
   description={description}
   ogImage={ogImage}
   canonicalURL={canonicalURL}
   pubDatetime={pubDatetime}
   modDatetime={modDatetime}
 >
+  <div class="reading-progress" data-pagefind-ignore aria-hidden="true">
+    <div class="reading-progress-bar" data-reading-progress></div>
+  </div>
+
   <Header />
 
   <BackButton />
@@ -119,45 +126,52 @@ const ogImage = ogImageUrl
       "app-layout text-center md:text-start",
       { "mt-8": !config.features.showBackButton },
     ]}
-    data-pagefind-body
   >
-    <h1
-      style={{ viewTransitionName: toTransitionName(post.id) }}
-      class="text-accent inline-block text-2xl font-bold sm:text-3xl"
-    >
-      {title}
-    </h1>
-
-    <div
-      class="my-2 flex flex-col items-center gap-2 md:flex-row md:items-center"
-    >
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "text-muted-foreground max-sm:hidden",
-          { hidden: !config.features.editPost?.enabled || hideEditPost },
-        ]}
+    <article aria-labelledby="post-title" data-pagefind-body>
+      <header
+        data-pagefind-meta="description[data-description]"
+        data-description={description}
       >
-        |
-      </span>
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-    </div>
+        <h1
+          id="post-title"
+          data-pagefind-meta="title"
+          transition:name={toTransitionName(post.id)}
+          class="text-accent inline-block text-2xl font-bold sm:text-3xl"
+        >
+          {title}
+        </h1>
 
-    <ShareLinks
-      url={canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href}
-      title={title}
-      scope="post"
-    />
+        <div
+          class="my-2 flex flex-col items-center gap-2 md:flex-row md:items-center"
+        >
+          <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+          <span
+            aria-hidden="true"
+            class:list={[
+              "text-muted-foreground max-sm:hidden",
+              { hidden: !config.features.editPost?.enabled || hideEditPost },
+            ]}
+          >
+            |
+          </span>
+          <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+        </div>
 
-    <div class="post-body mt-8">
-      <PostToc headings={tocHeadings} />
-      <article id="article" class:list={["w-full", "app-prose"]}>
-        <Content />
-      </article>
-    </div>
+        <ShareLinks
+          url={canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href}
+          title={title}
+          scope="post"
+        />
+      </header>
+      <div class="post-body mt-8">
+        <PostToc headings={tocHeadings} />
+        <div id="article" class:list={["w-full", "app-prose"]}>
+          <Content />
+        </div>
+      </div>
+    </article>
 
-    <hr class="my-8 border-dashed" />
+    <hr />
 
     <BackToTopButton headings={tocHeadings} />
 
@@ -178,7 +192,7 @@ const ogImage = ogImageUrl
       </div>
     </div>
 
-    <hr class="my-8 border-dashed" />
+    <hr />
 
     <PostComments />
     <AdjacentPostNav {prevPost} {nextPost} />
@@ -186,104 +200,11 @@ const ogImage = ogImageUrl
   <Footer />
 </PostLayout>
 
+<script>
+  import "@/scripts/article";
+</script>
+
 <script is:inline data-astro-rerun>
-  function createProgressBar() {
-    const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
-
-    const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-accent";
-    progressBar.id = "myBar";
-
-    progressContainer.appendChild(progressBar);
-    document.body.appendChild(progressContainer);
-  }
-  createProgressBar();
-
-  function updateScrollProgress() {
-    document.addEventListener("scroll", () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      if (document) {
-        const myBar = document.getElementById("myBar");
-        if (myBar) {
-          myBar.style.width = scrolled + "%";
-        }
-      }
-    });
-  }
-  updateScrollProgress();
-
-  function addHeadingLinks() {
-    const headings = Array.from(
-      document.querySelectorAll("#article :is(h2, h3, h4, h5, h6)")
-    );
-    for (const heading of headings) {
-      heading.classList.add("group");
-      const link = document.createElement("a");
-      link.className =
-        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
-      link.href = "#" + heading.id;
-
-      const span = document.createElement("span");
-      span.ariaHidden = "true";
-      span.innerText = "#";
-      link.appendChild(span);
-      heading.appendChild(link);
-    }
-  }
-  addHeadingLinks();
-
-  function attachCopyButtons() {
-    const copyButtonLabel = "Copy";
-    const codeBlocks = Array.from(document.querySelectorAll("pre"));
-
-    for (const codeBlock of codeBlocks) {
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "relative";
-
-      const computedStyle = getComputedStyle(codeBlock);
-      const hasFileNameOffset =
-        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
-
-      const topClass = hasFileNameOffset
-        ? "top-(--file-name-offset)"
-        : "-top-3";
-
-      const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
-      copyButton.innerHTML = copyButtonLabel;
-      codeBlock.setAttribute("tabindex", "0");
-      codeBlock.appendChild(copyButton);
-
-      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
-      wrapper.appendChild(codeBlock);
-
-      copyButton.addEventListener("click", async () => {
-        await copyCode(codeBlock, copyButton);
-      });
-    }
-
-    async function copyCode(block, button) {
-      const code = block.querySelector("code");
-      const text = code?.innerText;
-
-      await navigator.clipboard.writeText(text ?? "");
-
-      button.innerText = "Copied";
-
-      setTimeout(() => {
-        button.innerText = copyButtonLabel;
-      }, 700);
-    }
-  }
-  attachCopyButtons();
-
   /** Accessible image lightbox for article images. */
   function initLightbox() {
     const article = document.getElementById("article");
@@ -330,7 +251,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-200 motion-reduce:transition-none";
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -344,7 +265,7 @@ const ogImage = ogImageUrl
       image.src = src;
       image.alt = "";
       image.className =
-        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain motion-safe:transition-transform duration-100 ease-out motion-reduce:transition-none data-[zoom=drag]:cursor-grabbing data-[zoom=drag]:transition-none data-[zoom=in]:cursor-grab";
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain motion-safe:transition-transform duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none data-[zoom=drag]:cursor-grabbing data-[zoom=drag]:transition-none data-[zoom=in]:cursor-grab";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {

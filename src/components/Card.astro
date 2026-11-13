@@ -16,12 +16,11 @@ const postUrl = getPostUrl(id, filePath, Astro.currentLocale);
 const shareUrl = data.canonicalURL ?? new URL(postUrl, Astro.site).href;
 ---
 
-<li class="my-6 text-center md:text-start">
+<li class="post-card my-6 text-center md:text-start">
   <a
     href={postUrl}
     class:list={[
       "text-accent inline-block text-lg font-medium",
-      "decoration-solid underline-offset-4 hover:underline",
       "focus-visible:no-underline focus-visible:underline-offset-0",
     ]}
   >

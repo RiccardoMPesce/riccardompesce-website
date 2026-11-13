@@ -5,6 +5,7 @@
 @import "./typography.css";
 @import "rehype-callouts/theme/obsidian";
 @import "./accessibility.css";
+@import "./motion.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -81,7 +82,7 @@
 @utility reading-copy {
   font-size: 1rem;
   line-height: 1.68;
-  max-inline-size: 68ch;
+  max-inline-size: 66ch;
   @media (min-width: 48rem) {
     font-size: 1.0625rem;
   }
@@ -97,7 +98,8 @@
 }
 
 @utility active-nav {
-  @apply underline decoration-solid decoration-2 underline-offset-8;
+  text-decoration: none;
+  box-shadow: inset 0 -1.5px var(--color-accent);
 }
 
 :target {
@@ -110,4 +112,90 @@ h2,
 h3,
 h4 {
   color: var(--heading);
+}
+
+/* Wrapping is progressive enhancement; browsers without it retain natural flow. */
+p,
+li,
+blockquote {
+  text-wrap: pretty;
+}
+.reading-copy {
+  hanging-punctuation: first allow-end last;
+}
+[data-layout="index"] section:first-child > p,
+main > h1 + p {
+  text-wrap: balance;
+}
+strong {
+  font-weight: 600;
+}
+hr {
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
+  margin-block: 2.5rem;
+}
+kbd,
+.badge,
+.skill-tag {
+  border-radius: 4px;
+}
+#nav-menu a,
+#theme-btn {
+  min-block-size: 44px;
+  min-inline-size: 44px;
+}
+#theme-btn {
+  border-radius: 9999px;
+}
+#nav-menu a,
+.post-card > a,
+[aria-label="breadcrumb"] a {
+  text-decoration: none;
+}
+#nav-menu a:is(:hover, :focus-visible, [aria-current="page"]),
+.post-card > a:is(:hover, :focus-visible) {
+  box-shadow: inset 0 -1.5px var(--color-accent);
+}
+.post-card {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-card);
+  padding: 1.25rem;
+}
+.tag {
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.4rem 0.75rem;
+  min-block-size: 44px;
+}
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  block-size: 2px;
+  z-index: 60;
+  pointer-events: none;
+}
+.reading-progress-bar {
+  block-size: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.code-block {
+  position: relative;
+}
+.app-prose pre {
+  padding-block-start: 3.5rem;
+}
+.copy-code {
+  position: absolute;
+  inset: 0.4rem 0.4rem auto auto;
+  min-inline-size: 5.5rem;
+  min-block-size: 44px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 4px;
+  background: var(--color-card);
+  color: var(--color-foreground);
+  font: 600 0.75rem var(--font-sans);
 }

@@ -31,7 +31,7 @@ const formats = ["pdf", "docx"] as const;
     id="portfolio-download-dialog"
     aria-labelledby="portfolio-download-title"
     aria-describedby="portfolio-download-description"
-    class="border-border bg-background text-foreground fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-y-auto rounded-xl border p-5 text-start shadow-lg backdrop:bg-black/30"
+    class="border-border bg-background text-foreground fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-y-auto rounded-lg border p-5 text-start backdrop:bg-black/30"
   >
     <div class="flex items-center justify-between gap-3">
       <h2 id="portfolio-download-title" class="text-lg font-semibold">
@@ -41,7 +41,7 @@ const formats = ["pdf", "docx"] as const;
         type="button"
         data-resume-close
         aria-label="Close download dialog"
-        class="hover:text-accent inline-flex size-11 shrink-0 items-center justify-center rounded-md"
+        class="hover:text-accent inline-flex size-11 shrink-0 items-center justify-center rounded-lg"
       >
         <svg
           class="size-5"
@@ -65,7 +65,7 @@ const formats = ["pdf", "docx"] as const;
         Language
         <select
           data-resume-language
-          class="border-input-border bg-background min-w-0 rounded-md border px-3 py-2 text-base"
+          class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
           autofocus
         >
           {
@@ -79,7 +79,7 @@ const formats = ["pdf", "docx"] as const;
         Format
         <select
           data-resume-format
-          class="border-input-border bg-background min-w-0 rounded-md border px-3 py-2 text-base"
+          class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
         >
           <option value="pdf">PDF (.pdf)</option>
           <option value="docx">Word / Google Docs (.docx)</option>
@@ -89,7 +89,7 @@ const formats = ["pdf", "docx"] as const;
         data-resume-link
         href="/portfolio-downloads/riccardo-pesce-full-portfolio-en.pdf"
         download
-        class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-sm font-semibold"
+        class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold"
         >Download portfolio · English · PDF</a
       >
     </div>

@@ -7,7 +7,7 @@
 
     font-size: 1rem;
     line-height: 1.68;
-    max-inline-size: 68ch;
+    max-inline-size: 66ch;
     min-inline-size: 0;
 
     @media (min-width: 48rem) {
@@ -16,7 +16,7 @@
     text-align: start;
 
     :where(p, ul, ol, blockquote) {
-      max-inline-size: 68ch;
+      max-inline-size: 66ch;
     }
 
     p {
@@ -37,11 +37,11 @@
     }
 
     h2 {
-      margin-block-start: 2.5rem;
+      margin-block: 2.25em 0.75em;
     }
 
     h3 {
-      margin-block-start: 1.75rem;
+      margin-block: 1.65em 0.5em;
     }
 
     th {
@@ -59,7 +59,23 @@
     }
 
     a {
-      @apply text-accent hover:text-accent-hover wrap-break-word decoration-solid underline-offset-4 focus-visible:no-underline;
+      @apply text-accent wrap-break-word;
+      text-decoration-line: underline;
+      text-decoration-skip-ink: auto;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: color-mix(
+        in srgb,
+        var(--color-accent) 45%,
+        transparent
+      );
+      &:is(:hover, :focus-visible) {
+        text-decoration-color: var(--color-accent);
+        text-decoration-thickness: 2px;
+      }
+      &.heading-link {
+        text-decoration: none;
+      }
     }
 
     ul {
@@ -68,6 +84,7 @@
 
     li {
       @apply marker:text-accent;
+      margin-block: 0.55em;
     }
 
     hr {
@@ -118,7 +135,7 @@
     }
 
     .table-wrapper {
-      @apply outline-accent my-7 overflow-x-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-dashed;
+      @apply border-border outline-accent my-7 overflow-x-auto rounded-lg border focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-dashed;
 
       table {
         @apply my-0;
@@ -126,8 +143,8 @@
     }
 
     code {
-      @apply text-foreground rounded font-mono wrap-break-word before:content-none after:content-none;
-      background: rgb(148 163 184 / 0.15);
+      @apply text-foreground rounded-sm font-mono wrap-break-word before:content-none after:content-none;
+      background: var(--color-card);
       padding: 0.15em 0.35em;
       font-size: 0.875em;
     }
@@ -142,8 +159,9 @@
     blockquote {
       @apply text-foreground wrap-break-word;
       border-inline-start: 3px solid var(--accent);
-      background: color-mix(in srgb, var(--accent) 7%, var(--background));
-      padding: 0.75rem 1.25rem;
+      background: var(--color-card);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
       font-style: normal;
 
       p:first-child {
@@ -164,7 +182,7 @@
 
     pre {
       @apply border-border bg-surface text-foreground focus-visible:outline-accent overflow-x-auto rounded-lg border font-mono focus-visible:outline-2 focus-visible:outline-dashed;
-      padding: 1rem 1.25rem;
+      padding: 1.15rem 1.25rem;
       line-height: 1.6;
     }
   }
@@ -208,4 +226,11 @@
   overflow-y: hidden;
   padding-block: 0.5rem;
   margin-block: 1.35em;
+}
+
+.app-prose {
+  hanging-punctuation: first allow-end last;
+}
+.app-prose strong {
+  font-weight: 600;
 }

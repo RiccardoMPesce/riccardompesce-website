@@ -52,6 +52,7 @@ const isActive = (path: string) => {
 </noscript>
 
 <header
+  data-pagefind-ignore
   class="app-layout flex flex-col items-center justify-between md:flex-row"
 >
   <div
@@ -201,12 +202,12 @@ const isActive = (path: string) => {
                   <IconMoon
                     aria-hidden="true"
                     focusable="false"
-                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 motion-safe:transition-all dark:scale-0 dark:-rotate-90"
+                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 motion-safe:transition-transform dark:scale-0 dark:-rotate-90"
                   />
                   <IconSunHigh
                     aria-hidden="true"
                     focusable="false"
-                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 motion-safe:transition-all dark:scale-100 dark:rotate-0"
+                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 motion-safe:transition-transform dark:scale-100 dark:rotate-0"
                   />
                 </span>
                 <span class="text-sm font-medium md:sr-only">Theme</span>

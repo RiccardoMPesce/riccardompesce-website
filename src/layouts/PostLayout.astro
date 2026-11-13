@@ -4,6 +4,9 @@ import config from "@/config";
 
 type Props = {
   title?: string;
+  headline: string;
+  author: string;
+  keywords: readonly string[];
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
@@ -13,21 +16,40 @@ type Props = {
 
 const { site } = config;
 
-const { title, description, ogImage, canonicalURL, pubDatetime, modDatetime } =
-  Astro.props;
+const {
+  title,
+  headline,
+  author,
+  keywords,
+  description,
+  ogImage,
+  canonicalURL,
+  pubDatetime,
+  modDatetime,
+} = Astro.props;
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  headline: title ?? site.title,
-  image: ogImage,
+  headline,
+  description,
+  keywords: keywords.join(", "),
+  url: canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href,
+  mainEntityOfPage:
+    canonicalURL ?? new URL(Astro.url.pathname, Astro.site).href,
+  image: new URL(ogImage ?? site.ogImage, Astro.site).href,
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+  ...((modDatetime ?? pubDatetime) && {
+    dateModified: (modDatetime ?? pubDatetime)?.toISOString(),
+  }),
   author: [
     {
       "@type": "Person",
-      name: site.author,
-      ...(site.profile && { url: site.profile }),
+      name: author,
+      ...(author === site.author && {
+        "@id": new URL("#person", site.url).href,
+        url: site.url,
+      }),
     },
   ],
 };
@@ -40,11 +62,8 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
 );
 ---
 
-<Layout {title} {description} {ogImage} {canonicalURL}>
+<Layout ogType="article" {title} {description} {ogImage} {canonicalURL}>
   <Fragment slot="head">
-    <!-- Override og:type for article pages -->
-    <meta property="og:type" content="article" />
-
     {
       pubDatetime && (
         <meta

@@ -605,9 +605,9 @@ const sections = [
     min-block-size: 44px;
     @media (prefers-reduced-motion: no-preference) {
       transition:
-        color 160ms ease,
-        background-color 160ms ease,
-        border-color 160ms ease;
+        color 160ms var(--ease-state),
+        background-color 160ms var(--ease-state),
+        border-color 160ms var(--ease-state);
     }
   }
   .section-nav a[aria-selected="true"],
@@ -619,9 +619,9 @@ const sections = [
     min-block-size: 44px;
     @media (prefers-reduced-motion: no-preference) {
       transition:
-        color 160ms ease,
-        background-color 160ms ease,
-        border-color 160ms ease;
+        color 160ms var(--ease-state),
+        background-color 160ms var(--ease-state),
+        border-color 160ms var(--ease-state);
     }
   }
   .full-cv-button:not([hidden]) {
@@ -697,7 +697,7 @@ const sections = [
   }
   .content-card,
   .experience-card {
-    @apply border-border bg-surface rounded-xl border;
+    @apply border-border bg-surface rounded-lg border;
   }
   .content-card {
     @apply p-5 sm:p-6;
@@ -706,7 +706,7 @@ const sections = [
     @apply border-accent bg-muted rounded-r-lg border-s-2 py-4 ps-4 pe-4;
   }
   .experience-card > summary {
-    @apply cursor-pointer list-none rounded-xl p-5 sm:p-6;
+    @apply cursor-pointer list-none rounded-lg p-5 sm:p-6;
   }
   .experience-card > summary::-webkit-details-marker,
   .thesis-panel > summary::-webkit-details-marker {
@@ -737,7 +737,7 @@ const sections = [
   .disclosure-icon {
     @apply text-accent inline-flex size-8 shrink-0 items-center justify-center rounded-full text-2xl leading-none;
     @media (prefers-reduced-motion: no-preference) {
-      transition: transform 180ms ease;
+      transition: transform 180ms var(--ease-state);
     }
   }
   .experience-card[open] .disclosure-icon,
@@ -754,7 +754,7 @@ const sections = [
     @apply reading-copy marker:text-accent ms-5 list-disc space-y-4;
   }
   .skill-tag {
-    @apply bg-muted text-foreground rounded-md px-2.5 py-1 text-xs leading-relaxed;
+    @apply bg-muted text-foreground rounded-sm px-2.5 py-1 text-xs leading-relaxed;
   }
   .portfolio summary {
     min-block-size: 44px;
@@ -762,15 +762,15 @@ const sections = [
   }
   .course-symbol {
     @media (prefers-reduced-motion: no-preference) {
-      transition: transform 180ms ease;
+      transition: transform 180ms var(--ease-state);
     }
   }
   @media screen and (prefers-reduced-motion: no-preference) {
     [data-tab-panel]:not([hidden]) {
-      animation: role-appear 180ms ease-out;
+      animation: role-appear 180ms var(--ease-enter);
     }
     .experience-timeline > li:not([hidden]) {
-      animation: role-appear 180ms ease-out;
+      animation: role-appear 180ms var(--ease-enter);
     }
     @supports (interpolate-size: allow-keywords) and
       selector(details::details-content) {
@@ -782,10 +782,8 @@ const sections = [
         opacity: 0;
         overflow: clip;
         @media (prefers-reduced-motion: no-preference) {
-          transition:
-            block-size 220ms ease,
-            opacity 180ms ease,
-            content-visibility 220ms allow-discrete;
+          /* Native disclosures resize immediately; only ink fades to avoid animating layout. */
+          transition: opacity 180ms var(--ease-state);
         }
       }
       .portfolio details[open]::details-content {

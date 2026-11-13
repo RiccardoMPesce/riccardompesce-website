@@ -7,6 +7,32 @@ The shared footer uses the configured site author for its copyright notice and
 links to Astro and the original AstroPaper theme for attribution, below the
 **Find me** profile links and aligned with the copyright in the bottom row on wide screens.
 
+## Reading and presentation
+
+The Warm Alabaster / Deep Espresso palette lives in `src/styles/theme.css`.
+Prose uses a 66ch measure, 17px desktop text, 1.68 leading, balanced headings,
+progressive paragraph wrapping, warm link underlines and 4px / 8px / pill radii.
+Native tables retain keyboard-accessible horizontal scrolling.
+
+Astro's [ClientRouter](https://docs.astro.build/en/guides/view-transitions/)
+retains article-title transition identities. `src/styles/motion.css` defines
+asymmetric easing, 90ms press feedback, 150–180ms interactions and 250ms view
+transitions. Reduced-motion preferences disable transitions and smooth scrolling.
+The fixed 2px reading indicator uses `scaleX`, batches scroll work with animation
+frames and disconnects listeners/observers on navigation. Code-copy controls stay
+outside `pre > code`, reserve a stable hit area and announce clipboard failures.
+These choices avoid authored layout animations; frame rate and zero CLS require
+measurement in real browsers and are not guaranteed by the CSS.
+
+Articles expose a named semantic article, Pagefind title/description metadata,
+canonical social cards and BlogPosting JSON-LD linked to the site author Person.
+Navigation and decorative controls are excluded from Pagefind without hiding
+interactive controls from assistive technology. KaTeX retains MathML and LaTeX
+annotations; fenced code has an explicit language class (plain text when omitted).
+RSS includes rendered full article content, original publication dates, tags and
+absolute media/link URLs; scripts and UI controls are omitted. Search remains
+controlled by `features.search` in `astro-paper.config.ts`.
+
 ## Sharing
 
 Articles show a flat sharing row below the title and publication date, before
@@ -344,7 +370,7 @@ informs roles, selected states, linked panels and roving keyboard focus.
 Below 768px the tab list is vertical and uses Up/Down; from 768px it is horizontal,
 sticky and uses Left/Right. Home/End select the first/last tab; Enter/Space activate
 it. Arrow navigation activates immediately because all content is already loaded.
-The selected section is stored in the URL fragment. Existing section and role
+The selected section stays in memory without changing the URL fragment. Existing section and role
 links, including `#toolkit`, reveal their containing panel; Back/Forward restores
 the URL's view. Switching tabs retains disclosure state. Full CV mode
 restores ordinary document semantics. Both custom elements remove listeners on
@@ -610,3 +636,7 @@ uses locally installed fonts. A local build does not verify remote deployment.
 ## License
 
 MIT. Original AstroPaper theme by Sat Naing; see `LICENSE`.
+
+Section links scroll without adding a URL fragment. Portfolio tab selection stays
+in memory; refreshing returns to Summary at the top. Full CV mode still uses
+`?view=all`. Explicit incoming fragment links remain supported.

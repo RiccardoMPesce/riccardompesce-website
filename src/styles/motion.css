@@ -1,0 +1,72 @@
+:root {
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-state: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(a, button, input, summary, [role="button"]) {
+    transition:
+      transform 150ms var(--ease-state),
+      opacity 150ms var(--ease-state),
+      border-color 150ms var(--ease-state),
+      background-color 150ms var(--ease-state);
+  }
+  .app-prose a {
+    transition: text-decoration-color 150ms var(--ease-state);
+  }
+  .post-card,
+  .project-card,
+  .experience-card {
+    transition:
+      transform 180ms var(--ease-enter),
+      border-color 180ms var(--ease-state);
+  }
+  @media (hover: hover) {
+    .post-card:hover,
+    .project-card:hover,
+    .experience-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--color-accent);
+    }
+  }
+  :is(button, .tag, [role="tab"]):active {
+    transform: scale(0.98);
+    transition-duration: 90ms;
+  }
+  .reading-progress-bar {
+    transition: transform 120ms var(--ease-state);
+  }
+  .copy-code[data-copied] {
+    animation: copy-confirm 150ms var(--ease-enter);
+  }
+  html::view-transition-group(*) {
+    animation-duration: 250ms;
+    animation-timing-function: var(--ease-enter);
+  }
+  html::view-transition-old(*),
+  html::view-transition-new(*) {
+    animation-duration: 250ms;
+    animation-timing-function: var(--ease-state);
+  }
+}
+@keyframes copy-confirm {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    button,
+    .tag,
+    [role="tab"],
+    .post-card,
+    .project-card,
+    .experience-card
+  ):is(:hover, :active) {
+    transform: none !important;
+  }
+}

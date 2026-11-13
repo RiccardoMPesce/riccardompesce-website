@@ -178,7 +178,7 @@ class PortfolioTabs extends HTMLElement {
       const url = new URL(window.location.href);
       if (full) url.searchParams.set("view", "all");
       else url.searchParams.delete("view");
-      url.hash = tabs[selected].panel.id;
+      url.hash = "";
       if (url.href === window.location.href) return;
       const method = replace ? "replaceState" : "pushState";
       window.history[method](window.history.state, "", url);

@@ -258,13 +258,13 @@ test("progressive enhancement shows only Summary and exposes linked tab semantic
   assert.equal(f.panels[0].getAttribute("aria-labelledby"), "tab-summary");
 });
 
-test("click switches panels and preserves router state in a shareable URL", () => {
+test("click switches panels without adding a fragment or history entry", () => {
   const f = fixture();
   f.connect();
   f.click(1);
   assert.deepEqual(visible(f), ["experience"]);
-  assert.equal(f.win.location.hash, "#experience");
-  assert.equal(f.historyEntries[0].state.router, "preserved");
+  assert.equal(f.win.location.hash, "");
+  assert.equal(f.historyEntries.length, 0);
   assert.equal(
     f.links.filter(link => link.getAttribute("aria-selected") === "true")
       .length,
@@ -314,7 +314,7 @@ test("full CV mode exposes all sections, restores document semantics and is shar
   assert.equal(f.links[0].getAttribute("tabindex"), null);
   assert.equal(new URL(f.win.location.href).searchParams.get("view"), "all");
   assert.equal(f.toggle.getAttribute("aria-pressed"), "true");
-  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.win.location.hash, "");
   assert.equal(f.links[0].getAttribute("aria-current"), "location");
   assert.equal(f.win.scrolls.length, 0);
   f.toggleAll();
@@ -351,7 +351,7 @@ test("navigation cleanup removes listeners and reconnection does not duplicate t
   f.connect();
   f.connect();
   f.click(2);
-  assert.equal(f.historyEntries.length, 1);
+  assert.equal(f.historyEntries.length, 0);
   assert.deepEqual(visible(f), ["education"]);
 });
 
@@ -453,7 +453,7 @@ test("entering full CV highlights Summary without scrolling, including subsequen
   f.connect();
   f.click(2);
   f.toggleAll();
-  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.win.location.hash, "");
   assert.equal(f.links[0].getAttribute("aria-current"), "location");
   assert.equal(f.win.scrolls.length, 0);
   f.click(2);
@@ -461,7 +461,7 @@ test("entering full CV highlights Summary without scrolling, including subsequen
   assert.deepEqual(visible(f), ["education"]);
   const previousScrolls = f.win.scrolls.length;
   f.toggleAll();
-  assert.equal(f.win.location.hash, "#summary");
+  assert.equal(f.win.location.hash, "");
   assert.equal(f.links[0].getAttribute("aria-current"), "location");
   assert.equal(f.win.scrolls.length, previousScrolls);
 });

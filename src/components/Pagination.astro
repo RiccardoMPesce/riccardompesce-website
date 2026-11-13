@@ -18,6 +18,7 @@ const t = useTranslations(Astro.currentLocale);
 {
   page.lastPage > 1 && (
     <nav
+      data-pagefind-ignore
       class="mt-auto mb-8 flex flex-col items-center justify-center gap-4 md:flex-row"
       role="navigation"
       aria-label="Pagination Navigation"

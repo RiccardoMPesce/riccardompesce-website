@@ -31,6 +31,7 @@ export function rehypeAccessibleContent({ site }) {
                 tagName: "span",
                 properties: {
                   ariaHidden: "true",
+                  dataPagefindIgnore: true,
                   className: ["external-link-icon"],
                 },
                 children: [{ type: "text", value: " ↗" }],
@@ -38,7 +39,10 @@ export function rehypeAccessibleContent({ site }) {
               {
                 type: "element",
                 tagName: "span",
-                properties: { className: ["sr-only"] },
+                properties: {
+                  className: ["sr-only"],
+                  dataPagefindIgnore: true,
+                },
                 children: [
                   {
                     type: "text",
@@ -50,6 +54,22 @@ export function rehypeAccessibleContent({ site }) {
                 ],
               }
             );
+          }
+        }
+      }
+      if (node.tagName === "pre") {
+        const code = node.children?.find(child => child.tagName === "code");
+        if (code) {
+          code.properties ??= {};
+          const classes = code.properties.className ?? [];
+          const list = Array.isArray(classes)
+            ? classes
+            : String(classes).split(/\s+/);
+          if (!list.some(value => value.startsWith("language-"))) {
+            code.properties.className = [
+              ...list,
+              `language-${props.dataLanguage ?? "text"}`,
+            ];
           }
         }
       }

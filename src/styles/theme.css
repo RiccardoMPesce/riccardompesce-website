@@ -49,3 +49,20 @@
   --surface: #111827;
   --input-border: #64748b;
 }
+
+/* Native theme fallback remains legible when JavaScript is disabled. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --background: #0b0f17;
+    --foreground: #e2e8f0;
+    --heading: #f8fafc;
+    --accent: #38bdf8;
+    --accent-foreground: #0b0f17;
+    --accent-hover: #93c5fd;
+    --muted: #1f2937;
+    --muted-foreground: #94a3b8;
+    --border: #1f2937;
+    --surface: #111827;
+    --input-border: #64748b;
+  }
+}

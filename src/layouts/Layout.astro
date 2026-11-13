@@ -5,6 +5,7 @@ import displayFont from "@fontsource-variable/space-grotesk/files/space-grotesk-
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
+import { useTranslations } from "@/i18n";
 import "@/styles/global.css";
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const { site } = config;
+const t = useTranslations(Astro.currentLocale ?? site.lang);
 
 const {
   title = site.title,
@@ -31,10 +33,11 @@ const rssHref = getAssetPath("rss.xml");
 <html
   dir={site.dir ?? "ltr"}
   lang={Astro.currentLocale ?? site.lang}
-  class="overflow-y-scroll scroll-smooth"
+  class="overflow-y-scroll"
 >
   <head>
     <meta charset="UTF-8" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="preload"
@@ -129,12 +132,14 @@ const rssHref = getAssetPath("rss.xml");
 
     <ClientRouter />
   </head>
-  <body
-    class="bg-background text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col font-sans"
-  >
+  <body class="bg-background text-foreground flex min-h-svh flex-col font-sans">
+    <a id="skip-to-content" class="skip-link" href="#main-content"
+      >{t.a11y.skipToContent}</a
+    >
     <slot />
     <script>
       import "@/scripts/theme";
+      import "@/scripts/print";
     </script>
   </body>
 </html>

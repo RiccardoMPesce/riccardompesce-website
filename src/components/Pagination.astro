@@ -25,21 +25,35 @@ const t = useTranslations(Astro.currentLocale);
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        class:list={["select-none", { "opacity-50": !page.url.prev }]}
+        class:list={[
+          "min-h-11 min-w-11 justify-center px-3 select-none",
+          { "opacity-50": !page.url.prev },
+        ]}
         aria-label={t.a11y.goToPreviousPage}
       >
-        <IconArrowLeft class="inline-block rtl:rotate-180" />
+        <IconArrowLeft
+          aria-hidden="true"
+          focusable="false"
+          class="inline-block rtl:rotate-180"
+        />
         {t.pagination.prev}
       </LinkButton>
       {page.currentPage} / {page.lastPage}
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        class:list={["select-none", { "opacity-50": !page.url.next }]}
+        class:list={[
+          "min-h-11 min-w-11 justify-center px-3 select-none",
+          { "opacity-50": !page.url.next },
+        ]}
         aria-label={t.a11y.goToNextPage}
       >
         {t.pagination.next}
-        <IconArrowRight class="inline-block rtl:rotate-180" />
+        <IconArrowRight
+          aria-hidden="true"
+          focusable="false"
+          class="inline-block rtl:rotate-180"
+        />
       </LinkButton>
     </nav>
   )

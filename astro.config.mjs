@@ -1,4 +1,8 @@
+import mdx from "@astrojs/mdx";
 import { defineConfig, envField } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
+import { rehypeAccessibleContent } from "./src/utils/rehypeAccessibleContent.js";
+import { rehypeTableWrapper } from "./src/utils/rehypeTableWrapper.js";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import tailwindcss from "@tailwindcss/vite";
@@ -6,7 +10,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://riccardompesce.com",
-  integrations: [],
+  integrations: [mdx()],
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -15,8 +19,17 @@ export default defineConfig({
     },
   },
   markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [
+        [
+          rehypeKatex,
+          { output: "htmlAndMathml", trust: false, strict: "error" },
+        ],
+        rehypeTableWrapper,
+        [rehypeAccessibleContent, { site: "https://riccardompesce.com" }],
+      ],
+    }),
     shikiConfig: {
       themes: { light: "github-light", dark: "github-dark" },
       defaultColor: false,

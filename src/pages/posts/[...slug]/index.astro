@@ -114,6 +114,7 @@ const ogImage = ogImageUrl
 
   <main
     id="main-content"
+    tabindex="-1"
     class:list={[
       "app-layout text-center md:text-start",
       { "mt-8": !config.features.showBackButton },
@@ -294,13 +295,19 @@ const ogImage = ogImageUrl
     let overlay = null;
     let lastFocused = null;
     let removeDragListeners = null;
+    let backgroundStates = [];
 
     // Defer attribute mutations so they don't push the LCP timestamp.
     // Event listeners below use delegation and don't need the attributes to exist yet.
     requestAnimationFrame(() => {
       const images = Array.from(article.querySelectorAll("img"));
       for (const image of images) {
-        if (image.closest("a")) continue;
+        if (
+          image.closest("a") ||
+          image.alt === "" ||
+          image.getAttribute("aria-hidden") === "true"
+        )
+          continue;
         image.setAttribute("role", "button");
         image.setAttribute("tabindex", "0");
         image.setAttribute("aria-haspopup", "dialog");
@@ -323,7 +330,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-200 motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -337,7 +344,7 @@ const ogImage = ogImageUrl
       image.src = src;
       image.alt = "";
       image.className =
-        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain transition-transform duration-100 ease-out motion-reduce:transition-none data-[zoom=drag]:cursor-grabbing data-[zoom=drag]:transition-none data-[zoom=in]:cursor-grab";
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain motion-safe:transition-transform duration-100 ease-out motion-reduce:transition-none data-[zoom=drag]:cursor-grabbing data-[zoom=drag]:transition-none data-[zoom=in]:cursor-grab";
 
       overlay.append(closeButton, image);
       overlay.addEventListener("click", e => {
@@ -566,6 +573,12 @@ const ogImage = ogImageUrl
       };
 
       document.body.appendChild(overlay);
+      backgroundStates = Array.from(document.body.children)
+        .filter(
+          element => element instanceof HTMLElement && element !== overlay
+        )
+        .map(element => ({ element, inert: element.inert }));
+      for (const { element } of backgroundStates) element.inert = true;
       document.documentElement.style.overflow = "hidden";
       document.addEventListener("keydown", onKeyDown);
       window.__closeLightbox = close;
@@ -579,6 +592,10 @@ const ogImage = ogImageUrl
       const el = overlay;
       overlay = null;
       el.classList.add("pointer-events-none");
+      el.inert = true;
+      el.setAttribute("aria-hidden", "true");
+      for (const { element, inert } of backgroundStates) element.inert = inert;
+      backgroundStates = [];
       window.__closeLightbox = null;
 
       document.removeEventListener("keydown", onKeyDown);

@@ -157,10 +157,12 @@ const items = withToc ? buildTocTree(headings) : [];
     opacity: 0;
     translate: 0 3.5rem;
     visibility: hidden;
-    transition:
-      opacity 0.5s,
-      translate 0.5s,
-      visibility 0.5s;
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        opacity 0.5s,
+        translate 0.5s,
+        visibility 0.5s;
+    }
   }
   .post-fab[data-visible] {
     opacity: 1;
@@ -206,11 +208,9 @@ const items = withToc ? buildTocTree(headings) : [];
       color: var(--color-accent);
     }
   }
-  /* Dashed, so it doesn't read as a second progress ring. The offset clears the
-     arc, which sticks out 2px past the button. */
   .post-fab-btn:focus-visible {
-    outline: 2px dashed var(--color-accent);
-    outline-offset: 4px;
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
     color: var(--color-accent);
   }
   .post-fab-icon-toc,

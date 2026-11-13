@@ -26,6 +26,8 @@ const locale = Astro.currentLocale ?? config.site.lang;
     ]}
   >
     <IconHash
+      aria-hidden="true"
+      focusable="false"
       class:list={[
         "opacity-80",
         { "size-5": size === "lg" },

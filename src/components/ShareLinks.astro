@@ -37,7 +37,11 @@ const primaryLinks = links.filter(link => link.name in primaryIcons);
 const dialogId = `share-dialog-${instanceId}`;
 ---
 
-<share-links class="block min-w-0 text-sm" data-share-title={title}>
+<share-links
+  data-pagefind-ignore
+  class="block min-w-0 text-sm"
+  data-share-title={title}
+>
   <div
     class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 md:justify-start"
     role="group"

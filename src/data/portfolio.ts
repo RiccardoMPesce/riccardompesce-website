@@ -214,7 +214,11 @@ export const portfolio = {
       contributions: [
         "Assessed accuracy of business-page descriptions, and relevance of ads andsearch results.",
       ],
-      tools: ["Facebook Business Pages", "Facebook Ads", "Internal web-based evaluation platform"],
+      tools: [
+        "Facebook Business Pages",
+        "Facebook Ads",
+        "Internal web-based evaluation platform",
+      ],
     },
   ],
   projects: [

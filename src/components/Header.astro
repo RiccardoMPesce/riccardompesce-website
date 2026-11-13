@@ -34,13 +34,22 @@ const isActive = (path: string) => {
 };
 ---
 
-<a
-  id="skip-to-content"
-  href="#main-content"
-  class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"
->
-  {t.a11y.skipToContent}
-</a>
+<noscript>
+  <style is:inline>
+    #menu-items {
+      display: grid !important;
+    }
+    #menu-btn,
+    #theme-btn {
+      display: none !important;
+    }
+    @media (min-width: 768px) {
+      #menu-items {
+        display: flex !important;
+      }
+    }
+  </style>
+</noscript>
 
 <header
   class="app-layout flex flex-col items-center justify-between md:flex-row"
@@ -56,6 +65,7 @@ const isActive = (path: string) => {
     </a>
     <nav
       id="nav-menu"
+      aria-label="Main navigation"
       class="flex w-full flex-col items-center md:ms-2 md:flex-row md:justify-end md:space-x-4 md:py-0"
     >
       <button
@@ -78,7 +88,7 @@ const isActive = (path: string) => {
       </button>
       <ul
         id="menu-items"
-        class="[&>li>a]:hover:text-accent mt-4 hidden w-full grid-cols-1 place-content-center gap-2 md:mt-0 md:flex md:w-auto md:gap-x-2 md:gap-y-0 md:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium md:[&>li>a]:px-2 md:[&>li>a]:py-1"
+        class="[&>li>a]:hover:text-accent mt-4 hidden w-full grid-cols-1 place-content-center gap-2 md:mt-0 md:flex md:w-auto md:gap-x-2 md:gap-y-0 md:[&>li]:min-h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium md:[&>li>a]:px-2 md:[&>li>a]:py-1"
       >
         <li class="col-span-1">
           <a
@@ -137,7 +147,11 @@ const isActive = (path: string) => {
                 title={t.nav.archives}
                 aria-label={t.nav.archives}
               >
-                <IconArchive class="hidden md:absolute md:top-1/2 md:left-1/2 md:block md:size-6 md:-translate-x-1/2 md:-translate-y-1/2" />
+                <IconArchive
+                  aria-hidden="true"
+                  focusable="false"
+                  class="hidden md:absolute md:top-1/2 md:left-1/2 md:block md:size-6 md:-translate-x-1/2 md:-translate-y-1/2"
+                />
                 <span class="md:sr-only">{t.nav.archives}</span>
                 {isActive("/archives") && (
                   <IconUnderline
@@ -158,7 +172,11 @@ const isActive = (path: string) => {
                 title={t.nav.search}
                 aria-label={t.nav.search}
               >
-                <IconSearch class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" />
+                <IconSearch
+                  aria-hidden="true"
+                  focusable="false"
+                  class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2"
+                />
                 <span class="sr-only">{t.nav.search}</span>
                 {isActive("/search") && (
                   <IconUnderline
@@ -177,12 +195,19 @@ const isActive = (path: string) => {
                 id="theme-btn"
                 class="focus-outline hover:[&_svg]:stroke-accent flex min-h-12 w-full flex-col items-center justify-center gap-2 px-4 py-3 md:size-8 md:min-h-0 md:p-0"
                 title={t.a11y.toggleTheme}
-                aria-label="auto"
-                aria-live="polite"
+                aria-label={t.a11y.toggleTheme}
               >
                 <span class="relative block size-6" aria-hidden="true">
-                  <IconMoon class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                  <IconSunHigh class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                  <IconMoon
+                    aria-hidden="true"
+                    focusable="false"
+                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 motion-safe:transition-all dark:scale-0 dark:-rotate-90"
+                  />
+                  <IconSunHigh
+                    aria-hidden="true"
+                    focusable="false"
+                    class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 motion-safe:transition-all dark:scale-100 dark:rotate-0"
+                  />
                 </span>
                 <span class="text-sm font-medium md:sr-only">Theme</span>
               </button>
@@ -195,62 +220,5 @@ const isActive = (path: string) => {
 </header>
 
 <script>
-  function toggleNav() {
-    const menuBtn = document.querySelector<HTMLButtonElement>("#menu-btn");
-    const menuItems = document.querySelector("#menu-items");
-    const menuIcon = document.querySelector("#menu-icon");
-    const closeIcon = document.querySelector("#close-icon");
-
-    if (!menuBtn || !menuItems || !menuIcon || !closeIcon) return;
-
-    const openLabel = menuBtn.dataset.labelOpen ?? "Open menu";
-    const closeLabel = menuBtn.dataset.labelClose ?? "Close menu";
-
-    menuBtn.addEventListener("click", () => {
-      const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
-
-      menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
-      menuBtn.setAttribute("aria-label", openMenu ? openLabel : closeLabel);
-
-      menuItems.classList.toggle("hidden");
-      menuItems.classList.toggle("grid");
-      menuIcon.classList.toggle("hidden");
-      closeIcon.classList.toggle("hidden");
-    });
-  }
-
-  function handleSkipToContent() {
-    const skipLink = document.getElementById("skip-to-content");
-    if (!skipLink) return;
-    skipLink.addEventListener("click", e => {
-      if (
-        e.defaultPrevented ||
-        e.metaKey ||
-        e.ctrlKey ||
-        e.shiftKey ||
-        e.button !== 0
-      )
-        return;
-      e.preventDefault();
-      const target = document.getElementById("main-content");
-      if (target) {
-        target.setAttribute("tabindex", "-1");
-        target.addEventListener(
-          "blur",
-          () => target.removeAttribute("tabindex"),
-          {
-            once: true,
-          }
-        );
-        target.focus();
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  }
-
-  toggleNav();
-  document.addEventListener("astro:after-swap", toggleNav);
-
-  handleSkipToContent();
-  document.addEventListener("astro:after-swap", handleSkipToContent);
+  import "@/scripts/navigation";
 </script>

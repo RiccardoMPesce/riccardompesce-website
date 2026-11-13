@@ -141,7 +141,9 @@ const items = buildTocTree(headings);
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
     overflow-wrap: anywhere;
-    transition: color 0.2s ease;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: color 0.2s ease;
+    }
   }
   :is(.toc-side, .toc-popover) nav a::before {
     content: "#";

@@ -4,6 +4,8 @@
  * instead of widening the page. `tabindex="0"` lets keyboard users scroll it.
  *
  * Tables inside `<ResponsiveTable>` (MDX) are skipped: it has its own wrapper.
+ * @description Adds a named, keyboard-focusable overflow region around Markdown tables.
+ * @returns {(tree: object) => void} Transformer that preserves native table semantics.
  */
 export const rehypeTableWrapper = () => tree => {
   const wrap = node => {
@@ -16,7 +18,12 @@ export const rehypeTableWrapper = () => tree => {
         return {
           type: "element",
           tagName: "div",
-          properties: { className: ["table-wrapper"], tabIndex: 0 },
+          properties: {
+            className: ["table-wrapper"],
+            tabIndex: 0,
+            role: "region",
+            ariaLabel: "Scrollable table",
+          },
           children: [child],
         };
       }

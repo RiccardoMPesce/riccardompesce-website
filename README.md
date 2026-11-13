@@ -93,8 +93,7 @@ These commands only serve the site locally; they do not deploy it.
 ```sh
 pnpm lint
 pnpm format:check
-node --test tests/og-fonts.test.mjs
-node --test tests/portfolio-navigation.test.mjs
+npm test
 pnpm build
 pnpm preview
 ```
@@ -149,7 +148,7 @@ a small **Download full CV** button beside **View full CV**. The button
 opens a native dialog with language and format selectors, keyboard focus
 containment, Escape/close dismissal and focus restoration. Without JavaScript,
 a compact disclosure provides all four direct download links.
-DOCX uses native Word paragraphs, headings and lists, Calibri, one column and no
+DOCX uses native Word paragraphs, headings and lists, Arial, one column and no
 tables, text boxes, macros or content in headers/footers. Google Docs supports
 [editing Office files](https://support.google.com/docs/answer/9406611?hl=en).
 This conservative layout supports editing in Word and Google Docs; identical
@@ -169,9 +168,9 @@ After content or layout changes, regenerate all four files. Use a Python
 environment containing `python-docx`, `pdf2image` and `pypdf`, plus LibreOffice
 and Poppler. Set `RESUME_PYTHON` to that interpreter and `RESUME_RENDERER` to
 the Documents skill's `render_docx.py` (the Codex bundled runtime was used for
-the initial exports). Calibri must be installed and visible to the renderer;
+the initial exports). Arial must be installed and visible to the renderer;
 configure its font search path if necessary, and verify that `pdffonts` reports
-embedded Calibri rather than a substitute. Font files are not distributed in
+embedded Arial rather than a substitute. Font files are not distributed in
 this repository. From the repository root:
 
 ```sh
@@ -185,9 +184,19 @@ cp /tmp/resume-it/riccardo-pesce-full-portfolio-it.pdf public/portfolio-download
 
 Inspect every rendered page and check both language versions before accepting
 new assets. Then run `node scripts/check-resume.mjs --write` to record their
-hashes, `node --test tests/resume-download.test.mjs`, and `pnpm build`.
+hashes (`npm run resume:accept`), then run `npm test` and `npm run build`.
 The build rejects stale content/layout fingerprints, missing assets or modified
-file hashes. Updating the manifest alone does not regenerate or validate content.
+file hashes. `npm run resume:check` verifies downloads independently. Diagnostics
+name the stale source/layout or exact missing/modified file. Tests also check the
+committed artifacts against the current generator, and CI runs them before build.
+The v2 source fingerprint hashes canonical exported English/Italian data and the
+generator; whitespace, TypeScript formatting and object key order do not invalidate
+reviewed documents. The manifest migration preserved all four binary hashes and
+verified equivalence of exported content against the previous reviewed sources.
+Keep the generator's Arial aligned with the reviewed downloads. Font changes
+require regenerating and visually reviewing both PDF/DOCX language versions. Updating the
+manifest alone does not regenerate or validate content. Normal builds never
+rewrite or automatically accept the manifest.
 Test all four selections, keyboard navigation, narrow layouts, both themes,
 JavaScript disabled and navigation away/back when browser verification is available.
 
@@ -447,62 +456,50 @@ If browser policy blocks storage, the toggle still works for the current visit,
 but the choice cannot be remembered after reloading. Storage is local to each
 browser and origin; localhost and the public site do not share preferences.
 
-Palette tokens live in `src/styles/theme.css`. Both themes use matte, desaturated
-surfaces with a warm red undertone. Light mode uses a `#f1e9e6` muted rose page,
-`#3d3231` brown-gray text and `#ece2dd` panels. Dark mode keeps the deployed
-charcoal appearance with a nearly imperceptible warm shift: `#1a1818` page,
-`#e8e5e4` text and `#222020` panels, with `#d4cfcc` filled controls.
-These are color choices for the requested appearance, not a sleep benefit or
-night-mode certification. CSS cannot set the display's physical brightness or
-substitute for device-level night-light settings. The contact panel uses `surface`, while
-form fields use `input-border` so their outlines remain distinct from decorative
-dividers. Buttons use separate foreground and hover colors in each theme.
+Palette and typography tokens live in `src/styles/theme.css`: light paper/slate/navy
+and dark obsidian/slate/sky. Space Grotesk headings, Inter reading/UI and JetBrains
+Mono metadata are self-hosted; see **Fonts and social previews** below. Primary
+reading text reaches AAA contrast; secondary text and hover states meet AA.
+`tests/contrast.test.mjs` checks normal text, filled controls, selection and input
+borders against both themes' page, card and muted surfaces.
 
-The token pairs were checked with the WCAG relative-luminance calculation:
-body text on the page background is 10.32:1 (light) and 14.11:1 (dark); secondary
-text is 5.97:1 and 7.98:1; button text is 7.95:1 and 11.56:1. Form borders exceed
-3:1 against both adjacent surfaces. Text pairs also exceed 4.5:1 on the panel,
-muted backgrounds and button hover states. These checks cover color pairs,
-not a full accessibility audit or a claim about users' color preferences.
-Use [WCAG text contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
-and [non-text contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
-when changing these tokens.
+## Accessibility and browser defaults
 
-## Reading typography
+- The layout's first focusable element skips to a single `main#main-content`.
+  Native fragment navigation and `tabindex="-1"` work without JavaScript.
+- All focusable controls use a solid 2px accent outline, offset by 2px, including
+  Pagefind and horizontal table/math regions. Forced-colors mode uses `Highlight`.
+- Navigation landmarks have names; decorative icons are hidden from assistive
+  technology. Mobile menu state has matching labels/controls and Escape restores
+  button focus. The menu remains available without JavaScript.
+- Smooth scrolling and transitions require `prefers-reduced-motion: no-preference`;
+  reduced motion disables animations, transitions and view-transition effects.
+- Both Astro configurations apply the Markdown/MDX content plugin: external HTTP
+  links keep normal navigation, gain `noopener noreferrer` and visible/announced
+  external-site cues. Existing new-tab links announce that behavior.
+- Markdown images default to lazy/async loading. Build checks require alt text
+  and intrinsic dimensions or an aspect ratio. The above-fold portrait stays eager.
+- KaTeX retains MathML alongside hidden visual markup; display equations and
+  tables scroll horizontally and are keyboard-focusable, named regions.
+- Media stays within its container; long prose and identifiers wrap. Touch header,
+  pagination and tag targets are at least 44px. Selection uses opaque accent ink.
+- Search has a named input, preserves query links, restores focus after clearing,
+  reports initialization failures and releases handlers on navigation. A Blog
+  fallback exists without JavaScript; blocked storage cannot break search. Search
+  remains disabled in the default configuration; set `features.search` to
+  `"pagefind"` to expose it. Sharing controls are excluded from search excerpts.
+- Print hides navigation, sharing, comments, dialogs and footer chrome, uses black
+  ink on white, exposes portfolio panels and temporarily opens disclosures.
+  The previous disclosure state is restored afterwards. Image previews isolate
+  the page with `inert`, trap keyboard focus and restore the trigger on close.
 
-Page text uses [Atkinson Hyperlegible Next](https://www.brailleinstitute.org/freefont/),
-designed with distinctive letterforms and numerals for low-vision legibility.
-This design rationale does not establish one universally most readable font.
-Astro downloads and caches the Latin WOFF2 variable font at build time and serves
-it from this site. Normal and italic styles cover weights 400–700; only the normal
-style is preloaded. `font-display: swap` and Arial/system fallbacks keep text
-available while it loads. The SIL Open Font License is distributed at
-`public/fonts/atkinson-hyperlegible-next-OFL.txt`. No new package is required.
-
-The body requests `-webkit-font-smoothing: antialiased` and
-`-moz-osx-font-smoothing: grayscale`, plus normal kerning and automatic optical
-sizing where supported. These are rendering hints, not a configurable blur or
-anti-aliasing strength. As [MDN documents](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-smooth),
-the smoothing properties are non-standard and apply on macOS; other systems
-retain their native font rendering. Check both themes on the actual target
-screen before drawing conclusions about perceived sharpness or comfort.
-
-Long-form copy in About, posts, Home, Contacts and Portfolio uses `1.125rem`
-(18px with the browser's usual 16px default), unitless 1.75 line spacing and a
-maximum measure of 65ch where the layout permits. Paragraphs in articles have
-1.5em vertical margins. Controls and supporting labels retain a smaller type
-hierarchy. Headings use upright text; body text is aligned to the reading start,
-without justification. Browser text size remains user-controlled.
-
-These are design choices informed by [WCAG visual presentation](https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html),
-not proof of a reading-speed improvement or full AAA conformance. Exact palette
-hex values reflect the requested appearance; their evidence is measured contrast,
-not a claim that a color scheme is universally more comfortable. Preserve both themes.
-When editing typography, check 200% zoom, narrow layouts and
-[user text-spacing overrides](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html):
-1.5 line height, 2em paragraph spacing, 0.12em letter spacing and 0.16em word
-spacing without clipped content or lost controls. Those overrides are a test
-condition, not the required default design.
+`npm test` runs behavior/contrast regressions. `npm run build` also checks generated
+HTML for landmarks, skip order, duplicate IDs, names, ARIA references and media
+geometry; it fails rather than publishing those regressions. These checks do not
+certify whole-site WCAG conformance. Browser checks should cover keyboard-only
+navigation, 200% zoom, narrow layouts, reduced motion, both themes, print preview,
+Pagefind results and assistive-technology reading of KaTeX. Third-party embedded
+comments and form-provider pages require separate verification.
 
 ## Contact form
 

@@ -27,7 +27,7 @@ const sections = [
 >
   <Header />
   <Breadcrumb />
-  <main id="main-content" class="app-layout portfolio pb-16">
+  <main id="main-content" tabindex="-1" class="app-layout portfolio pb-16">
     <section class="py-6 sm:py-8" aria-labelledby="portfolio-title">
       <div
         class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
@@ -589,7 +589,7 @@ const sections = [
     @apply text-accent underline decoration-solid underline-offset-4;
   }
   .primary-link {
-    @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center justify-center gap-3 rounded-lg px-5 py-3 font-semibold transition-colors;
+    @apply bg-accent text-accent-foreground hover:bg-accent-hover inline-flex items-center justify-center gap-3 rounded-lg px-5 py-3 font-semibold motion-safe:transition-colors;
   }
   .section-navigation {
     @apply block md:sticky md:top-0 md:z-10;
@@ -603,10 +603,12 @@ const sections = [
   .section-nav a {
     @apply border-input-border bg-surface text-foreground hover:bg-muted flex flex-1 items-center justify-center rounded-lg border px-3 py-3 text-center text-sm font-medium no-underline;
     min-block-size: 44px;
-    transition:
-      color 160ms ease,
-      background-color 160ms ease,
-      border-color 160ms ease;
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease;
+    }
   }
   .section-nav a[aria-selected="true"],
   .section-nav a[aria-current="location"] {
@@ -615,10 +617,12 @@ const sections = [
   .full-cv-button {
     @apply border-accent bg-muted text-foreground hover:bg-surface w-auto items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 text-center text-sm font-semibold;
     min-block-size: 44px;
-    transition:
-      color 160ms ease,
-      background-color 160ms ease,
-      border-color 160ms ease;
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease;
+    }
   }
   .full-cv-button:not([hidden]) {
     display: inline-flex;
@@ -732,7 +736,9 @@ const sections = [
   }
   .disclosure-icon {
     @apply text-accent inline-flex size-8 shrink-0 items-center justify-center rounded-full text-2xl leading-none;
-    transition: transform 180ms ease;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform 180ms ease;
+    }
   }
   .experience-card[open] .disclosure-icon,
   .thesis-panel[open] .disclosure-icon {
@@ -755,7 +761,9 @@ const sections = [
     align-content: center;
   }
   .course-symbol {
-    transition: transform 180ms ease;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform 180ms ease;
+    }
   }
   @media screen and (prefers-reduced-motion: no-preference) {
     [data-tab-panel]:not([hidden]) {
@@ -773,10 +781,12 @@ const sections = [
         block-size: 0;
         opacity: 0;
         overflow: clip;
-        transition:
-          block-size 220ms ease,
-          opacity 180ms ease,
-          content-visibility 220ms allow-discrete;
+        @media (prefers-reduced-motion: no-preference) {
+          transition:
+            block-size 220ms ease,
+            opacity 180ms ease,
+            content-visibility 220ms allow-discrete;
+        }
       }
       .portfolio details[open]::details-content {
         block-size: auto;
@@ -792,14 +802,6 @@ const sections = [
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :global(html) {
-      scroll-behavior: auto;
-    }
-    .portfolio :is(a, button, summary, .disclosure-icon, .course-symbol) {
-      transition: none;
     }
   }
 </style>

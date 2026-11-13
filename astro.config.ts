@@ -1,5 +1,8 @@
 import { defineConfig, envField, svgoOptimizer } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { rehypeAccessibleContent } from "./src/utils/rehypeAccessibleContent.js";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
@@ -39,11 +42,17 @@ export default defineConfig({
     // stay in package.json so a customised config importing them still builds,
     // and are removed in v8.
     processor: unified({
+      remarkPlugins: [remarkMath],
       rehypePlugins: [
+        [
+          rehypeKatex,
+          { output: "htmlAndMathml", trust: false, strict: "error" },
+        ],
         rehypeHeadingIds,
         rehypeInlineToc,
         rehypeCallouts,
         rehypeTableWrapper,
+        [rehypeAccessibleContent, { site: config.site.url }],
       ],
     }),
     shikiConfig: {

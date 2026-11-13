@@ -73,7 +73,7 @@ export default {
     searchDesc: "Search any article ...",
   },
   a11y: {
-    skipToContent: "Skip to content",
+    skipToContent: "Skip to main content",
     skipTableOfContents: "Skip table of contents",
     openMenu: "Open menu",
     closeMenu: "Close menu",

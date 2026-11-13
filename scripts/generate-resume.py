@@ -20,6 +20,11 @@ def build(content, language, destination):
         ["Professional Summary", "Core Competencies", "Professional Experience", "Education", "Projects", "Technical Toolkit", "Credentials and Courses", "Languages", "Community and Volunteering"]
     )
     doc = Document()
+    # Theme font attributes can override font.name in Word and PDF exporters.
+    for fonts in doc.styles.element.xpath(".//w:rFonts"):
+        fonts.attrib.clear()
+        for slot in ("ascii", "hAnsi", "eastAsia", "cs"):
+            fonts.set(qn(f"w:{slot}"), "Arial")
     # Word's default template carries a Title border that Google Docs can revive.
     for border in doc.styles.element.xpath(".//w:pBdr"):
         border.getparent().remove(border)

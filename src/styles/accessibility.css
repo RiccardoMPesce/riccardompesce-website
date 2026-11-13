@@ -1,0 +1,212 @@
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: light dark;
+    scroll-behavior: auto;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6, p, a, li, dd) {
+    overflow-wrap: break-word;
+  }
+
+  :where(img, svg, video) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :where(input:not([type="hidden"]), select, textarea) {
+    max-inline-size: 100%;
+    min-block-size: 44px;
+    font: inherit;
+  }
+
+  :where(main, article, section, fieldset) {
+    min-inline-size: 0;
+  }
+}
+
+/* Vendor search styles and scoped component utilities must not weaken keyboard focus. */
+:is(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [tabindex],
+  [contenteditable="true"]
+):focus-visible {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 100;
+  transform: translateY(calc(-100% - 1rem));
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  color: var(--accent);
+  border: 2px solid currentColor;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+.external-link-icon {
+  white-space: nowrap;
+}
+
+@media (any-pointer: coarse) {
+  header :is(a, button),
+  nav[aria-label="Pagination Navigation"] :is(a, [aria-disabled="true"]),
+  .tag {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tag {
+    padding-inline: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(*) {
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight !important;
+  }
+}
+
+@media print {
+  :root,
+  html[data-theme] {
+    color-scheme: light !important;
+    --background: #fff;
+    --surface: #fff;
+    --muted: #fff;
+    --foreground: #000;
+    --heading: #000;
+    --muted-foreground: #000;
+    --accent: #000;
+    --accent-foreground: #fff;
+    --border: #777;
+    --input-border: #777;
+  }
+
+  *,
+  *::before,
+  *::after {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  header,
+  nav,
+  footer,
+  .skip-link,
+  #theme-btn,
+  .post-fab,
+  .toc-popover,
+  share-links,
+  resume-download,
+  post-comments,
+  dialog,
+  .copy-code,
+  .section-navigation,
+  [data-project-controls],
+  [data-project-navigation] {
+    display: none !important;
+  }
+
+  main,
+  article,
+  .app-prose,
+  .reading-copy {
+    max-inline-size: none !important;
+    inline-size: 100%;
+  }
+
+  [data-tab-panel][hidden] {
+    display: block !important;
+  }
+  details::details-content {
+    content-visibility: visible;
+    display: contents;
+  }
+  pre,
+  .table-wrapper,
+  .katex-display {
+    overflow: visible !important;
+  }
+  pre,
+  pre code {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+  img,
+  tr,
+  blockquote {
+    break-inside: avoid;
+  }
+  a {
+    text-decoration: underline;
+  }
+}

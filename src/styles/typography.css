@@ -73,9 +73,6 @@
         text-decoration-color: var(--color-accent);
         text-decoration-thickness: 2px;
       }
-      &.heading-link {
-        text-decoration: none;
-      }
     }
 
     ul {

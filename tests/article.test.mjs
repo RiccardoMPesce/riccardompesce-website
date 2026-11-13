@@ -29,7 +29,11 @@ function fixture({ clipboardFails = false } = {}) {
   code.textContent = "const answer = 42;";
   block.querySelector = () => code;
   block.before = wrapper => { block.parentElement = wrapper; };
-  article.querySelectorAll = selector => selector === "pre" ? [block] : [];
+  const heading = new Element();
+  heading.id = "my-north-star";
+  heading.textContent = "My north star";
+  heading.querySelector = () => null;
+  article.querySelectorAll = selector => selector === "pre" ? [block] : [heading];
   doc.querySelector = selector => selector === "#article" ? article : progress;
   const created = [];
   doc.createElement = () => { const element = new Element(); created.push(element); return element; };
@@ -83,4 +87,10 @@ for (const fails of [false, true]) test(`copy ${fails ? "failure is announced" :
   assert.equal(f.timers.size, 1);
   f.doc.dispatchEvent(new Event("astro:before-swap"));
   assert.equal(f.timers.size, 0);
+});
+
+ test("article enhancement does not inject heading permalink controls", () => {
+  const f = fixture();
+  assert.ok(f.created.every(element => !element.className?.includes("heading-link")));
+  assert.ok(f.created.every(element => element.textContent !== "#"));
 });

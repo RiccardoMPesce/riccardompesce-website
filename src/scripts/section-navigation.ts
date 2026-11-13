@@ -1,20 +1,3 @@
-// Let Astro retain history navigation behavior; only a full reload starts over.
-const sectionNavigationEntry = performance.getEntriesByType("navigation")[0];
-if (
-  sectionNavigationEntry instanceof PerformanceNavigationTiming &&
-  sectionNavigationEntry.type === "reload"
-) {
-  history.scrollRestoration = "manual";
-  window.addEventListener(
-    "load",
-    () => {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      history.scrollRestoration = "auto";
-    },
-    { once: true }
-  );
-}
-
 document.addEventListener("click", event => {
   if (
     event.defaultPrevented ||

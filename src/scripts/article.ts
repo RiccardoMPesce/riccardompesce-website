@@ -32,22 +32,6 @@ function setupArticle(): void {
   observer.observe(article);
   updateProgress();
 
-  for (const heading of article.querySelectorAll<HTMLElement>(
-    "h2[id], h3[id], h4[id], h5[id], h6[id]"
-  )) {
-    if (heading.querySelector(".heading-link")) continue;
-    const link = document.createElement("a");
-    link.className = "heading-link ms-2";
-    link.href = `#${heading.id}`;
-    link.textContent = "#";
-    link.setAttribute(
-      "aria-label",
-      `Link to ${heading.textContent ?? "section"}`
-    );
-    link.setAttribute("data-pagefind-ignore", "");
-    heading.append(link);
-  }
-
   for (const block of article.querySelectorAll<HTMLPreElement>("pre")) {
     const code = block.querySelector("code");
     if (!code || block.parentElement?.classList.contains("code-block"))

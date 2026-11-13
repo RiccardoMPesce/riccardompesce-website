@@ -24,6 +24,7 @@ outside `pre > code`, reserve a stable hit area and announce clipboard failures.
 These choices avoid authored layout animations; frame rate and zero CLS require
 measurement in real browsers and are not guaranteed by the CSS.
 
+Article headings have no generated `#` permalink controls.
 Articles expose a named semantic article, Pagefind title/description metadata,
 canonical social cards and BlogPosting JSON-LD linked to the site author Person.
 Navigation and decorative controls are excluded from Pagefind without hiding
@@ -638,5 +639,6 @@ uses locally installed fonts. A local build does not verify remote deployment.
 MIT. Original AstroPaper theme by Sat Naing; see `LICENSE`.
 
 Section links scroll without adding a URL fragment. Portfolio tab selection stays
-in memory; refreshing returns to Summary at the top. Full CV mode still uses
+in memory; refreshing clears fragments and resets Astro’s saved scroll coordinates
+before the router initializes, returning to Summary at the top. Full CV mode still uses
 `?view=all`. Explicit incoming fragment links remain supported.

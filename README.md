@@ -145,7 +145,7 @@ not a short application CV. The July 2026 ALTEN transition follows the current
 portfolio. The private telephone number is omitted.
 
 `ResumeDownload.astro` progressively enhances four static download links with
-a small **Download full portfolio** button beside **View full CV**. The button
+a small **Download full CV** button beside **View full CV**. The button
 opens a native dialog with language and format selectors, keyboard focus
 containment, Escape/close dismissal and focus restoration. Without JavaScript,
 a compact disclosure provides all four direct download links.

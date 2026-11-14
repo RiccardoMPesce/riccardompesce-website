@@ -1,36 +1,24 @@
 ---
 title: "About"
-description: "Riccardo Pesce’s experience across data, systems and technical leadership, his career direction and his interests outside work."
+description: "Riccardo Pesce — Computer Engineer (M.Sc., 110/110 cum laude) operating at the intersection of complex system architectures, industrial/cyber-physical domains, applied AI, and B2B technical strategy."
 ---
 
-I’m Riccardo Pesce, a computer engineer. My work has taken me from business intelligence and data engineering to backend systems and technical leadership, across insurance, gaming and media.
+I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude) working at the intersection of **complex system architectures, applied AI, cyber-physical domains, and B2B technical strategy**.
 
-## From business analysis to engineering delivery.
+## From first-principles engineering to strategic system governance
 
-I’ve worked on designing, implementing and maintaining complex systems. My responsibilities have included feasibility studies, requirements analysis, architecture reviews, implementation, scope negotiation and coordination across engineering teams and international vendors. I’ve also supported commercial decisions through business intelligence and KPI analysis. That experience is why I’m interested in the connections: how data moves, how services depend on each other and how stakeholders agree on what to build.
+Over the past years, I have led architectural design, feasibility evaluations, cross-functional technical alignment, and high-stakes stakeholder negotiations across mission-critical distributed environments. My focus is never on isolated code—it is on **system-level leverage**: how data flows under real-world constraints, where architectural bottlenecks erode margins, and how technical decisions translate directly into commercial and operational resilience.
 
-My engineering studies also covered automation, control and industrial networks. Those foundations keep me curious about the relationship between software and physical systems, alongside my professional experience in software and data.
+My academic and research background is anchored in **control systems, industrial networks, and statistical/deep learning**—including work on multimodal signal processing (EEG/fMRI) and domain adaptation. That foundation drives my focus on environments where software meets physical reality: **industrial automation, energy infrastructure, semiconductors, Edge AI, and cyber-physical security**.
 
-## Career direction and areas of interest.
+## Strategic focus: Technical Account, Presales & System Architecture
 
-My north star is to build a fulfilling career, both personally and professionally. I want to put my time and energy into problems I care about, contribute something useful and keep learning. That is the direction I’m working towards, and the question I bring to new opportunities.
+I operate best in high-leverage, customer-facing roles—such as **Technical Key Account Manager, Field Application Engineer (FAE), Presales Architect, and Industrial Systems Lead**—where deep engineering authority meets executive negotiation. 
 
-I’m interested in taking that experience into industrial technologies, energy, advanced manufacturing, Industrial AI and cybersecurity. Solutions engineering, technical pre-sales, application engineering and technical account roles appeal to me because they connect engineering responsibility with client relationships and business needs.
+In capital-intensive sectors, technical superiority only wins when articulated through clear **Total Cost of Ownership (TCO), risk reduction, and operational reliability**. My role is to bridge the gap between R&D/engineering teams and enterprise decision-makers, turning complex technical capabilities into clear commercial adoption.
 
-Projects give me a way to explore that direction through practice: try an idea, see what works, understand the limits and decide what deserves another iteration.
+## Off the clock
 
-## Projects, decisions and learning.
+Outside of systems and strategy, I pursue disciplines built on precision, risk management, and physical output: **aviation and flight theory** (preparing for a Private Pilot License), **Olympic weightlifting, strength conditioning, and boxing**, alongside international travel.
 
-This website is where I document that process. I want to explain the problem behind a project, the choices I make and what I learn along the way. The aim is to give you enough context to judge whether an idea could be useful in your own work.
-
-## Interests and life outside work.
-
-Personal growth matters to me: taking time to understand what I want, reflect on my choices and build habits that fit the life I want to lead.
-
-I’m passionate about flying (in all forms - PPL is on my list) and travel. I enjoy discovering new places and perspectives, and having opportunities to explore beyond my everyday routine.
-
-Training is another part of my life, particularly CrossFit, weightlifting and boxing. I enjoy making time for physical activity alongside my other interests.
-
-Good food and good company matter just as much: time with my girlfriend, my friends and the people close to me. Those relationships are part of what a fulfilling life means to me, alongside the work I choose to do.
-
-Explore my [portfolio](/portfolio/) for experience and education, read the [blog](/posts/) or start a conversation on the [contacts page](/contacts/).
+Explore my [portfolio](/portfolio/) for selected architectures and credentials, read my technical analyses on the [blog](/posts/), or reach out directly via the [contacts page](/contacts/).

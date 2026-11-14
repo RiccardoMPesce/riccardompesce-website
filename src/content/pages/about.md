@@ -1,26 +1,30 @@
 ---
 title: "About"
-description: "Riccardo Pesce — Computer Engineer working across distributed systems, data, applied AI, and B2B technical leadership."
+description: "Riccardo Pesce — Computer Engineer (M.Sc., 110/110 cum laude) working across distributed systems, data, technical leadership, and the intersection of software and physical systems."
 ---
 
-I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude). Over the past six years, my work has moved from data engineering and distributed systems to technical leadership—working closely with engineering teams and business stakeholders to turn complex requirements into practical architectural decisions.
+I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude) based in Catania, Italy. Over the past years, I have worked across commercial analysis, data engineering, distributed systems, and technical leadership within regulated, commercial, and international environments—including financial/insurance services, regulated gaming, and large-scale media.
 
-## Background and engineering approach
+## Background and how I work
 
-In my day-to-day work, I’ve focused on feasibility studies, system design, cross-team coordination, and supporting commercial decisions with clear data. What interests me most is how the parts of a system fit together: how data moves under real constraints, where bottlenecks appear, and how technical trade-offs affect the people relying on the outcome.
+In my day-to-day work as a Technical Lead, I’ve focused on feasibility studies, system architecture, scope negotiation, and coordinating cross-border teams within clear budget and operational constraints. Earlier in my career, working closely with commercial directors and Key Account Managers taught me how to read technical choices through data, KPIs, and real business trade-offs.
 
-My university background also covered automation, control systems, and industrial networks, alongside research in statistical learning, domain adaptation, and multimodal signal processing (EEG/fMRI). Those foundations continue to shape how I think about software in relation to physical and operational environments.
+What interests me most is how the pieces of a system connect: how data moves under load, where bottlenecks form, and how technical decisions affect both the people running a system and the commercial outcomes behind it.
+
+My academic background at the University of Catania is rooted in **industrial automation, control systems, real-time networks, electronics, and applied AI**—covering PLC programming (IEC 61131-3 / TIA Portal), industrial protocols (PROFINET, OPC UA, EtherCAT, TSN, Modbus), embedded/RTOS architectures, and research in domain adaptation and multimodal signal processing (EEG/fMRI). Those foundations continue to shape how I think about software in relation to physical and operational environments.
 
 ## Direction and areas of focus
 
-Looking ahead, I am focusing my work on the intersection of software, physical systems, and commercial strategy—specifically across **industrial automation, energy, semiconductors, Edge AI, and cyber-physical security**. 
+Looking ahead, I am steering my work toward environments where engineering meets physical systems and commercial strategy: **industrial automation, energy, semiconductors, Edge AI, and cyber-physical security**.
 
-I’m particularly drawn to customer-facing technical roles—such as **Field Application Engineering, Technical Account Management, Presales, and Systems Architecture**—where solid engineering judgment helps bridge the gap between technical teams and client needs.
+I’m particularly drawn to customer-facing technical roles—such as **Field Application Engineering, Technical Account Management, Presales, and Systems Architecture**—where solid engineering judgment helps translate complex capabilities into practical adoption for clients and partners.
 
-This website is where I work through ideas in those domains, break down architectures from first principles, and document what holds up in practice.
+This website is where I work through problems in those domains from first principles, examine architectural trade-offs, and keep a clear record of what holds up in practice.
 
 ## Outside of work
 
-Away from the desk, I spend time on **aviation and flight theory** (working toward a Private Pilot License), strength training, Olympic weightlifting, and boxing, alongside traveling whenever I get the chance.
+Away from the desk, I spend time on **aviation and flight theory** (working toward a Private Pilot License), **Olympic weightlifting, strength training, and boxing**, alongside traveling whenever I get the chance.
 
-You can check my background in the [portfolio](/portfolio/), read recent analyses on the [blog](/posts/), or reach out via the [contacts page](/contacts/).
+At the core of how I approach both work and life is a simple rule: *patti chiari, amicizia lunga*—clear expectations, intellectual honesty, and taking things seriously without carrying unnecessary weight.
+
+You can explore my experience and academic background in the [portfolio](/portfolio/), read recent analyses on the [blog](/posts/), or get in touch via the [contacts page](/contacts/).

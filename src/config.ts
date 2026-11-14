@@ -42,7 +42,7 @@ const config: ResolvedAstroPaperConfig = {
 export const SITE = {
   website: "https://riccardompesce.com",
   author: "Riccardo M. Pesce",
-  profile: "https://github.com/tuo-username",
+  profile: "https://github.com/riccardompesce",
   desc: config.site.description,
   title: "Riccardo M. Pesce",
   ogImage: "astropaper-og.jpg",

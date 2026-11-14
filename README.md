@@ -34,6 +34,32 @@ RSS includes rendered full article content, original publication dates, tags and
 absolute media/link URLs; scripts and UI controls are omitted. Search remains
 controlled by `features.search` in `astro-paper.config.ts`.
 
+## Google indexing
+
+`npm run build` generates `dist/robots.txt`, `dist/sitemap-index.xml` and
+`dist/sitemap-0.xml` using `@astrojs/sitemap` in the active `astro.config.mjs`.
+The sitemap updates automatically as published pages and articles change.
+Search, error pages and the disabled archive are excluded. No artificial
+modification dates or priorities are assigned.
+
+After deploying, confirm these URLs return their files:
+
+- `https://riccardompesce.com/robots.txt`
+- `https://riccardompesce.com/sitemap-index.xml`
+- `https://riccardompesce.com/sitemap-0.xml`
+
+In Google Search Console, add the domain property and verify ownership with the
+DNS TXT record supplied by Google. Alternatively, for a URL-prefix property,
+select HTML-tag verification and set `PUBLIC_GOOGLE_SITE_VERIFICATION` in the
+hosting build environment to the supplied **content value**, then rebuild and
+deploy. The shared layout already emits that verification meta tag. No dummy
+Google verification file is included because its filename and content must
+match the token Google issues for the property.
+
+Submit `sitemap-index.xml` in Search Console's Sitemaps report and use URL
+Inspection to request the home page. These files support discovery; Google
+decides whether and when to index pages. See [Google's sitemap guide](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
+
 ## Sharing
 
 Articles show a flat sharing row below the title and publication date, before

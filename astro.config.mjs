@@ -1,4 +1,6 @@
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import siteConfig from "./astro-paper.config.ts";
 import { defineConfig, envField } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import { rehypeAccessibleContent } from "./src/utils/rehypeAccessibleContent.js";
@@ -10,7 +12,16 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://riccardompesce.com",
-  integrations: [mdx()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: page => {
+        const path = new URL(page).pathname.replace(/\/+$/, "") || "/";
+        return path !== "/404" && path !== "/404.html" && path !== "/search" &&
+          (siteConfig.features?.showArchives !== false || path !== "/archives");
+      },
+    }),
+  ],
   i18n: {
     defaultLocale: "en",
     locales: ["en"],

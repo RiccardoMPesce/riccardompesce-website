@@ -1,24 +1,26 @@
 ---
 title: "About"
-description: "Riccardo Pesce — Computer Engineer (M.Sc., 110/110 cum laude) operating at the intersection of complex system architectures, industrial/cyber-physical domains, applied AI, and B2B technical strategy."
+description: "Riccardo Pesce — Computer Engineer working across distributed systems, data, applied AI, and B2B technical leadership."
 ---
 
-I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude) working at the intersection of **complex system architectures, applied AI, cyber-physical domains, and B2B technical strategy**.
+I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude). Over the past six years, my work has moved from data engineering and distributed systems to technical leadership—working closely with engineering teams and business stakeholders to turn complex requirements into practical architectural decisions.
 
-## From first-principles engineering to strategic system governance
+## Background and engineering approach
 
-Over the past years, I have led architectural design, feasibility evaluations, cross-functional technical alignment, and high-stakes stakeholder negotiations across mission-critical distributed environments. My focus is never on isolated code—it is on **system-level leverage**: how data flows under real-world constraints, where architectural bottlenecks erode margins, and how technical decisions translate directly into commercial and operational resilience.
+In my day-to-day work, I’ve focused on feasibility studies, system design, cross-team coordination, and supporting commercial decisions with clear data. What interests me most is how the parts of a system fit together: how data moves under real constraints, where bottlenecks appear, and how technical trade-offs affect the people relying on the outcome.
 
-My academic and research background is anchored in **control systems, industrial networks, and statistical/deep learning**—including work on multimodal signal processing (EEG/fMRI) and domain adaptation. That foundation drives my focus on environments where software meets physical reality: **industrial automation, energy infrastructure, semiconductors, Edge AI, and cyber-physical security**.
+My university background also covered automation, control systems, and industrial networks, alongside research in statistical learning, domain adaptation, and multimodal signal processing (EEG/fMRI). Those foundations continue to shape how I think about software in relation to physical and operational environments.
 
-## Strategic focus: Technical Account, Presales & System Architecture
+## Direction and areas of focus
 
-I operate best in high-leverage, customer-facing roles—such as **Technical Key Account Manager, Field Application Engineer (FAE), Presales Architect, and Industrial Systems Lead**—where deep engineering authority meets executive negotiation. 
+Looking ahead, I am focusing my work on the intersection of software, physical systems, and commercial strategy—specifically across **industrial automation, energy, semiconductors, Edge AI, and cyber-physical security**. 
 
-In capital-intensive sectors, technical superiority only wins when articulated through clear **Total Cost of Ownership (TCO), risk reduction, and operational reliability**. My role is to bridge the gap between R&D/engineering teams and enterprise decision-makers, turning complex technical capabilities into clear commercial adoption.
+I’m particularly drawn to customer-facing technical roles—such as **Field Application Engineering, Technical Account Management, Presales, and Systems Architecture**—where solid engineering judgment helps bridge the gap between technical teams and client needs.
 
-## Off the clock
+This website is where I work through ideas in those domains, break down architectures from first principles, and document what holds up in practice.
 
-Outside of systems and strategy, I pursue disciplines built on precision, risk management, and physical output: **aviation and flight theory** (preparing for a Private Pilot License), **Olympic weightlifting, strength conditioning, and boxing**, alongside international travel.
+## Outside of work
 
-Explore my [portfolio](/portfolio/) for selected architectures and credentials, read my technical analyses on the [blog](/posts/), or reach out directly via the [contacts page](/contacts/).
+Away from the desk, I spend time on **aviation and flight theory** (working toward a Private Pilot License), strength training, Olympic weightlifting, and boxing, alongside traveling whenever I get the chance.
+
+You can check my background in the [portfolio](/portfolio/), read recent analyses on the [blog](/posts/), or reach out via the [contacts page](/contacts/).

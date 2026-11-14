@@ -3,7 +3,7 @@ title: "About"
 description: "Riccardo Pesce — Computer Engineer (M.Sc., 110/110 cum laude) working across distributed systems, data, technical leadership, and the intersection of software and physical systems."
 ---
 
-I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude) based in Catania, Italy. Over the past years, I have worked across commercial analysis, data engineering, distributed systems, and technical leadership within regulated, commercial, and international environments—including financial/insurance services, regulated gaming, and large-scale media.
+I’m Riccardo Pesce, a Computer Engineer (M.Sc., 110/110 cum laude) based in Catania, Italy. Over the past years, I have worked across commercial analysis, data engineering, distributed systems, and technical leadership within regulated, commercial, and international environments including financial/insurance services, regulated gaming, and large-scale media.
 
 ## Background and how I work
 

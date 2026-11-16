@@ -7,6 +7,7 @@ import Footer from "@/components/Footer.astro";
 import Portrait from "@/components/Portrait.astro";
 import ProjectCarousel from "@/components/ProjectCarousel.astro";
 import ResumeDownload from "@/components/ResumeDownload.astro";
+import CourseSyllabus from "@/components/CourseSyllabus.astro";
 import IconListTree from "@/assets/icons/IconListTree.svg";
 import { portfolio } from "@/data/portfolio";
 import config from "@/config";
@@ -94,12 +95,10 @@ const sections = [
           From systems engineering to technical leadership and B2B decisions.
         </h2>
         <p class="reading-copy text-muted-foreground mt-6">
-          Computer Engineer (M.Sc., 110/110 cum laude). 
-          I work where architecture, data, and applied 
-          AI meet real operational constraints, turning 
-          technical trade-offs into clear commercial 
-          decisions across complex, high-reliability 
-          environments.
+          Computer Engineer (M.Sc., 110/110 cum laude). I work where
+          architecture, data, and applied AI meet real operational constraints,
+          turning technical trade-offs into clear commercial decisions across
+          complex, high-reliability environments.
         </p>
         <div
           class="mt-7 flex flex-col items-stretch gap-5 md:flex-row md:flex-wrap md:items-center"
@@ -354,6 +353,12 @@ const sections = [
                                   <p class="reading-copy mt-3">
                                     {subject.description}
                                   </p>
+                                  {subject.syllabus && (
+                                    <CourseSyllabus
+                                      courseName={subject.name}
+                                      source={subject.syllabus}
+                                    />
+                                  )}
                                 </details>
                               </li>
                             ))}

@@ -305,8 +305,20 @@ included. The PDF files themselves are not published. Each activity expands
 independently within its course year.
 
 The 32 named subjects retain verified historical UniCT syllabus references in
-`src/data/education.ts`; these URLs are not rendered on the public page. Their English
-descriptions summarize those sources, not claimed professional proficiency.
+`src/data/education.ts`. Each course keeps its existing description and adds a
+closed native disclosure with an English topic guide from
+`src/data/course-syllabi.ts`, its academic year and the official source link.
+The guides paraphrase the published programme; the link provides the original
+record with teaching methods, references and assessment where published.
+Algebra, Computer Science Fundamentals and Signal Theory are explicitly marked
+as objectives-only because their historical records do not publish a detailed
+programme. No missing content is reconstructed from another year or degree.
+The 32 records were checked on 15 November 2026; editions were confirmed by the
+author. These additions are website-only and do not change the exported portfolio
+documents. Native details/summary controls work without JavaScript, stay closed
+initially and do not change the URL. Source URLs and years must match the course;
+a missing record or edition mismatch fails the build.
+Their English descriptions summarize those sources, not claimed professional proficiency.
 Each reference identifies its academic year: 2015/2016 and 2016/2017 for the core
 bachelor subjects, 2018/2019 for Big Data and Machine Learning, and 2019/2020
 or 2020/2021 for the master subjects. Editions and teaching channels are reference

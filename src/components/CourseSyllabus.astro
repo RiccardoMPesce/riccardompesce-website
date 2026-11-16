@@ -1,0 +1,69 @@
+---
+import { courseSyllabi } from "@/data/course-syllabi";
+
+type Props = {
+  readonly courseName: string;
+  readonly source: {
+    readonly url: string;
+    readonly academicYear: string;
+  };
+};
+
+const { courseName, source } = Astro.props;
+const sourceUrl = new URL(source.url);
+const code = sourceUrl.searchParams.get("cod");
+const syllabus = code ? courseSyllabi[code] : undefined;
+if (!sourceUrl.hostname.endsWith(".unict.it") || !syllabus) {
+  throw new Error(`Missing verified university syllabus for ${courseName}.`);
+}
+if (syllabus.academicYear !== source.academicYear) {
+  throw new Error(`Syllabus edition mismatch for ${courseName}.`);
+}
+---
+
+<details
+  class="course-syllabus border-border bg-card mt-4 rounded-lg border text-start"
+  aria-label={`Syllabus for ${courseName}`}
+>
+  <summary
+    class="text-accent min-h-11 cursor-pointer px-4 py-3 text-sm font-semibold"
+  >
+    {syllabus.coverage === "programme" ? "Syllabus" : "Available syllabus"} · {
+      syllabus.academicYear
+    }
+  </summary>
+  <div class="border-border border-t px-4 py-4 sm:px-5">
+    <p class="text-muted-foreground text-sm leading-relaxed">
+      English topic guide to the confirmed historical edition. The original
+      university record is linked below.
+    </p>
+    {
+      syllabus.coverage === "objectives-only" && (
+        <p class="border-accent bg-background mt-3 border-s-2 ps-3 text-sm leading-relaxed">
+          This historical record publishes learning objectives only, not a
+          detailed programme. The topics below reflect those objectives; a
+          complete syllabus could not be verified for this edition.
+        </p>
+      )
+    }
+    <ul class="reading-copy marker:text-accent mt-4 list-disc space-y-3 ps-5">
+      {syllabus.topics.map(topic => <li>{topic}</li>)}
+    </ul>
+    <a
+      class="text-link mt-5 inline-flex min-h-11 items-center underline underline-offset-4"
+      href={source.url}
+      rel="noopener noreferrer"
+    >
+      {
+        syllabus.coverage === "programme"
+          ? "Read the complete official syllabus"
+          : "Read the available official record"
+      }
+      <span aria-hidden="true" class="ms-1">↗</span>
+      <span class="sr-only"> on the University of Catania website</span>
+    </a>
+    <p class="text-muted-foreground mt-2 text-xs">
+      Source checked on 15 November 2026.
+    </p>
+  </div>
+</details>

@@ -4,7 +4,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Footer from "@/components/Footer.astro";
-import PortfolioShowcase from "@/components/PortfolioShowcase.astro";
 import Portrait from "@/components/Portrait.astro";
 import ProjectCarousel from "@/components/ProjectCarousel.astro";
 import ResumeDownload from "@/components/ResumeDownload.astro";
@@ -47,7 +46,7 @@ const sections = [
       </div>
     </section>
 
-    <PortfolioShowcase>
+    <div id="full-plain-portfolio" data-pagefind-body>
       <portfolio-tabs class="block" data-plain-view>
         <span data-navigation-sentinel class="block h-px" aria-hidden="true"
         ></span>
@@ -506,7 +505,7 @@ const sections = [
           >Start a conversation <span aria-hidden="true">↗</span></a
         >
       </section>
-    </PortfolioShowcase>
+    </div>
   </main>
   <Footer />
 </Layout>

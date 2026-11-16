@@ -60,24 +60,14 @@ Submit `sitemap-index.xml` in Search Console's Sitemaps report and use URL
 Inspection to request the home page. These files support discovery; Google
 decides whether and when to index pages. See [Google's sitemap guide](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
 
-## Portfolio showcase and About quotations
+## Full plain portfolio and About quotations
 
-The English portfolio opens with a four-card compact showcase. The cases restate
-existing portfolio evidence: approximately eight PAM microservices, up to 5,000
-messages per second, fixed-price delivery and the CMD Call Graph contribution.
-`PortfolioShowcase.astro` and `portfolio-showcase.ts` implement a six-second timer,
-clickable navigation dots, Prev/Next, arrow keys and a Pause/Resume control.
-Hover, keyboard focus, a hidden browser tab and reduced-motion preferences pause
-rotation. Pausing preserves the remaining time; manual navigation restarts the
-six-second interval. Disconnection removes listeners and clears the timer.
-
-**View Full Plain Portfolio** reveals all existing portfolio content in a linear
-view; **Back to Compact Showcase** returns to the cards. The URL is unchanged.
-The original text stays in the DOM within `data-pagefind-body`; Pagefind indexes
-the full portfolio and ignores the showcase. Project descriptions are linear in
-plain mode. Printing reveals the full view and expands native disclosures via
-the existing print handler. Without JavaScript the full portfolio is visible.
-`?view=all` remains an optional entry point into the full view.
+The English portfolio opens directly in its complete, linear view. All sections,
+project descriptions and native disclosures remain in the DOM inside
+`data-pagefind-body`, available to readers, Pagefind and printing. There is no
+showcase timer or presentation toggle on the page. The unused showcase component
+and its controller remain available for a possible future reactivation.
+`?view=all` remains compatible, but is no longer required to see the full view.
 
 About retains its original Markdown unchanged. `AboutQuote.astro` adds one of
 the three supplied English quotations, chosen randomly on each page visit or
@@ -411,8 +401,7 @@ The complete portfolio contains Summary, Experience, Education, Projects and
 Skills, with the toolkit in Skills and community involvement in Summary.
 It now uses `data-plain-view` so its section navigation keeps ordinary document
 semantics and every section stays visible in full mode. The legacy tab-view
-button stays hidden; the showcase toggle above the complete document controls
-which presentation is visible. Section links retain smooth scrolling and the
+button stays hidden; the complete document is always visible. Section links retain smooth scrolling and the
 existing keyboard focus behaviour, with immediate scrolling for reduced motion.
 The navigation controller cleans up observers and listeners on Astro navigation.
 
@@ -431,7 +420,7 @@ About paragraphs keep their reading alignment. The mobile experience cards use
 the full content width, with the timeline guide appearing from 768px. Desktop
 layouts and their original alignment resume at 768px. The theme control has its own full-width
 menu row with a visible label. Check the open and closed menu, theme switching,
-Compact showcase, full plain view and disclosures at 320px, 640px, 767px and 768px.
+Full plain view and disclosures at 320px, 640px, 767px and 768px.
 Breadcrumbs are an exception: they remain inline at every width and wrap only
 when space runs out, with separators visible on mobile too.
 
@@ -635,5 +624,5 @@ MIT. Original AstroPaper theme by Sat Naing; see `LICENSE`.
 
 Section links scroll without adding a URL fragment. Refreshing clears fragments
 and resets Astro’s saved scroll coordinates before the router initializes,
-returning to the compact showcase at the top. `?view=all` opens the full plain
+returning to the full plain portfolio at the top. `?view=all` opens the full plain
 portfolio. Explicit incoming fragment links remain supported.

@@ -37,15 +37,6 @@ if (syllabus.academicYear !== source.academicYear) {
       English topic guide to the confirmed historical edition. The original
       university record is linked below.
     </p>
-    {
-      syllabus.coverage === "objectives-only" && (
-        <p class="border-accent bg-background mt-3 border-s-2 ps-3 text-sm leading-relaxed">
-          This historical record publishes learning objectives only, not a
-          detailed programme. The topics below reflect those objectives; a
-          complete syllabus could not be verified for this edition.
-        </p>
-      )
-    }
     <ul class="reading-copy marker:text-accent mt-4 list-disc space-y-3 ps-5">
       {syllabus.topics.map(topic => <li>{topic}</li>)}
     </ul>

@@ -491,7 +491,7 @@ export const education = [
         credits: 6,
         year: 3,
         description:
-          "Microcontroller programming and hardware/software prototyping with Arduino. Sensors and physical interfaces, I/O, communication buses, IoT operating systems and introductory FPGA implementation.",
+          "Microcontroller and embedded hardware/software prototyping with Arduino. Sensors and physical interfaces, I/O, communication buses, IoT operating systems and introductory FPGA implementation.",
         syllabus: {
           url: "https://www.dieei.unict.it/corsi/l-8-inf/insegnamenti/?cod=3011",
           academicYear: "2016/2017",

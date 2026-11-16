@@ -4,15 +4,17 @@ import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 
 interface Props {
+  readonly plain?: boolean;
   readonly projects: readonly (typeof portfolio.projects)[number][];
 }
 
-const { projects } = Astro.props;
+const { projects, plain = false } = Astro.props;
+const Container = plain ? "section" : "project-carousel";
 if (!projects.length)
   throw new Error("The project carousel requires at least one project.");
 ---
 
-<project-carousel class="mt-7 block min-w-0" aria-label="Selected projects">
+<Container class="mt-7 block min-w-0" aria-label="Selected projects">
   <div data-project-controls hidden>
     <div class="project-preview-navigation">
       <button
@@ -126,7 +128,7 @@ if (!projects.length)
       >
     </div>
   </div>
-</project-carousel>
+</Container>
 
 <script>
   import "@/scripts/project-carousel";

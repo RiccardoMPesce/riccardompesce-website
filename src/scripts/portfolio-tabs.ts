@@ -184,7 +184,9 @@ class PortfolioTabs extends HTMLElement {
       window.history[method](window.history.state, "", url);
     };
     const syncUrl = (): void => {
-      full = new URL(window.location.href).searchParams.get("view") === "all";
+      full =
+        this.hasAttribute("data-plain-view") ||
+        new URL(window.location.href).searchParams.get("view") === "all";
       followFullScroll = true;
       const target = targetFromHash();
       const index = indexFor(target);
@@ -352,7 +354,7 @@ class PortfolioTabs extends HTMLElement {
     window.addEventListener("hashchange", syncUrl, { signal });
     window.addEventListener("popstate", syncUrl, { signal });
     syncUrl();
-    toggle.hidden = false;
+    toggle.hidden = this.hasAttribute("data-plain-view");
     updateNavigation();
   }
 

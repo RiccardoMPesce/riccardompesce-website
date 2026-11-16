@@ -60,6 +60,31 @@ Submit `sitemap-index.xml` in Search Console's Sitemaps report and use URL
 Inspection to request the home page. These files support discovery; Google
 decides whether and when to index pages. See [Google's sitemap guide](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
 
+## Portfolio showcase and About quotations
+
+The English portfolio opens with a four-card compact showcase. The cases restate
+existing portfolio evidence: approximately eight PAM microservices, up to 5,000
+messages per second, fixed-price delivery and the CMD Call Graph contribution.
+`PortfolioShowcase.astro` and `portfolio-showcase.ts` implement a six-second timer,
+clickable navigation dots, Prev/Next, arrow keys and a Pause/Resume control.
+Hover, keyboard focus, a hidden browser tab and reduced-motion preferences pause
+rotation. Pausing preserves the remaining time; manual navigation restarts the
+six-second interval. Disconnection removes listeners and clears the timer.
+
+**View Full Plain Portfolio** reveals all existing portfolio content in a linear
+view; **Back to Compact Showcase** returns to the cards. The URL is unchanged.
+The original text stays in the DOM within `data-pagefind-body`; Pagefind indexes
+the full portfolio and ignores the showcase. Project descriptions are linear in
+plain mode. Printing reveals the full view and expands native disclosures via
+the existing print handler. Without JavaScript the full portfolio is visible.
+`?view=all` remains an optional entry point into the full view.
+
+About retains its original Markdown unchanged. `AboutQuote.astro` adds one of
+the three supplied English quotations, chosen randomly on each page visit or
+refresh. Random selection may repeat a quotation. Without JavaScript the Calvino
+quotation is shown. Inactive cards and quotations reserve their layout space to
+avoid shifts when switching. No external UI library or network service is used.
+
 ## Sharing
 
 Articles show a flat sharing row below the title and publication date, before
@@ -382,87 +407,20 @@ A timeline orders the roles; expanded content separates contributions from
 technologies on desktop and stacks them on mobile. Reading lines are limited
 to 65 characters where space permits.
 
-Portfolio navigation progressively enhances five sections into tabs: Summary
-(default), Experience, Education, Projects and Skills. Skills includes the
-toolkit; community involvement is in Summary. The short identity header remains
-visible above the tabs. Only the selected panel occupies space. The tab labels
-are centered inside equally sized, outlined button shapes; the selected tab uses
-the theme's filled accent style and a heavier label. **View full CV** toggles an
-ordinary document with every section visible for comparison and browser Find.
-Entering this view highlights only Summary without scrolling to the top. It keeps
-that initial highlight through layout/size changes until the reader starts
-scrolling with a wheel/trackpad, touch, keyboard or scrollbar. The highlight then
-follows the visible section. Section links retain their explicit smooth scrolling.
-Its separate pill-shaped button has a section-list icon and stronger outline;
-it becomes filled when the full view is active. `?view=all` shares that view.
-Without JavaScript all sections and anchor links remain available; print styles
-also reveal every section, keeping
-the existing disclosure states.
+The complete portfolio contains Summary, Experience, Education, Projects and
+Skills, with the toolkit in Skills and community involvement in Summary.
+It now uses `data-plain-view` so its section navigation keeps ordinary document
+semantics and every section stays visible in full mode. The legacy tab-view
+button stays hidden; the showcase toggle above the complete document controls
+which presentation is visible. Section links retain smooth scrolling and the
+existing keyboard focus behaviour, with immediate scrolling for reduced motion.
+The navigation controller cleans up observers and listeners on Astro navigation.
 
-The choice follows [NN/g's tabs guidance](https://www.nngroup.com/articles/tabs-used-right/)
-and [GOV.UK's trade-offs](https://design-system.service.gov.uk/components/tabs/):
-use a few clearly named groups, keep the initial overview useful, and provide
-another way to compare content. This is a design rationale, not a CV-specific
-usability finding. [W3C's tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
-informs roles, selected states, linked panels and roving keyboard focus.
-
-Below 768px the tab list is vertical and uses Up/Down; from 768px it is horizontal,
-sticky and uses Left/Right. Home/End select the first/last tab; Enter/Space activate
-it. Arrow navigation activates immediately because all content is already loaded.
-The selected section stays in memory without changing the URL fragment. Existing section and role
-links, including `#toolkit`, reveal their containing panel; Back/Forward restores
-the URL's view. Switching tabs retains disclosure state. Full CV mode
-restores ordinary document semantics. Both custom elements remove listeners on
-Astro navigation, and transitions respect reduced motion.
-
-In full CV mode, section links smoothly scroll up or down to the selected section
-without hiding the other sections. Reduced-motion preferences use immediate
-scrolling. Explicit clicks update the URL; scrolling highlights the current
-section without creating history entries. The destination offset accounts for
-the measured compact toolbar height, keeping headings visible.
-
-On desktop, the sticky toolbar collapses to a single, smaller row when its marker
-passes the viewport top. The section buttons and full CV toggle remain available,
-with a 44px minimum target height. The expanded toolbar's space is reserved to
-avoid shifting document content; its transparent unused area does not intercept
-clicks. Mobile retains the vertical non-sticky controls. Scroll/resize work shares
-one animation frame, a ResizeObserver tracks toolbar height, and both are cleaned
-up when leaving the page.
-
-Projects uses `ProjectCarousel.astro` with an accompanying custom element.
-Its horizontally scrollable tab bar uses compact rectangular bars showing each
-project's title, contribution type and first two technologies. An intrinsic-width
-grid gives all bars the width of the widest content, capped for narrow screens,
-instead of stretching a single bar across the row. CSS recalculates this as fonts
-load and text size changes. Automatic inline margins center the whole group while
-it fits; when it overflows, the group starts at the leading edge and remains fully
-scrollable. Selecting a bar
-scrolls the carousel to that project. Bars snap gently while browsing and the
-selected bar remains in view. Dedicated left/right buttons scroll the preview
-strip without changing the selected project; the separate carousel arrows change
-the project. No visible instruction text is needed. The full card retains the
-description, complete toolkit and source link. The current data contains one
-verified project (CMD Call Graph); both sets of arrows remain visible and disable
-directions that have no further content. Preview arrows update after scrolling
-or resizing, including when the strip has no overflow.
-Adding entries to `portfolio.projects` enables navigation automatically.
-
-With multiple projects, the viewport supports native swipe/trackpad scrolling,
-CSS scroll snapping, preview clicks, arrow controls and Left/Right/Home/End keys
-within the horizontal preview bar. Only the selected slide's links are focusable.
-Both the preview strip and slide viewport support mouse dragging with pointer
-capture; a six-pixel horizontal threshold preserves ordinary clicks. Releasing
-a drag suppresses its click, and pointer cancellation, lost capture, window blur
-or navigation releases the drag state. Touch and horizontal trackpad gestures
-retain native scrolling. Vertical wheel input over the preview strip scrolls it
-horizontally only while more content exists in that direction; at its boundaries
-the page remains scrollable. Ctrl-wheel zoom is preserved.
-There is no automatic rotation; reduced motion disables animated scrolling.
-A size observer aligns the selected slide when its Portfolio tab becomes visible.
-Without JavaScript, and when printing, project cards appear as an ordinary list.
-Tests cover single and multiple projects, interrupted smooth scrolling, hidden
-panels, keyboard selection, resizing and cleanup. These DOM-boundary checks do not
-replace testing swipe behavior and assistive technology in a real browser.
+`ProjectCarousel.astro` supports an explicit `plain` prop. On this portfolio it
+renders an ordinary section containing all project cards, so no project content
+is inert or limited to a selected slide in the complete document. Its original
+interactive carousel mode remains available to other callers. All original
+project descriptions, toolkits and source links are retained.
 
 Below 768px, page groups use a single column: the brand and menu button, menu
 links and theme control, hero introductions, CTAs, experience controls, metadata,
@@ -473,13 +431,12 @@ About paragraphs keep their reading alignment. The mobile experience cards use
 the full content width, with the timeline guide appearing from 768px. Desktop
 layouts and their original alignment resume at 768px. The theme control has its own full-width
 menu row with a visible label. Check the open and closed menu, theme switching,
-Portfolio tabs, full CV view and disclosures at 320px, 640px, 767px and 768px.
+Compact showcase, full plain view and disclosures at 320px, 640px, 767px and 768px.
 Breadcrumbs are an exception: they remain inline at every width and wrap only
 when space runs out, with separators visible on mobile too.
 
-Disclosures animate their height and opacity where `::details-content` and
-`interpolate-size` are supported; other browsers retain native immediate
-opening. Transitions and entry motion respect `prefers-reduced-motion`. Nothing
+Native disclosures retain their existing behaviour; supported browsers fade
+opacity without animating layout dimensions. Transitions and entry motion respect `prefers-reduced-motion`. Nothing
 depends on scroll-triggered content hiding. The tab regression tests
 use DOM-boundary doubles, not a real browser; visual and assistive-technology checks remain
 necessary.
@@ -676,7 +633,7 @@ uses locally installed fonts. A local build does not verify remote deployment.
 
 MIT. Original AstroPaper theme by Sat Naing; see `LICENSE`.
 
-Section links scroll without adding a URL fragment. Portfolio tab selection stays
-in memory; refreshing clears fragments and resets Astro’s saved scroll coordinates
-before the router initializes, returning to Summary at the top. Full CV mode still uses
-`?view=all`. Explicit incoming fragment links remain supported.
+Section links scroll without adding a URL fragment. Refreshing clears fragments
+and resets Astro’s saved scroll coordinates before the router initializes,
+returning to the compact showcase at the top. `?view=all` opens the full plain
+portfolio. Explicit incoming fragment links remain supported.

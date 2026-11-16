@@ -1,0 +1,77 @@
+---
+const quotes = [
+  {
+    text: "We must take life lightly, for lightness is not superficiality, but gliding over things from above, without having boulders on the heart.",
+    author: "Italo Calvino",
+    work: "Six Memos for the Next Millennium",
+  },
+  {
+    text: "For a successful technology, reality must take precedence over public relations, for Nature cannot be fooled.",
+    author: "Richard P. Feynman",
+    work: "Rogers Commission Report",
+  },
+  {
+    text: "Simplicity is prerequisite for reliability.",
+    author: "Edsger W. Dijkstra",
+    work: null,
+  },
+] as const;
+---
+
+<section
+  class="mt-10"
+  aria-labelledby="guiding-thought-title"
+  data-pagefind-ignore
+>
+  <h2 id="guiding-thought-title">A guiding thought</h2>
+  <about-quote class="quote-stack block">
+    {
+      quotes.map((quote, index) => (
+        <blockquote data-about-quote hidden={index !== 0} class="quote-option">
+          <p>“{quote.text}”</p>
+          <footer class="text-muted-foreground text-sm leading-relaxed">
+            — {quote.author}
+            {quote.work && (
+              <Fragment>
+                , <cite>{quote.work}</cite>
+              </Fragment>
+            )}
+          </footer>
+        </blockquote>
+      ))
+    }
+  </about-quote>
+</section>
+
+<script>
+  class AboutQuote extends HTMLElement {
+    connectedCallback(): void {
+      const quotes = [
+        ...this.querySelectorAll<HTMLElement>("[data-about-quote]"),
+      ];
+      if (!quotes.length)
+        throw new Error("About quote requires at least one quotation.");
+      const selected = Math.floor(Math.random() * quotes.length);
+      quotes.forEach((quote, index) => {
+        quote.hidden = index !== selected;
+      });
+    }
+  }
+  if (!customElements.get("about-quote"))
+    customElements.define("about-quote", AboutQuote);
+</script>
+
+<style>
+  .quote-stack {
+    display: grid;
+  }
+  .quote-option {
+    grid-area: 1 / 1;
+    align-self: start;
+  }
+  /* Reserve the tallest quotation so the random selection cannot move the footer. */
+  .quote-option[hidden] {
+    display: block;
+    visibility: hidden;
+  }
+</style>

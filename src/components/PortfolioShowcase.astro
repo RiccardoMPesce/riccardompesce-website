@@ -1,0 +1,187 @@
+---
+const cases = [
+  {
+    title: "Modernizing player account services",
+    domain: "Distributed systems · Regulated gaming",
+    problem:
+      "A complex PL/SQL codebase constrained modular development and delivery.",
+    impact:
+      "Contributed to decomposition into approximately eight Java/Spring Boot microservices.",
+  },
+  {
+    title: "Event-driven data platforms",
+    domain: "Data engineering · Regulatory reporting",
+    problem:
+      "International Lottery, Sports and Casino products needed reliable data pipelines and downstream reporting.",
+    impact:
+      "Engineered services and pipelines supporting up to 5,000 messages per second.",
+  },
+  {
+    title: "Technical ownership, from scope to delivery",
+    domain: "Technical leadership · Business alignment",
+    problem:
+      "A fixed-price project required architecture, delivery and business priorities to remain aligned within budget.",
+    impact:
+      "Led delivery of the agreed scope on time and within budget, contributing to extension negotiations through 2027.",
+  },
+  {
+    title: "Making legacy script structure visible",
+    domain: "Open source · Developer tooling",
+    problem:
+      "Calls between Windows CMD scripts can make legacy execution flows difficult to inspect.",
+    impact:
+      "Contributed to CMD Call Graph, a Python tool that turns script calls into Graphviz visualizations.",
+  },
+] as const;
+---
+
+<portfolio-showcase class="block">
+  <div class="mb-7" data-pagefind-ignore>
+    <button
+      type="button"
+      data-showcase-toggle
+      hidden
+      aria-pressed="false"
+      aria-controls="full-plain-portfolio compact-showcase"
+      class="border-accent bg-accent text-accent-foreground hover:bg-accent-hover min-h-11 rounded-lg border px-5 py-3 font-semibold"
+    >
+      View Full Plain Portfolio
+    </button>
+  </div>
+  <section
+    id="compact-showcase"
+    data-showcase
+    hidden
+    data-pagefind-ignore
+    aria-labelledby="showcase-title"
+    aria-roledescription="carousel"
+  >
+    <p class="eyebrow">Selected case studies</p>
+    <h2 id="showcase-title" class="mt-3 text-2xl font-semibold">
+      Engineering in context.
+    </h2>
+    <div class="showcase-stage mt-5">
+      {
+        cases.map((item, index) => (
+          <article
+            data-showcase-slide
+            hidden={index !== 0}
+            class="border-border bg-card rounded-lg border p-5 sm:p-7"
+            aria-roledescription="slide"
+            aria-label={`${index + 1} of ${cases.length}`}
+          >
+            <p class="eyebrow text-muted-foreground">{item.domain}</p>
+            <h3 class="mt-3 text-xl font-semibold sm:text-2xl">{item.title}</h3>
+            <dl class="mt-5 space-y-5">
+              <div>
+                <>
+                  <dt class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                    Problem
+                  </dt>
+                  <dd class="reading-copy mt-1">{item.problem}</dd>
+                </>
+              </div>
+              <div>
+                <>
+                  <dt class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                    Impact
+                  </dt>
+                  <dd class="reading-copy mt-1">{item.impact}</dd>
+                </>
+              </div>
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <button
+          data-showcase-prev
+          type="button"
+          class="showcase-control"
+          aria-label="Previous case study">Prev</button
+        >
+        <button
+          data-showcase-next
+          type="button"
+          class="showcase-control"
+          aria-label="Next case study">Next</button
+        >
+      </div>
+      <div class="flex items-center gap-1" aria-label="Choose a case study">
+        {
+          cases.map((item, index) => (
+            <button
+              type="button"
+              data-showcase-dot
+              class="showcase-dot"
+              aria-label={`Show ${item.title}`}
+              aria-current={index === 0 ? "true" : undefined}
+            >
+              <span aria-hidden="true" />
+            </button>
+          ))
+        }
+      </div>
+      <button
+        data-showcase-pause
+        type="button"
+        class="showcase-control"
+        aria-pressed="false">Pause rotation</button
+      >
+    </div>
+    <p
+      data-showcase-status
+      class="text-muted-foreground mt-3 text-sm"
+      aria-live="off"
+      aria-atomic="true"
+    >
+      Case study 1 of {cases.length}
+    </p>
+  </section>
+  <div id="full-plain-portfolio" data-full-portfolio data-pagefind-body>
+    <slot />
+  </div>
+</portfolio-showcase>
+
+<script>
+  import "@/scripts/portfolio-showcase";
+</script>
+
+<style>
+  @reference "../styles/global.css";
+  .showcase-control {
+    @apply border-border bg-card hover:bg-muted min-h-11 rounded-lg border px-3 py-2 text-sm font-medium;
+  }
+  .showcase-dot {
+    @apply flex size-11 items-center justify-center rounded-full;
+  }
+  .showcase-dot span {
+    @apply bg-muted-foreground block size-2 rounded-full;
+  }
+  .showcase-dot[aria-current="true"] span {
+    @apply bg-accent;
+  }
+  .showcase-stage {
+    display: grid;
+  }
+  .showcase-stage > article {
+    grid-area: 1 / 1;
+  }
+  /* Hidden cards reserve the tallest card's space without exposing inactive content. */
+  .showcase-stage > article[hidden] {
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  @media print {
+    [data-showcase],
+    [data-showcase-toggle] {
+      display: none !important;
+    }
+    [data-full-portfolio] {
+      display: block !important;
+    }
+  }
+</style>

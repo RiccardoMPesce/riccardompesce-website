@@ -11,6 +11,7 @@ const { outputText } = ts.transpileModule(source, {
 function fixture({ incomplete = false } = {}) {
   const registry = new Map();
   class Element extends EventTarget {
+    style = {};
     value = "";
     open = false;
     modalCalls = 0;
@@ -27,6 +28,7 @@ function fixture({ incomplete = false } = {}) {
   }
   runInNewContext(outputText, {
     HTMLElement: Element,
+    window: { scrollY: 640 },
     AbortController,
     customElements: { get: name => registry.get(name), define: (name, value) => registry.set(name, value) },
   });
@@ -109,4 +111,10 @@ test("navigation closes the modal and removes trigger listeners before reconnect
   element.connectedCallback();
   opener.dispatchEvent(new Event("click"));
   assert.equal(element.elements.dialog.modalCalls, 2);
+});
+
+test("opening anchors the dialog to the current document scroll position", () => {
+  const element = fixture(); element.connectedCallback();
+  element.elements["[data-resume-open]"].dispatchEvent(new Event("click"));
+  assert.equal(element.elements.dialog.style.top, "640px");
 });

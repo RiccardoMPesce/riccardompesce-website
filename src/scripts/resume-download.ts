@@ -51,9 +51,11 @@ class ResumeDownload extends HTMLElement {
       "click",
       () => {
         if (dialog.open) return;
+        // Set before showModal so autofocus cannot jump to the document top.
+        dialog.style.top = `${window.scrollY}px`;
         dialog.showModal();
         dialog.scrollTop = 0;
-        language.focus();
+        language.focus({ preventScroll: true });
       },
       { signal }
     );

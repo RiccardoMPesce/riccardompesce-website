@@ -260,7 +260,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "fixed inset-0 z-50 grid overflow-y-auto place-items-center p-4 cursor-zoom-out bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
+        "absolute inset-x-0 z-50 grid min-h-dvh overflow-visible place-items-center p-4 cursor-zoom-out bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -502,6 +502,7 @@ const ogImage = ogImageUrl
         document.removeEventListener("mouseup", onMouseUp);
       };
 
+      overlay.style.top = `${window.scrollY}px`;
       document.body.appendChild(overlay);
       backgroundStates = Array.from(document.body.children)
         .filter(
@@ -509,12 +510,11 @@ const ogImage = ogImageUrl
         )
         .map(element => ({ element, inert: element.inert }));
       for (const { element } of backgroundStates) element.inert = true;
-      document.documentElement.style.overflow = "hidden";
       document.addEventListener("keydown", onKeyDown);
       window.__closeLightbox = close;
 
       requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
-      closeButton.focus();
+      closeButton.focus({ preventScroll: true });
     }
 
     function close() {
@@ -531,7 +531,6 @@ const ogImage = ogImageUrl
       document.removeEventListener("keydown", onKeyDown);
       removeDragListeners?.();
       removeDragListeners = null;
-      document.documentElement.style.overflow = "";
       lastFocused?.focus();
       lastFocused = null;
 

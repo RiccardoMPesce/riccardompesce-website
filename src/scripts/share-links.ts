@@ -36,9 +36,11 @@ class ShareLinks extends HTMLElement {
     const openDialog = (trigger: HTMLElement): void => {
       if (dialog.open) return;
       returnFocus = trigger;
+      // Set before showModal so autofocus cannot jump to the document top.
+      dialog.style.top = `${window.scrollY}px`;
       dialog.showModal();
       dialog.scrollTop = 0;
-      close.focus();
+      close.focus({ preventScroll: true });
     };
     const setStatus = (message: string): void => {
       status.textContent = "";

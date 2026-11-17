@@ -97,12 +97,14 @@ because they perform an action rather than navigate. Keyboard focus and 44px
 minimum targets are preserved.
 
 Native download/share dialogs use `src/styles/modals.css`: a transparent top-layer
-shell scrolls over the viewport, while the inner panel has natural height and no
-internal height limit or scrollbar. Short panels are centred; taller panels
-scroll with their close control. Sharing backdrop dismissal checks the panel
+shell is absolutely positioned at the document scroll offset captured before
+opening. The page remains scrollable and the panel moves with it instead of
+staying fixed in the viewport. The panel has natural height with no internal
+height limit or scrollbar; short panels are centred within the opening viewport.
+Native modal focus containment remains active while background scrolling is allowed. Sharing backdrop dismissal checks the panel
 bounds and requires both press and release outside. Escape and focus restoration
 remain native/existing behaviour. Article images retain their alt text and gain
-an explicit **Open image** button; the image viewer uses a scrollable overlay.
+an explicit **Open image** button; the image viewer is likewise anchored to the document and does not lock page scrolling.
 
 ## Sharing
 

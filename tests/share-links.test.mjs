@@ -91,6 +91,7 @@ function fixture({ secure = true, clipboard, share } = {}) {
   const opener = new Control();
   const close = new Control();
   class Dialog extends EventTarget {
+    style = {};
     open = false;
     opens = 0;
     showModal() {
@@ -136,7 +137,7 @@ function fixture({ secure = true, clipboard, share } = {}) {
     HTMLElement: Element,
     AbortController,
     DOMException,
-    window: { isSecureContext: secure },
+    window: { isSecureContext: secure, scrollY: 640 },
     navigator: { clipboard, share },
     customElements: {
       get: name => registry.get(name),
@@ -323,4 +324,10 @@ test("navigation closes the dialog and removes modal listeners", () => {
   assert.equal(f.dialog.open, false);
   f.opener.dispatchEvent(new Event("click"));
   assert.equal(f.dialog.open, false);
+});
+
+test("sharing opens at the current document scroll position", () => {
+  const f = fixture();
+  f.opener.dispatchEvent(new Event("click"));
+  assert.equal(f.dialog.style.top, "640px");
 });

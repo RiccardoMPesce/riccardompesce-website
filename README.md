@@ -64,7 +64,8 @@ The matte finish is defined in `src/styles/paper.css`: a static, tiled inline SV
 noise layer uses 3.5% multiply blending in light mode and 4.5% soft-light in dark
 mode, with no requests or animation. It ignores pointer events and is disabled
 for printing and forced colours. Cards retain hairline borders with a 1px inset
-highlight, and the portrait has an offset outer ring. Modal links retain their
+highlight; hover and focus-within change only the border colour over 180ms,
+without translating or resizing the card (immediate with reduced motion), and the portrait has an offset outer ring. Modal links retain their
 underlined presentation. The full plain portfolio and content structure are unchanged.
 The exact light muted-text/secondary-surface pair has only 4.42:1 contrast;
 secondary surfaces scope a darker muted-copy token to meet AA. Decorative borders

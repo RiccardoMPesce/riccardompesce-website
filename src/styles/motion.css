@@ -3,6 +3,27 @@
   --ease-state: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+:is(
+  .post-card,
+  .project-card,
+  .experience-card,
+  .content-card,
+  .course-syllabus
+):focus-within {
+  border-color: var(--color-accent);
+}
+@media (hover: hover) {
+  :is(
+    .post-card,
+    .project-card,
+    .experience-card,
+    .content-card,
+    .course-syllabus
+  ):hover {
+    border-color: var(--color-accent);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :where(a, button, input, summary, [role="button"]) {
     transition:
@@ -14,20 +35,14 @@
   .app-prose a {
     transition: text-decoration-color 150ms var(--ease-state);
   }
-  .post-card,
-  .project-card,
-  .experience-card {
-    transition:
-      transform 180ms var(--ease-enter),
-      border-color 180ms var(--ease-state);
-  }
-  @media (hover: hover) {
-    .post-card:hover,
-    .project-card:hover,
-    .experience-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--color-accent);
-    }
+  :is(
+    .post-card,
+    .project-card,
+    .experience-card,
+    .content-card,
+    .course-syllabus
+  ) {
+    transition: border-color 180ms var(--ease-state);
   }
   :is(button, .tag, [role="tab"]):active {
     transform: scale(0.98);

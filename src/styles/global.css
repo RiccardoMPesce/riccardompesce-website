@@ -7,6 +7,7 @@
 @import "./accessibility.css";
 @import "./motion.css";
 @import "./modals.css";
+@import "./paper.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -82,7 +83,7 @@
 
 @utility reading-copy {
   font-size: 1rem;
-  line-height: 1.68;
+  line-height: 1.72;
   max-inline-size: 66ch;
   @media (min-width: 48rem) {
     font-size: 1.0625rem;

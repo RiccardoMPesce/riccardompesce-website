@@ -1,0 +1,68 @@
+body {
+  isolation: isolate;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: var(--paper-grain-opacity);
+  mix-blend-mode: var(--paper-grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Keep muted copy above AA on the darker secondary light-paper surface. */
+:where(.bg-muted, .bg-card-muted) {
+  --muted-foreground: var(--muted-surface-foreground);
+}
+
+:where(p, .reading-copy) {
+  line-height: 1.72;
+}
+
+/* Real controls keep a stronger input/focus edge; card edges are decorative. */
+:is(
+  .post-card,
+  .content-card,
+  .experience-card,
+  .project-card,
+  .course-syllabus,
+  .modal-panel,
+  .section-nav a,
+  .full-cv-button,
+  .project-preview,
+  .tag,
+  .post-fab-btn,
+  #theme-btn,
+  button.bg-accent,
+  a.bg-accent,
+  .showcase-control,
+  .project-arrow,
+  pre,
+  .table-wrapper
+) {
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: inset 0 1px 0 var(--paper-edge);
+  filter: none;
+}
+:is(
+  .post-card,
+  .content-card,
+  .experience-card,
+  .project-card,
+  .course-syllabus,
+  .modal-panel,
+  .project-preview,
+  pre,
+  .table-wrapper
+) {
+  border-color: var(--color-border);
+}
+@media print, (forced-colors: active) {
+  body::before {
+    display: none;
+  }
+}

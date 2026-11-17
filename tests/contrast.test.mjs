@@ -45,7 +45,9 @@ for (const theme of ["light", "dark"]) {
         "accent",
         "accent-hover",
       ]) {
-        const ratio = contrast(t[token], t[surface]);
+        const foreground = surface === "muted" && token === "muted-foreground"
+          ? t["muted-surface-foreground"] : t[token];
+        const ratio = contrast(foreground, t[surface]);
         assert.ok(
           ratio >= 4.5,
           `${token} on ${surface}: ${ratio.toFixed(2)}:1`

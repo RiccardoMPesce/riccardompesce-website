@@ -9,8 +9,8 @@ links to Astro and the original AstroPaper theme for attribution, below the
 
 ## Reading and presentation
 
-The Warm Alabaster / Deep Espresso palette lives in `src/styles/theme.css`.
-Prose uses a 66ch measure, 17px desktop text, 1.68 leading, balanced headings,
+The Matte Paper / Warm Ink palette lives in `src/styles/theme.css`.
+Prose uses a 66ch measure, 17px desktop text, 1.72 leading, balanced headings,
 progressive paragraph wrapping, warm link underlines and 4px / 8px / pill radii.
 Native tables retain keyboard-accessible horizontal scrolling.
 
@@ -59,6 +59,19 @@ match the token Google issues for the property.
 Submit `sitemap-index.xml` in Search Console's Sitemaps report and use URL
 Inspection to request the home page. These files support discovery; Google
 decides whether and when to index pages. See [Google's sitemap guide](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
+
+The matte finish is defined in `src/styles/paper.css`: a static, tiled inline SVG
+noise layer uses 3.5% multiply blending in light mode and 4.5% soft-light in dark
+mode, with no requests or animation. It ignores pointer events and is disabled
+for printing and forced colours. Cards retain hairline borders with a 1px inset
+highlight, and the portrait has an offset outer ring. Modal links retain their
+underlined presentation. The full plain portfolio and content structure are unchanged.
+The exact light muted-text/secondary-surface pair has only 4.42:1 contrast;
+secondary surfaces scope a darker muted-copy token to meet AA. Decorative borders
+are intentionally subtle; input boundaries and focus indicators use stronger colours.
+Contrast tests cover text, surfaces, selected text, input edges and both themes.
+Browser inspection and device profiling are still required to validate the final
+texture appearance and rendering performance; no frame-rate guarantee is implied.
 
 ## Full plain portfolio and About quotations
 
@@ -482,8 +495,8 @@ If browser policy blocks storage, the toggle still works for the current visit,
 but the choice cannot be remembered after reloading. Storage is local to each
 browser and origin; localhost and the public site do not share preferences.
 
-Palette and typography tokens live in `src/styles/theme.css`: light paper/slate/navy
-and dark obsidian/slate/sky. Space Grotesk headings, Inter reading/UI and JetBrains
+Palette and typography tokens live in `src/styles/theme.css`: light matte paper/warm ink
+and dark graphite/warm highlights. Space Grotesk headings, Inter reading/UI and JetBrains
 Mono metadata are self-hosted; see **Fonts and social previews** below. Primary
 reading text reaches AAA contrast; secondary text and hover states meet AA.
 `tests/contrast.test.mjs` checks normal text, filled controls, selection and input
@@ -601,16 +614,15 @@ No Google Fonts connection is required at build time or in the browser.
 
 Tailwind v4 semantic tokens live in `src/styles/theme.css`; AstroPaper's fill,
 text-base, card and card-muted aliases share the existing component tokens.
-Light uses paper/slate/navy; dark uses obsidian/slate/sky. Prose is limited to 68ch,
-with 17px text on desktop, 1.68 line height and 1.35em paragraph spacing. Code,
+Light uses matte paper/warm ink; dark uses graphite/warm highlights. Prose is limited to 66ch,
+with 17px text on desktop, 1.72 line height and 1.35em paragraph spacing. Code,
 tables, blockquotes and horizontally scrolling math follow both themes.
 
-The requested palette gives AAA contrast for body text, headings and primary links
-on page/card surfaces. Muted captions and the light link hover meet AA, not AAA
-for normal-size text; syntax colors require separate per-token auditing. This is
-not a whole-site AAA certification. Minimum contrast across page/card surfaces is
-13.29:1 (light body), 14.39:1 (dark body), 8.05:1 (light accent) and 8.28:1
-(dark accent); muted text is 6.89:1 / 6.92:1 and light hover is 6.09:1.
+Nominal token contrast across page/card/secondary surfaces is at least 12.03:1
+for primary reading text, 4.89:1 for secondary text using its scoped surface
+correction, and 6.48:1 for accent links. Body text meets AAA and secondary copy
+meets AA; syntax colours require separate per-token auditing. This is not a
+whole-site accessibility certification or a rendered-texture measurement.
 Preloads reduce font-related layout shifts,
 but `swap` and system fallback metrics cannot guarantee zero CLS on a cold or
 slow connection; measure this on deployment as well as local pages.

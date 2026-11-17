@@ -113,8 +113,10 @@ test("navigation closes the modal and removes trigger listeners before reconnect
   assert.equal(element.elements.dialog.modalCalls, 2);
 });
 
-test("opening anchors the dialog to the current document scroll position", () => {
+test("opening resets modal scroll without anchoring it to document coordinates", () => {
   const element = fixture(); element.connectedCallback();
+  element.elements.dialog.scrollTop = 400;
   element.elements["[data-resume-open]"].dispatchEvent(new Event("click"));
-  assert.equal(element.elements.dialog.style.top, "640px");
+  assert.equal(element.elements.dialog.scrollTop, 0);
+  assert.equal(element.elements.dialog.style.top, undefined);
 });

@@ -326,8 +326,10 @@ test("navigation closes the dialog and removes modal listeners", () => {
   assert.equal(f.dialog.open, false);
 });
 
-test("sharing opens at the current document scroll position", () => {
+test("sharing resets modal scroll without anchoring it to document coordinates", () => {
   const f = fixture();
+  f.dialog.scrollTop = 400;
   f.opener.dispatchEvent(new Event("click"));
-  assert.equal(f.dialog.style.top, "640px");
+  assert.equal(f.dialog.scrollTop, 0);
+  assert.equal(f.dialog.style.top, undefined);
 });

@@ -1,6 +1,9 @@
 html {
   scrollbar-gutter: stable;
 }
+html:has(dialog.viewport-modal[open], [data-modal-overlay]) {
+  overflow: hidden;
+}
 
 .modal-trigger {
   display: inline-flex;
@@ -24,14 +27,12 @@ html {
   color: var(--color-accent-hover);
 }
 
-/* Anchor the top-layer dialog to document coordinates so it moves with page scroll. */
+/* Keep the page still while allowing a tall modal panel to scroll in its shell. */
 dialog.viewport-modal {
-  position: absolute;
-  inset: auto 0;
-  top: 0;
+  position: fixed;
+  inset: 0;
   inline-size: 100%;
-  block-size: auto;
-  min-block-size: 100dvh;
+  block-size: 100dvh;
   max-inline-size: none;
   max-block-size: none;
   margin: 0;
@@ -39,7 +40,8 @@ dialog.viewport-modal {
   border: 0;
   background: transparent;
   color: var(--color-foreground);
-  overflow: visible;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 dialog.viewport-modal[open] {
   display: flex;

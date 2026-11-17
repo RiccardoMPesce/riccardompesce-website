@@ -260,7 +260,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "absolute inset-x-0 z-50 grid min-h-dvh overflow-visible place-items-center p-4 cursor-zoom-out bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
+        "fixed inset-0 z-50 grid overflow-y-auto place-items-center p-4 cursor-zoom-out bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -502,7 +502,7 @@ const ogImage = ogImageUrl
         document.removeEventListener("mouseup", onMouseUp);
       };
 
-      overlay.style.top = `${window.scrollY}px`;
+      overlay.setAttribute("data-modal-overlay", "");
       document.body.appendChild(overlay);
       backgroundStates = Array.from(document.body.children)
         .filter(

@@ -96,15 +96,15 @@ shared window icon. They remain native buttons with `aria-haspopup="dialog"`
 because they perform an action rather than navigate. Keyboard focus and 44px
 minimum targets are preserved.
 
-Native download/share dialogs use `src/styles/modals.css`: a transparent top-layer
-shell is absolutely positioned at the document scroll offset captured before
-opening. The page remains scrollable and the panel moves with it instead of
-staying fixed in the viewport. The panel has natural height with no internal
-height limit or scrollbar; short panels are centred within the opening viewport.
-Native modal focus containment remains active while background scrolling is allowed. Sharing backdrop dismissal checks the panel
+Native download/share dialogs use `src/styles/modals.css`: a transparent fixed
+viewport shell allows a tall panel to scroll while the page underneath stays
+locked. The panel itself has natural height, with no separate inner scrollbar.
+Closing the dialog releases the CSS scroll lock automatically. Image previews
+use the same lock through their overlay marker. Keyboard focus remains contained.
+Sharing backdrop dismissal checks the panel
 bounds and requires both press and release outside. Escape and focus restoration
 remain native/existing behaviour. Article images retain their alt text and gain
-an explicit **Open image** button; the image viewer is likewise anchored to the document and does not lock page scrolling.
+an explicit **Open image** button; the image viewer also keeps the underlying page locked until it closes.
 
 ## Sharing
 

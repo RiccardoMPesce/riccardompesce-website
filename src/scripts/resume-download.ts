@@ -52,6 +52,7 @@ class ResumeDownload extends HTMLElement {
       () => {
         if (dialog.open) return;
         dialog.showModal();
+        dialog.scrollTop = 0;
         language.focus();
       },
       { signal }

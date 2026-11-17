@@ -75,6 +75,21 @@ refresh. Random selection may repeat a quotation. Without JavaScript the Calvino
 quotation is shown. Inactive cards and quotations reserve their layout space to
 avoid shifts when switching. No external UI library or network service is used.
 
+## Modal controls and scrolling
+
+Download, sharing and article-image preview controls use underlined text with a
+shared window icon. They remain native buttons with `aria-haspopup="dialog"`
+because they perform an action rather than navigate. Keyboard focus and 44px
+minimum targets are preserved.
+
+Native download/share dialogs use `src/styles/modals.css`: a transparent top-layer
+shell scrolls over the viewport, while the inner panel has natural height and no
+internal height limit or scrollbar. Short panels are centred; taller panels
+scroll with their close control. Sharing backdrop dismissal checks the panel
+bounds and requires both press and release outside. Escape and focus restoration
+remain native/existing behaviour. Article images retain their alt text and gain
+an explicit **Open image** button; the image viewer uses a scrollable overlay.
+
 ## Sharing
 
 Articles show a flat sharing row below the title and publication date, before
@@ -83,7 +98,7 @@ Post previews also show the same controls below their description in Blog, Home,
 tag and archive lists (when enabled). Each preview shares that article's canonical URL, with a
 distinct dialog ID and accessible labels identifying the article title.
 
-**More**, with a fixed SVG chevron, opens a compact native `dialog` above the page
+**More**, an underlined control with the shared window icon, opens a compact native `dialog` above the page
 without moving the sharing row. The dialog includes all sharing destinations,
 native sharing, a manual URL field and **Copy link**. A subtle backdrop separates
 it from the page. Escape, its close button and an outside click dismiss it; focus

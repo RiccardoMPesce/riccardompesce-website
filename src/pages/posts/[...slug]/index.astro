@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import ModalIcon from "@/components/ModalIcon.astro";
 import PostLayout from "@/layouts/PostLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -115,6 +116,7 @@ const ogImage = ogImageUrl
     <div class="reading-progress-bar" data-reading-progress></div>
   </div>
 
+  <template data-image-modal-icon><ModalIcon /></template>
   <Header />
 
   <BackButton />
@@ -217,6 +219,7 @@ const ogImage = ogImageUrl
     let lastFocused = null;
     let removeDragListeners = null;
     let backgroundStates = [];
+    const imageTriggers = new WeakMap();
 
     // Defer attribute mutations so they don't push the LCP timestamp.
     // Event listeners below use delegation and don't need the attributes to exist yet.
@@ -229,13 +232,19 @@ const ogImage = ogImageUrl
           image.getAttribute("aria-hidden") === "true"
         )
           continue;
-        image.setAttribute("role", "button");
-        image.setAttribute("tabindex", "0");
-        image.setAttribute("aria-haspopup", "dialog");
-        image.setAttribute(
-          "aria-label",
-          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
-        );
+        const trigger = document.createElement("button");
+        trigger.type = "button";
+        trigger.className = "modal-trigger";
+        trigger.dataset.openImage = "";
+        trigger.setAttribute("aria-haspopup", "dialog");
+        trigger.setAttribute("aria-label", `Open image: ${image.alt}`);
+        trigger.setAttribute("data-pagefind-ignore", "");
+        trigger.append("Open image");
+        const icon = document.querySelector("[data-image-modal-icon]")?.content
+          .firstElementChild;
+        if (icon) trigger.append(icon.cloneNode(true));
+        image.after(trigger);
+        imageTriggers.set(trigger, image);
       }
     });
 
@@ -251,7 +260,7 @@ const ogImage = ogImageUrl
         alt ? `Image preview: ${alt}` : "Image preview"
       );
       overlay.className =
-        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
+        "fixed inset-0 z-50 grid overflow-y-auto place-items-center p-4 cursor-zoom-out bg-black/70 backdrop-blur-sm opacity-0 motion-safe:transition-opacity duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none";
 
       const closeButton = document.createElement("button");
       closeButton.type = "button";
@@ -562,29 +571,12 @@ const ogImage = ogImageUrl
       }
     }
 
-    function triggerFromEvent(e) {
-      const image = e.target.closest("img");
-      if (!image || !article.contains(image) || image.closest("a")) return null;
-      return image;
-    }
-
-    function activate(image) {
-      open(image.currentSrc || image.src, image.alt, image);
-    }
-
     article.addEventListener("click", e => {
-      const image = triggerFromEvent(e);
-      if (!image) return;
+      const trigger = e.target.closest("button[data-open-image]");
+      const image = imageTriggers.get(trigger);
+      if (!image || !article.contains(trigger)) return;
       e.preventDefault();
-      activate(image);
-    });
-
-    article.addEventListener("keydown", e => {
-      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
-      const image = triggerFromEvent(e);
-      if (!image) return;
-      e.preventDefault();
-      activate(image);
+      open(image.currentSrc || image.src, image.alt, trigger);
     });
   }
   initLightbox();

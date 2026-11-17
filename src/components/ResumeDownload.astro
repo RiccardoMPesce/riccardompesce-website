@@ -1,4 +1,5 @@
 ---
+import ModalIcon from "./ModalIcon.astro";
 const languages = [
   { value: "en", label: "English" },
   { value: "it", label: "Italiano" },
@@ -10,100 +11,93 @@ const formats = ["pdf", "docx"] as const;
   <button
     type="button"
     data-resume-open
-    class="download-button"
+    class="modal-trigger"
     aria-haspopup="dialog"
     aria-controls="portfolio-download-dialog"
     hidden
   >
-    <svg
-      class="size-4 shrink-0"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.8"
-      aria-hidden="true"
-    >
-      <path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"></path>
-    </svg>
     Download full CV
+    <ModalIcon />
   </button>
   <dialog
     id="portfolio-download-dialog"
     aria-labelledby="portfolio-download-title"
     aria-describedby="portfolio-download-description"
-    class="border-border bg-background text-foreground fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-sm overflow-y-auto rounded-lg border p-5 text-start backdrop:bg-black/30"
+    class="viewport-modal"
   >
-    <div class="flex items-center justify-between gap-3">
-      <h2 id="portfolio-download-title" class="text-lg font-semibold">
-        Download full CV
-      </h2>
-      <button
-        type="button"
-        data-resume-close
-        aria-label="Close download dialog"
-        class="hover:text-accent inline-flex size-11 shrink-0 items-center justify-center rounded-lg"
+    <div class="modal-panel" data-modal-panel>
+      <div class="flex items-center justify-between gap-3">
+        <h2 id="portfolio-download-title" class="text-lg font-semibold">
+          Download full CV
+        </h2>
+        <button
+          type="button"
+          data-resume-close
+          aria-label="Close download dialog"
+          class="hover:text-accent inline-flex size-11 shrink-0 items-center justify-center rounded-lg"
+        >
+          <svg
+            class="size-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg
+          >
+        </button>
+      </div>
+      <p
+        id="portfolio-download-description"
+        class="text-muted-foreground mt-2 text-sm leading-relaxed"
       >
-        <svg
-          class="size-5"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg
+        The full portfolio, including experience, education, thesis research,
+        skills and credentials. Choose a language and file format.
+      </p>
+      <div class="mt-5 grid gap-4">
+        <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
+          Language
+          <select
+            data-resume-language
+            class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
+            autofocus
+          >
+            {
+              languages.map(language => (
+                <option value={language.value}>{language.label}</option>
+              ))
+            }
+          </select>
+        </label>
+        <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
+          Format
+          <select
+            data-resume-format
+            class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
+          >
+            <option value="pdf">PDF (.pdf)</option>
+            <option value="docx">Microsoft Word / Google Docs (.docx)</option>
+          </select>
+        </label>
+        <a
+          data-resume-link
+          href="/portfolio-downloads/riccardo-pesce-full-portfolio-en.pdf"
+          download
+          class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold"
+          >Download portfolio · English · PDF</a
         >
-      </button>
-    </div>
-    <p
-      id="portfolio-download-description"
-      class="text-muted-foreground mt-2 text-sm leading-relaxed"
-    >
-      The full portfolio, including experience, education, thesis research,
-      skills and credentials. Choose a language and file format.
-    </p>
-    <div class="mt-5 grid gap-4">
-      <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
-        Language
-        <select
-          data-resume-language
-          class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
-          autofocus
-        >
-          {
-            languages.map(language => (
-              <option value={language.value}>{language.label}</option>
-            ))
-          }
-        </select>
-      </label>
-      <label class="flex min-w-0 flex-col gap-2 text-sm font-medium">
-        Format
-        <select
-          data-resume-format
-          class="border-input-border bg-background min-w-0 rounded-lg border px-3 py-2 text-base"
-        >
-          <option value="pdf">PDF (.pdf)</option>
-          <option value="docx">Word / Google Docs (.docx)</option>
-        </select>
-      </label>
-      <a
-        data-resume-link
-        href="/portfolio-downloads/riccardo-pesce-full-portfolio-en.pdf"
-        download
-        class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold"
-        >Download portfolio · English · PDF</a
+      </div>
+      <p
+        data-resume-status
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
       >
+      </p>
     </div>
-    <p
-      data-resume-status
-      class="sr-only"
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
-    >
-    </p>
   </dialog>
   <details data-resume-fallback class="text-sm">
-    <summary class="download-button cursor-pointer">Download full CV</summary>
+    <summary class="modal-trigger cursor-pointer">Download full CV</summary>
     <ul class="mt-3 grid gap-3">
       {
         languages.flatMap(language =>
@@ -126,10 +120,6 @@ const formats = ["pdf", "docx"] as const;
 </resume-download>
 
 <style>
-  @reference "../styles/global.css";
-  .download-button {
-    @apply border-input-border bg-surface text-foreground hover:bg-muted inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-3 py-2 text-center text-xs font-semibold;
-  }
   [hidden] {
     display: none !important;
   }

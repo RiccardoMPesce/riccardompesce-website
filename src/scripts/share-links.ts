@@ -9,6 +9,7 @@ class ShareLinks extends HTMLElement {
     const status = this.querySelector<HTMLParagraphElement>('[role="status"]');
     const copies = this.querySelectorAll<HTMLButtonElement>("[data-copy-link]");
     const dialog = this.querySelector<HTMLDialogElement>("dialog");
+    const panel = this.querySelector<HTMLElement>("[data-modal-panel]");
     const opener = this.querySelector<HTMLButtonElement>("[data-open-share]");
     const close = this.querySelector<HTMLButtonElement>("[data-close-share]");
     const modalStatus = this.querySelector<HTMLParagraphElement>(
@@ -21,6 +22,7 @@ class ShareLinks extends HTMLElement {
       copies.length === 0 ||
       !share ||
       !dialog ||
+      !panel ||
       !opener ||
       !close ||
       !modalStatus
@@ -35,6 +37,7 @@ class ShareLinks extends HTMLElement {
       if (dialog.open) return;
       returnFocus = trigger;
       dialog.showModal();
+      dialog.scrollTop = 0;
       close.focus();
     };
     const setStatus = (message: string): void => {
@@ -47,9 +50,9 @@ class ShareLinks extends HTMLElement {
     close.addEventListener("click", () => dialog.close(), { signal });
     dialog.addEventListener("close", () => returnFocus.focus(), { signal });
 
-    // Check coordinates so clicks inside the dialog's own padding stay inside.
+    // Check coordinates so clicks inside the panel's padding stay inside.
     const isOutside = (event: MouseEvent): boolean => {
-      const bounds = dialog.getBoundingClientRect();
+      const bounds = panel.getBoundingClientRect();
       return (
         event.clientX < bounds.left ||
         event.clientX > bounds.right ||

@@ -6,6 +6,7 @@
 @import "rehype-callouts/theme/obsidian";
 @import "./accessibility.css";
 @import "./motion.css";
+@import "./modals.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 

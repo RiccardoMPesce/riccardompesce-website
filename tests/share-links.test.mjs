@@ -103,7 +103,7 @@ function fixture({ secure = true, clipboard, share } = {}) {
       this.dispatchEvent(new Event("close"));
     }
     getBoundingClientRect() {
-      return { left: 100, right: 400, top: 100, bottom: 400 };
+      return { left: 0, right: 1000, top: 0, bottom: 1000 };
     }
     escape() {
       const event = new Event("cancel", { cancelable: true });
@@ -125,6 +125,7 @@ function fixture({ secure = true, clipboard, share } = {}) {
         "[data-copy-link]": copy,
         "[data-native-share]": native,
         dialog,
+        "[data-modal-panel]": { getBoundingClientRect: () => ({ left: 100, right: 400, top: 100, bottom: 400 }) },
         "[data-open-share]": opener,
         "[data-close-share]": close,
         "[data-modal-status]": modalStatus,

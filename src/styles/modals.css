@@ -1,0 +1,69 @@
+html {
+  scrollbar-gutter: stable;
+}
+html:has(dialog.viewport-modal[open]) {
+  overflow: hidden;
+}
+
+.modal-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-block-size: 44px;
+  padding-block: 0.5rem;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 500;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+.modal-trigger:hover {
+  color: var(--color-accent-hover);
+}
+
+/* The top-layer shell scrolls across the viewport; the panel has natural height. */
+dialog.viewport-modal {
+  position: fixed;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100dvh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-foreground);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+dialog.viewport-modal[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+dialog.viewport-modal::backdrop {
+  background: rgb(0 0 0 / 0.3);
+}
+.modal-panel {
+  flex: none;
+  inline-size: 100%;
+  max-inline-size: 24rem;
+  margin-block: auto;
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-background);
+  text-align: start;
+}
+@media print {
+  dialog.viewport-modal {
+    display: none !important;
+  }
+}

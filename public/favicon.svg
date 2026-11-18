@@ -1,4 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#245d54" />
-  <text x="32" y="43" text-anchor="middle" font-family="system-ui, sans-serif" font-size="36" font-weight="600" fill="#faf9f6">r.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="RMP">
+  <style>
+    svg {
+      --background: #141311;
+      --ink: #F4CE98;
+    }
+    @media (prefers-color-scheme: light) {
+      svg {
+        --background: #F6F1E9;
+        --ink: #5A3B26;
+      }
+    }
+    rect {
+      fill: var(--background);
+      stroke: var(--ink);
+    }
+    text {
+      fill: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: 11.5px;
+      letter-spacing: -0.05em;
+    }
+  </style>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="7" stroke-width="1" />
+  <text x="16" y="20.15" text-anchor="middle">RMP</text>
 </svg>

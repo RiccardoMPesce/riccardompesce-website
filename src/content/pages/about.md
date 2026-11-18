@@ -23,7 +23,7 @@ This website is where I work through problems in those domains from first princi
 
 ## Outside of work
 
-Away from the desk, I spend time on **aviation and flight theory** (working toward a Private Pilot License), **olympic weightlifting, strength training, and boxing**, alongside traveling whenever I get the chance.
+Away from the desk, I spend time on **aviation and flight theory** (working toward a Private Pilot License), **functional training, and boxing**, alongside traveling whenever I get the chance.
 
 At the core of how I approach both work and life is a simple rule: *patti chiari, amicizia lunga*—clear expectations, intellectual honesty, and taking things seriously without carrying unnecessary weight.
 

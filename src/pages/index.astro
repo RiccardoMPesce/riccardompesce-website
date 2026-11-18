@@ -5,7 +5,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
-import Portrait from "@/components/Portrait.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import config from "@/config";
 
@@ -30,45 +29,42 @@ const homePath = getRelativeLocaleUrl(locale, "");
       aria-labelledby="intro-title"
       class="border-border border-b py-16 sm:py-24"
     >
-      <div
-        class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
-      >
-        <Portrait />
-        <div class="min-w-0">
-          <p class="text-muted-foreground mb-5 text-sm">
-            Engineering, curiosity and purposeful work.
-          </p>
-          <h1
-            id="intro-title"
-            class="max-w-xl text-4xl leading-tight font-semibold tracking-tight max-md:mx-auto sm:text-5xl"
-          >
-            Hey there, I’m Riccardo.
-          </h1>
-        </div>
-      </div>
-      <p
-        class="reading-copy text-muted-foreground mt-6 max-md:mx-auto max-md:text-center"
-      >
-        My work spans complex systems engineering, business analysis and
-        technical leadership. I’m interested in how the pieces fit together,
-        from the flow of data to the decisions people make. Here, I share what I
-        build and learn.
+      <p class="eyebrow text-accent mb-5">
+        From first principles to working systems
       </p>
-      <a
-        href={getRelativeLocaleUrl(locale, "about")}
-        class="text-accent mt-7 inline-block underline decoration-solid underline-offset-4"
+      <h1
+        id="intro-title"
+        class="max-w-2xl text-4xl leading-tight font-semibold max-md:mx-auto sm:text-5xl"
       >
-        The experience and direction behind the work <span aria-hidden="true"
-          >↗</span
+        Notes, models, and architectures across digital and physical systems.
+      </h1>
+      <p class="reading-copy text-muted-foreground mt-6 max-md:mx-auto">
+        A personal space for technical notes, analyses, and engineering
+        projects.
+      </p>
+      <div
+        class="mt-7 flex flex-wrap items-center justify-center gap-4 md:justify-start"
+      >
+        <a
+          href={getRelativeLocaleUrl(locale, "portfolio")}
+          class="bg-accent text-accent-foreground hover:bg-accent-hover inline-flex min-h-11 items-center rounded-lg px-4 py-2 text-sm font-semibold"
         >
-      </a>
+          Portfolio
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, "posts")}
+          class="text-link inline-flex min-h-11 items-center px-2 text-sm"
+        >
+          Blog
+        </a>
+      </div>
     </section>
 
     <section aria-labelledby="latest-title" class="pt-10 sm:pt-12">
       <div
         class="flex flex-col items-center gap-4 md:flex-row md:flex-wrap md:items-baseline md:justify-between"
       >
-        <h2 id="latest-title" class="text-xl font-semibold">Latest writing</h2>
+        <h2 id="latest-title" class="text-xl font-semibold">Recent Posts</h2>
         <a
           href={getRelativeLocaleUrl(locale, "posts")}
           class="text-accent text-sm underline decoration-solid underline-offset-4"

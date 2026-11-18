@@ -476,7 +476,9 @@ interaction and configuration regressions.
 
 ## Portrait
 
-The author portrait appears in the Home introduction and Portfolio header, where
+Home uses a text-only hero with links to Portfolio and Blog, followed by recent posts.
+
+The author portrait appears in the Portfolio header and About introduction, where
 it identifies the person described by the adjacent text. Its placement is a design
 choice, not a claim of improved trust or recruitment outcomes. The shared
 `src/components/Portrait.astro` imports `src/assets/images/riccardo-maria-pesce.jpeg`

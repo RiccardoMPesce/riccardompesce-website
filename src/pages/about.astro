@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from "astro:content";
+import Portrait from "@/components/Portrait.astro";
 import AboutQuote from "@/components/AboutQuote.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
@@ -30,6 +31,9 @@ const { Content } = await render(about);
   <Breadcrumb />
 
   <Main pageTitle={about.data.title} class="app-prose about-prose">
+    <div class="my-6 flex justify-center md:justify-start">
+      <Portrait />
+    </div>
     <Content />
     <AboutQuote />
   </Main>

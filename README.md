@@ -65,7 +65,7 @@ noise layer uses 3.5% multiply blending in light mode and 4.5% soft-light in dar
 mode, with no requests or animation. It ignores pointer events and is disabled
 for printing and forced colours. Cards retain hairline borders with a 1px inset
 highlight; hover and focus-within change only the border colour over 180ms,
-without translating or resizing the card (immediate with reduced motion), and the portrait has an offset outer ring. Modal links retain their
+without translating or resizing the card (immediate with reduced motion), and the portrait has a circular border. Modal links retain their
 underlined presentation. The full plain portfolio and content structure are unchanged.
 The exact light muted-text/secondary-surface pair has only 4.42:1 contrast;
 secondary surfaces scope a darker muted-copy token to meet AA. Decorative borders

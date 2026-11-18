@@ -3,18 +3,17 @@ import { Image } from "astro:assets";
 import portrait from "@/assets/images/riccardo-maria-pesce.jpeg";
 ---
 
-<div class="border-border shrink-0 self-center rounded-full border p-[3px]">
-  <Image
-    src={portrait}
-    alt="Riccardo M. Pesce"
-    width={160}
-    height={160}
-    widths={[112, 160, 224, 320]}
-    sizes="(min-width: 640px) 160px, 112px"
-    format="webp"
-    quality={85}
-    loading="eager"
-    decoding="async"
-    class="border-border bg-muted block size-28 rounded-full border object-cover object-top sm:size-40"
-  />
-</div>
+<Image
+  transition:name="profile-portrait"
+  src={portrait}
+  alt="Riccardo M. Pesce"
+  width={160}
+  height={160}
+  widths={[112, 160, 224, 320]}
+  sizes="(min-width: 640px) 160px, 112px"
+  format="webp"
+  quality={85}
+  loading="eager"
+  decoding="async"
+  class="border-border bg-muted block size-28 shrink-0 self-center rounded-full border object-cover object-top sm:size-40"
+/>

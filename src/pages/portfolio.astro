@@ -53,11 +53,8 @@ const sections = [
         <div class="section-navigation" data-section-navigation>
           <div class="navigation-bar" data-navigation-bar>
             <div
-              class="navigation-actions mb-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between"
+              class="navigation-actions mb-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-end"
             >
-              <p class="eyebrow" id="portfolio-sections-label">
-                Explore the portfolio
-              </p>
               <div class="flex flex-wrap items-center justify-center gap-2">
                 <button
                   type="button"
@@ -78,7 +75,7 @@ const sections = [
             <div
               class="section-nav"
               data-tablist
-              aria-labelledby="portfolio-sections-label"
+              aria-label="Portfolio sections"
             >
               {
                 sections.map(section => (
@@ -620,7 +617,7 @@ const sections = [
     @apply block md:sticky md:top-0 md:z-10;
   }
   .navigation-bar {
-    @apply bg-background pt-3 pb-2;
+    @apply pt-3 pb-2;
   }
   .section-nav {
     @apply border-border flex flex-col gap-2 border-y py-2 md:flex-row;
@@ -671,9 +668,6 @@ const sections = [
       order: 2;
       flex: none;
       margin-inline-start: auto;
-    }
-    .section-navigation[data-stuck] #portfolio-sections-label {
-      @apply sr-only;
     }
     .section-navigation[data-stuck] .section-nav {
       @apply min-w-0 flex-1 gap-1 border-0 py-0;

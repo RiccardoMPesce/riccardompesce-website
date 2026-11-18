@@ -30,12 +30,25 @@ const { Content } = await render(about);
 
   <Breadcrumb />
 
-  <Main pageTitle={about.data.title} class="app-prose about-prose">
-    <div class="my-6 flex justify-center md:justify-start">
-      <Portrait />
+  <Main pageTitle={about.data.title}>
+    <section slot="heading" class="py-6 sm:py-8" aria-labelledby="about-title">
+      <div
+        class="flex flex-col gap-6 md:flex-row-reverse md:items-center md:justify-between md:gap-8"
+      >
+        <Portrait />
+        <h1
+          id="about-title"
+          data-pagefind-meta="title"
+          class="text-center text-3xl font-semibold sm:text-4xl md:text-start"
+        >
+          {about.data.title}
+        </h1>
+      </div>
+    </section>
+    <div class="app-prose about-prose">
+      <Content />
+      <AboutQuote />
     </div>
-    <Content />
-    <AboutQuote />
   </Main>
 
   <Footer />

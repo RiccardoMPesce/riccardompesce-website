@@ -503,6 +503,10 @@ test("plain portfolio mode keeps all sections visible and suppresses the legacy 
   assert.equal(f.panels.every(panel => !panel.hidden), true);
   assert.equal(f.list.getAttribute("role"), null);
   assert.equal(f.toggle.hidden, true);
+  f.key(0, "ArrowRight");
+  assert.equal(f.doc.activeElement, f.links[1]);
+  f.key(0, "ArrowLeft");
+  assert.equal(f.doc.activeElement, f.links[2]);
   f.click(2);
   assert.equal(f.panels.every(panel => !panel.hidden), true);
 });

@@ -19,6 +19,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-optical-sizing: auto;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
     font-kerning: normal;
     text-rendering: optimizeLegibility;
   }
@@ -33,7 +34,8 @@
   }
   h1,
   h2 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    font-weight: 700;
   }
   code,
   pre,
@@ -41,12 +43,9 @@
   .skill-tag,
   .badge,
   .tag,
-  .eyebrow,
-  .metadata,
-  time,
-  .date,
-  .counter {
+  .eyebrow {
     font-family: var(--font-mono);
+    font-feature-settings: normal;
   }
   .skill-tag,
   .badge,
@@ -55,6 +54,10 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
   }
   table,
   time,
@@ -199,5 +202,6 @@ kbd,
   border-radius: 4px;
   background: var(--color-card);
   color: var(--color-foreground);
-  font: 600 0.75rem var(--font-sans);
+  font: 600 0.75rem var(--font-mono);
+  font-feature-settings: normal;
 }

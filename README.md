@@ -10,7 +10,7 @@ links to Astro and the original AstroPaper theme for attribution, below the
 ## Reading and presentation
 
 The Matte Paper / Warm Ink palette lives in `src/styles/theme.css`.
-Prose uses a 66ch measure, 17px desktop text, 1.72 leading, balanced headings,
+Article prose uses a 68ch measure, 17px desktop text, 1.7 leading, balanced headings,
 progressive paragraph wrapping, warm link underlines and 4px / 8px / pill radii.
 Native tables retain keyboard-accessible horizontal scrolling.
 
@@ -73,6 +73,12 @@ are intentionally subtle; input boundaries and focus indicators use stronger col
 Contrast tests cover text, surfaces, selected text, input edges and both themes.
 Browser inspection and device profiling are still required to validate the final
 texture appearance and rendering performance; no frame-rate guarantee is implied.
+
+Inter uses the variable weight and optical size axes. JetBrains Mono is used for
+code, technical badges and eyebrows. Shiki uses the existing warm card surface.
+The article outline sticks beside the reading column at Tailwind’s `xl`
+breakpoint and highlights the current heading. Portfolio section links support
+Left and Right Arrow focus navigation in the full plain view.
 
 ## Full plain portfolio and About quotations
 
@@ -499,7 +505,7 @@ but the choice cannot be remembered after reloading. Storage is local to each
 browser and origin; localhost and the public site do not share preferences.
 
 Palette and typography tokens live in `src/styles/theme.css`: light matte paper/warm ink
-and dark graphite/warm highlights. Space Grotesk headings, Inter reading/UI and JetBrains
+and dark graphite/warm highlights. Inter headings, reading and UI, and JetBrains
 Mono metadata are self-hosted; see **Fonts and social previews** below. Primary
 reading text reaches AAA contrast; secondary text and hover states meet AA.
 `tests/contrast.test.mjs` checks normal text, filled controls, selection and input
@@ -605,11 +611,11 @@ avoid posting test comments from localhost because they use the same discussion 
 Astro loads `astro.config.mjs` before `astro.config.ts`; default commands use the
 `.mjs` configuration. Both configurations avoid remote font providers.
 
-Page fonts are self-hosted Fontsource variable fonts: Space Grotesk for headings,
+Page fonts are self-hosted Fontsource variable fonts: Inter for headings,
 Inter for body/UI, and JetBrains Mono for code and technical metadata. Explicit
 `@font-face` declarations in `src/styles/fonts.css` include only Latin and Latin
 Extended (plus real Inter/Mono italics), with `font-display: swap`. The layout
-preloads the exact Latin Inter and Space Grotesk WOFF2 URLs used by CSS. Extended
+preloads the exact Latin Inter WOFF2 URL used by CSS. Extended
 subsets and noncritical faces load only when needed. KaTeX CSS and math fonts
 are bundled from the installed package, without a CDN. Satori uses local static
 Inter WOFF at 400/700 from `@fontsource/inter` because variable WOFF2 is unsupported.
@@ -617,8 +623,8 @@ No Google Fonts connection is required at build time or in the browser.
 
 Tailwind v4 semantic tokens live in `src/styles/theme.css`; AstroPaper's fill,
 text-base, card and card-muted aliases share the existing component tokens.
-Light uses matte paper/warm ink; dark uses graphite/warm highlights. Prose is limited to 66ch,
-with 17px text on desktop, 1.72 line height and 1.35em paragraph spacing. Code,
+Light uses matte paper/warm ink; dark uses graphite/warm highlights. Article prose is limited to 68ch,
+with 17px text on desktop, 1.7 line height and 1.35em paragraph spacing. Code,
 tables, blockquotes and horizontally scrolling math follow both themes.
 
 Nominal token contrast across page/card/secondary surfaces is at least 12.03:1

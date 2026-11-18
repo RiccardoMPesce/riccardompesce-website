@@ -4,7 +4,6 @@ pubDatetime: 2026-11-10T09:00:00+01:00
 description: "A personal north star: meaningful work, a practical way to approach problems, and a roadmap shaped by evidence."
 tags:
   - notes
-hideToc: true
 ---
 
 I want the work I do to have a clear relationship with the life I want to build. That means spending time on problems I care about, contributing something useful and continuing to learn. It also means paying attention to the people, responsibilities and constraints around the work.

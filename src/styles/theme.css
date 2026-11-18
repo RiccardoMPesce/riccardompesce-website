@@ -21,7 +21,7 @@
   --color-surface: var(--surface);
   --color-input-border: var(--input-border);
   --color-accent-hover: var(--accent-hover);
-  --font-display: "Space Grotesk Variable", "Space Grotesk", sans-serif;
+  --font-display: var(--font-sans);
   --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   --font-app: var(--font-sans);

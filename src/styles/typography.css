@@ -6,8 +6,8 @@
     @apply prose;
 
     font-size: 1rem;
-    line-height: 1.72;
-    max-inline-size: 66ch;
+    line-height: 1.7;
+    max-inline-size: 68ch;
     min-inline-size: 0;
 
     @media (min-width: 48rem) {
@@ -16,7 +16,7 @@
     text-align: start;
 
     :where(p, ul, ol, blockquote) {
-      max-inline-size: 66ch;
+      max-inline-size: 68ch;
     }
 
     p {
@@ -33,7 +33,7 @@
 
     h1,
     h2 {
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     h2 {
@@ -155,7 +155,7 @@
 
     blockquote {
       @apply text-foreground wrap-break-word;
-      border-inline-start: 3px solid var(--accent);
+      border-inline-start: 2px solid var(--accent);
       background: var(--color-card);
       padding: 1rem 1.25rem;
       border-radius: 0 8px 8px 0;
@@ -215,9 +215,11 @@
 /* Keep KaTeX's own math families; only scale and contain its display wrapper. */
 .katex {
   font-size: 1.05em;
+  font-feature-settings: normal;
 }
 
 .katex-display {
+  inline-size: 100%;
   max-inline-size: 100%;
   overflow-x: auto;
   overflow-y: hidden;

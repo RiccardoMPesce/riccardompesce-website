@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import interFont from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import displayFont from "@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url";
+import interFont from "@fontsource-variable/inter/files/inter-latin-standard-normal.woff2?url";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
@@ -54,13 +53,6 @@ const rssHref = getAssetPath("rss.xml");
     <link
       rel="preload"
       href={interFont}
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="preload"
-      href={displayFont}
       as="font"
       type="font/woff2"
       crossorigin="anonymous"

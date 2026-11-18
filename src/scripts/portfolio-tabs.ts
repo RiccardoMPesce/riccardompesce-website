@@ -240,7 +240,6 @@ class PortfolioTabs extends HTMLElement {
       "keydown",
       event => {
         if (
-          full ||
           event.altKey ||
           event.ctrlKey ||
           event.metaKey ||
@@ -249,6 +248,14 @@ class PortfolioTabs extends HTMLElement {
           return;
         const index = tabs.findIndex(tab => tab.link === event.target);
         if (index < 0) return;
+        if (full) {
+          const direction =
+            event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+          if (!direction) return;
+          event.preventDefault();
+          tabs[(index + direction + tabs.length) % tabs.length].link.focus();
+          return;
+        }
         let next: number;
         if (event.key === "Home") next = 0;
         else if (event.key === "End") next = tabs.length - 1;

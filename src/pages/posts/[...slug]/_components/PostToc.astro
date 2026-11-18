@@ -157,6 +157,7 @@ const items = buildTocTree(headings);
     color: var(--color-accent);
   }
   [data-toc-nav] a[aria-current="true"] {
+    font-weight: 600;
     text-decoration: underline solid;
     text-underline-offset: 4px;
   }
@@ -248,6 +249,8 @@ const items = buildTocTree(headings);
         calc(var(--toc-space) - var(--toc-gap) - var(--toc-edge))
       );
       container-type: inline-size;
+      border-inline-start: 1px solid var(--color-border);
+      padding-inline-start: 0.5rem;
     }
     /* Too narrow to read, so the floating button takes over. */
     @container (width < 7.5rem) {

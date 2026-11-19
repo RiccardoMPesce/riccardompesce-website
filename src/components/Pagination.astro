@@ -7,7 +7,7 @@ import LinkButton from "./LinkButton.astro";
 import { useTranslations } from "@/i18n";
 
 type Props = {
-  page: Page<CollectionEntry<"posts">>;
+  readonly page: Page<CollectionEntry<"posts">>;
 };
 
 const { page } = Astro.props;
@@ -15,47 +15,50 @@ const { page } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 ---
 
-{
-  page.lastPage > 1 && (
-    <nav
-      data-pagefind-ignore
-      class="mt-auto mb-8 flex flex-col items-center justify-center gap-4 md:flex-row"
-      role="navigation"
-      aria-label="Pagination Navigation"
-    >
-      <LinkButton
-        disabled={!page.url.prev}
-        href={page.url.prev as string}
-        class:list={[
-          "min-h-11 min-w-11 justify-center px-3 select-none",
-          { "opacity-50": !page.url.prev },
-        ]}
-        aria-label={t.a11y.goToPreviousPage}
-      >
-        <IconArrowLeft
-          aria-hidden="true"
-          focusable="false"
-          class="inline-block rtl:rotate-180"
-        />
-        {t.pagination.prev}
-      </LinkButton>
-      {page.currentPage} / {page.lastPage}
-      <LinkButton
-        disabled={!page.url.next}
-        href={page.url.next as string}
-        class:list={[
-          "min-h-11 min-w-11 justify-center px-3 select-none",
-          { "opacity-50": !page.url.next },
-        ]}
-        aria-label={t.a11y.goToNextPage}
-      >
-        {t.pagination.next}
-        <IconArrowRight
-          aria-hidden="true"
-          focusable="false"
-          class="inline-block rtl:rotate-180"
-        />
-      </LinkButton>
-    </nav>
-  )
-}
+<nav
+  data-pagefind-ignore
+  class="app-layout mt-auto mb-4 flex flex-wrap items-center justify-center gap-2 pt-4"
+  role="navigation"
+  aria-label="Pagination Navigation"
+>
+  <LinkButton
+    disabled={!page.url.prev}
+    href={page.url.prev}
+    rel={page.url.prev ? "prev" : undefined}
+    class:list={[
+      "min-h-11 min-w-11 justify-center px-3 select-none",
+      { "text-muted-foreground cursor-default opacity-50": !page.url.prev },
+    ]}
+    aria-label={t.a11y.goToPreviousPage}
+  >
+    <IconArrowLeft
+      aria-hidden="true"
+      focusable="false"
+      class="inline-block rtl:rotate-180"
+    />
+    {t.pagination.prev}
+  </LinkButton>
+  <span
+    class="text-muted-foreground px-2 text-sm tabular-nums"
+    aria-current="page"
+  >
+    {t.pagination.page}{" "}{page.currentPage} / {Math.max(1, page.lastPage)}
+  </span>
+  <LinkButton
+    disabled={!page.url.next}
+    href={page.url.next}
+    rel={page.url.next ? "next" : undefined}
+    class:list={[
+      "min-h-11 min-w-11 justify-center px-3 select-none",
+      { "text-muted-foreground cursor-default opacity-50": !page.url.next },
+    ]}
+    aria-label={t.a11y.goToNextPage}
+  >
+    {t.pagination.next}
+    <IconArrowRight
+      aria-hidden="true"
+      focusable="false"
+      class="inline-block rtl:rotate-180"
+    />
+  </LinkButton>
+</nav>

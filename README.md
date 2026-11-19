@@ -7,6 +7,20 @@ The shared footer uses the configured site author for its copyright notice and
 links to Astro and the original AstroPaper theme for attribution, below the
 **Find me** profile links and aligned with the copyright in the bottom row on wide screens.
 
+## Blog pagination
+
+Blog and tag listings show up to 10 article previews per page. Change
+`posts.perPage` in `astro-paper.config.ts` to a positive safe integer and rebuild.
+The fallback is also 10; invalid values fail the build. This follows the
+[WordPress default](https://developer.wordpress.org/apis/options/#reading) as a
+familiar starting point, not a measured optimum for this audience.
+The Home preview count remains independently configured by `posts.perIndex`.
+
+Previous / Page / Next controls always appear immediately above the footer divider.
+Unavailable directions are grey, non-focusable text without a destination. Both
+directions are disabled when all articles fit on one page, including empty lists;
+this depends on the article count, not screen height or scroll position.
+
 ## Reading and presentation
 
 The Matte Paper / Warm Ink palette lives in `src/styles/theme.css`.

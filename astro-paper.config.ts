@@ -13,7 +13,7 @@ export default defineAstroPaperConfig({
     timezone: "Europe/Rome",
     dir: "ltr",
   },
-  posts: { perPage: 6, perIndex: 3 },
+  posts: { perPage: 10, perIndex: 3 },
   features: {
     lightAndDarkMode: true,
     dynamicOgImage: true,

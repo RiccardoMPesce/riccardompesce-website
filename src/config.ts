@@ -10,6 +10,11 @@ import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 
 const DEFAULT_OG_IMAGE = "default-og.jpg";
 
+const postsPerPage = userConfig.posts?.perPage ?? 10;
+if (!Number.isSafeInteger(postsPerPage) || postsPerPage < 1) {
+  throw new RangeError("posts.perPage must be a positive safe integer.");
+}
+
 const config: ResolvedAstroPaperConfig = {
   site: {
     ...userConfig.site,
@@ -21,7 +26,7 @@ const config: ResolvedAstroPaperConfig = {
       userConfig.site.googleVerification || PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   posts: {
-    perPage: userConfig.posts?.perPage ?? 4,
+    perPage: postsPerPage,
     perIndex: userConfig.posts?.perIndex ?? 4,
     // Deprecated and unused. Not read from userConfig, so builds don't warn about it.
     scheduledPostMargin: 15 * 60 * 1000,
@@ -48,7 +53,7 @@ export const SITE = {
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
-  postPerPage: 6,
+  postPerPage: config.posts.perPage,
 };
 
 export default config;

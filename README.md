@@ -397,12 +397,6 @@ credits remain 180 and 120 when the thesis credits are included. Additional
 activities and language assessment have no invented syllabus references;
 the bachelor additional activity uses the author-specified description above.
 
-Programme-level context for the master's degree lives in
-`src/data/degree-programmes.ts` and is rendered by `DegreeProgramme.astro`, with a
-link to the official 2019/2020 cohort plan. It follows that plan and the 2019/2020
-regulations, checked on 25 November 2026. The two area titles are the author's
-grouping. This data is website-only and does not change the exported documents.
-
 The bachelor thesis, _Domain Adaptation through Regression_, is summarized from
 the author-supplied `Domain Adaptation tramite Regressione.docx`. Its description
 covers CNN feature transfer with Ridge regression, Python/PyTorch/scikit-learn

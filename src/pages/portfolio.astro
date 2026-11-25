@@ -8,6 +8,7 @@ import Portrait from "@/components/Portrait.astro";
 import ProjectCarousel from "@/components/ProjectCarousel.astro";
 import ResumeDownload from "@/components/ResumeDownload.astro";
 import CourseSyllabus from "@/components/CourseSyllabus.astro";
+import DegreeProgramme from "@/components/DegreeProgramme.astro";
 import IconListTree from "@/assets/icons/IconListTree.svg";
 import { portfolio } from "@/data/portfolio";
 import config from "@/config";
@@ -274,6 +275,7 @@ const sections = [
                       {education.result}
                     </p>
                   )}
+                  <DegreeProgramme degree={education.degree} />
                   <details
                     class="thesis-panel mt-6"
                     aria-label={`Thesis · ${education.degree}`}
